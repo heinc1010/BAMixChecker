@@ -105,8 +105,7 @@ or
 --RemoveVCF Use this option to remove called VCF files after running
 ```
 
-#### MuBaMer runs for Whole Exome data mode as a default without bed file. 
-#### If a bed file is given with –b option, it runs as a  targeted mode.
+#### MuBaMer runs for Whole Exome data mode as a default without bed file. If a bed file is given with –b option, it runs as a  targeted mode.
 
 
 #### 1)	Whole Exome data
