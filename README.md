@@ -12,12 +12,12 @@ Prerequisites
 GATK > 4.0
 
 Bedtools
-##### - The tool PATH is needed to be set on “MuBaMer.config” file.
+#### - The tool PATH is needed to be set on “MuBaMer.config” file.
 Python 2.7 
-##### - packages
+#### - packages
 - scipy.stats
-- numpy
-- multiprocessing
+  numpy
+  multiprocessing
 
 Instruction
 -------------
@@ -103,7 +103,9 @@ If a bed file is given with –b option, it runs as a  targeted mode.
   –d /path/aligned/files/ \
   -r /path/reference/HG38/genome.fa \
   –o /path/new/directory 
+  ```
  Or
+  ```
   $ python MubaMer.py \
   –l /path/aligned/file_list.txt \
   –p 3 \
@@ -119,7 +121,9 @@ If a bed file is given with –b option, it runs as a  targeted mode.
   –o /path/new/directory \
   –v hg19 \
   -b /path/targeted.bed
+```
 Or 
+```
   $ python MubaMer.py \
   –l /path/aligned/file_list.txt \
   -r /path/reference/HG19/genome.fa \
