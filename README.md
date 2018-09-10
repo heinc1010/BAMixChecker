@@ -11,15 +11,15 @@ It’s simple and fast but robust to detect a pair of bam files from same indivi
 Prerequisites
 ------------------
 
-GATK > 4.0
+**GATK > 4.0
 
-Bedtools
+**Bedtools
 
-**- The tool PATH is needed to be set on “MuBaMer.config” file.**
+- The tool PATH is needed to be set on “MuBaMer.config” file.**
 
-Python 2.7 
+**Python 2.7 
 
-**packages**
+packages
 
 - scipy.stats
 
