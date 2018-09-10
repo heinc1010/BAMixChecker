@@ -16,8 +16,11 @@ Bedtools
 Python 2.7 
 #### - packages
 - scipy.stats
+
   numpy
+  
   multiprocessing
+  
 
 Instruction
 -------------
