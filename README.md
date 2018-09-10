@@ -2,7 +2,8 @@ MuBaMer:
 Rapid and easy-to-use Multiple Bam files of an individual Matcher
 =================================================================================
 
-MuBaMer is a rapid and easy-to-use multiple bam files matcher for a pair of samples from each individual. 
+MuBaMer is a rapid and easy-to-use multiple bam files matcher for a pair of samples from each individual.
+
 It’s simple and fast but robust to detect a pair of bam files from same individual with WES, Targeted sequencing dataset. 
 
 Prerequisites
@@ -23,6 +24,8 @@ First, clone the repository
 ```$ git clone https://github.com/heinc1010/MuBaMer```
 
 Or
+
+
 Download the compressed file.
 ```$ tar -vxf MuBaMer.tar.gz```
 
@@ -41,9 +44,13 @@ And then set the tools PATH on the configuration file,
 Input
 -----------
 To run MuBaMer, directory path of bam files with –d option or a list of bam files with –l is required.
+
+
 It only gets the pairs of samples. 
 
 The form of list can be two types.
+
+
 -Tab-divided paired files on each line. MuBaMer will pair files based on the pair information.
   ```	
   /path/Tumor_1.bam /path/Normal_1.bam
@@ -87,6 +94,8 @@ or
 
 ###MuBaMer runs for Whole Exome data mode as a default without bed file. 
 If a bed file is given with –b option, it runs as a  targeted mode.
+
+
 1)	Whole Exome data
 ```
   $ python MubaMer.py \
