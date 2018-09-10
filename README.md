@@ -83,7 +83,8 @@ The form of list can be two types.
   /path/Tumor_4.bam
   /path/Normal_4.bam
 ```
-  * If the number of files is not above 6 or the file names don’t contain detectable regulation, it only pairs by genotype, not by name and skip to make ‘Unmatched_pair.txt’
+
+#### If the number of files is not above 6 or the file names don’t contain detectable regulation, it only pairs by genotype, not by name and skip to make ‘Unmatched_pair.txt’
 
 Usage
 ------
@@ -104,8 +105,8 @@ or
 --RemoveVCF Use this option to remove called VCF files after running
 ```
 
-### MuBaMer runs for Whole Exome data mode as a default without bed file. 
-### If a bed file is given with –b option, it runs as a  targeted mode.
+#### MuBaMer runs for Whole Exome data mode as a default without bed file. 
+#### If a bed file is given with –b option, it runs as a  targeted mode.
 
 
 #### 1)	Whole Exome data
