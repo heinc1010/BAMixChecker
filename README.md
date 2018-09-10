@@ -17,7 +17,7 @@ Bedtools
 
 Python 2.7 
 
-**- packages**
+** packages**
 
 scipy.stats
 
@@ -29,15 +29,18 @@ multiprocessing
 Instruction
 -------------
 First, clone the repository
+
 ```$ git clone https://github.com/heinc1010/MuBaMer```
 
 Or
 
 
 Download the compressed file.
+
 ```$ tar -vxf MuBaMer.tar.gz```
 
 And then set the tools PATH on the configuration file, 
+
 ```$ cd MuBaMer
   $ vim MuBaMer.config
 
