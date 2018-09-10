@@ -19,11 +19,11 @@ Python 2.7
 
 **packages**
 
-scipy.stats
+- scipy.stats
 
-numpy
-  
-multiprocessing
+- numpy
+
+- multiprocessing
    
 
 Instruction
