@@ -15,7 +15,7 @@ Prerequisites
 
 #### Bedtools
 
-- The tool PATH is needed to be set on “MuBaMer.config” file.**
+- The tool PATH is needed to be set on “MuBaMer.config” file.
 
 #### Python 2.7 
 
