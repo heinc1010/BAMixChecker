@@ -108,7 +108,7 @@ or
 If a bed file is given with –b option, it runs as a  targeted mode.
 
 
-####1)	Whole Exome data
+#### 1)	Whole Exome data
 ```
   $ python MubaMer.py \
   –d /path/aligned/files/ \
@@ -124,7 +124,7 @@ If a bed file is given with –b option, it runs as a  targeted mode.
   –o /path/new/directory
 ```
 
-####2)	Targeted sequencing data. 
+#### 2)	Targeted sequencing data. 
  ```
   $ python MubaMer.py \
   –d /path/aligned/files/ \
