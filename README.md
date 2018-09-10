@@ -15,7 +15,7 @@ Bedtools
 #### - The tool PATH is needed to be set on “MuBaMer.config” file.
 Python 2.7 
 #### - packages
-- scipy.stats
+  scipy.stats
 
   numpy
   
@@ -79,14 +79,13 @@ The form of list can be two types.
 Usage
 ------
 #### Required arguments
+```
 -d –-DIR Directory path of the .BAM files 
-
 or
-
 -l --List A file with the list of files
 
 -r --Ref Reference file
-
+```
 #### Optional arguments
 ```
 -b --BEDfile  Targeted bed file for Targeted sequencing data mode.
