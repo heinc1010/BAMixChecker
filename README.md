@@ -17,7 +17,7 @@ Bedtools
 
 Python 2.7 
 
-** packages**
+**packages**
 
 scipy.stats
 
