@@ -12,14 +12,18 @@ Prerequisites
 GATK > 4.0
 
 Bedtools
-####   - The tool PATH is needed to be set on “MuBaMer.config” file.
-Python 2.7 
-####   - packages
-    scipy.stats
 
-    numpy
+**- The tool PATH is needed to be set on “MuBaMer.config” file.**
+
+Python 2.7 
+
+**- packages**
+
+scipy.stats
+
+numpy
   
-    multiprocessing
+multiprocessing
    
 
 Instruction
