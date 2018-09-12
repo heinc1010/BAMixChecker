@@ -1,17 +1,20 @@
 MuBaMer:  
-Rapid and easy-to-use Multiple Bam files of an individual Matcher
+Rapid and easy-to-use Multiple Bam files identifier to detect a pair of samples from each individual.
 =================================================================================
 
 
-MuBaMer is a rapid and easy-to-use multiple bam files matcher for a pair of samples from each individual.
+MuBaMer is a rapid and easy-to-use multiple bam files identifier to detect a pair of samples from each individual.
 
 It’s simple and fast but robust to detect a pair of bam files from same individual with WES, Targeted sequencing dataset. 
 
+And also it gives the information of swapped or unpaired pairs information by comparison with genotrype and file name.
 
-Prerequisites
+
+
+Requied tools
 ------------------
 
-#### GATK > 4.0
+#### GATK >= 4.0 ( java 8 required )
 
 #### Bedtools
 
