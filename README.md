@@ -7,7 +7,7 @@ MuBaMer is a rapid and easy-to-use multiple bam files identifier to detect a pai
 
 It’s simple and fast but robust to detect a pair of bam files from same individual with WES, Targeted sequencing dataset. 
 
-And also it gives the information of swapped or unpaired pairs information by comparison with genotrype and file name.
+And the user can catch the information of swapped or unpaired pairs information as well as the matched pairs information in short time.
 
 
 
