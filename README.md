@@ -156,6 +156,7 @@ Output
   #Pair is not matched by name but by genotype.
   /path/Tumor_2.gvcf /path/Normal_3.gvcf 0.98
   /path/Tumor_3.gvcf /path/Normal_2.gvcf 1
+  
   #Samples are matched with nothing by genotype.
   /path/Tumor_4.gvcf 
 	  -> pair by name with /path/Normal_4.gvcf (score : 0.43 )
