@@ -101,7 +101,7 @@ or
 -b --BEDfile  Targeted bed file for Targeted sequencing data mode.
 -v –-RefVer ['hg38','hg19']. default is “hg38”.If the reference is hg19, give this option ‘-r hg19’.
 -o --OutputDIR Output directory path
--p --MaxProcess The number of max process. Default = 5
+-p --MaxProcess The max number of process. Default = 4
 --RemoveVCF Use this option to remove called VCF files after running
 ```
 
