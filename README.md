@@ -60,6 +60,7 @@ And then set the tools PATH on the configuration file,
 Input
 -----------
 To run MuBaMer, directory path of bam files with –d option or a list of bam files with –l is required.
+A pairs of sample list or directory information is needed.
 
 
 It only gets the pairs of samples. 
@@ -75,7 +76,7 @@ The form of list can be two types.
   /path/Tumor_4.bam /path/Normal_4.bam
 ```
 
--One bam file on each line. MubaMer will check the file names and evaluate whether the files are pair based on the name.
+-One bam file on each line.  MubaMer will check the file names and evaluate whether the files are pair based on the name.
 ```
   /path/Tumor_1.bam
   /path/Normal_1.bam
@@ -108,7 +109,7 @@ or
 --RemoveVCF Use this option to remove called VCF files after running
 ```
 
-#### MuBaMer runs for Whole Exome data mode as a default without bed file. If a bed file is given with –b option, it runs as a  targeted mode.
+#### MuBaMer runs for Whole Exome data mode as a default without bed file.  If a bed file is given with –b option, it runs as a  targeted mode.
 
 
 #### 1)	Whole Exome data
