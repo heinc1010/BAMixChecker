@@ -42,7 +42,7 @@ Or
 
 Download the compressed file.
 
-```$ tar -vxf MuBaMer.tar.gz```
+```$ unzip MuBaMer-master.zip```
 
 And then set the tools PATH on the configuration file, 
 
