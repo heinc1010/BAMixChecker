@@ -25,7 +25,7 @@ Required tools
 
 packages
 
-- scipy
+- scipy.stats
 
 - numpy
 
