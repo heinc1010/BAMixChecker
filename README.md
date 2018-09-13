@@ -61,12 +61,12 @@ And then set the tools PATH on the configuration file,
 Input
 -----------
 To run MuBaMer, directory path of bam files with –d option or a list of bam files with –l is required.
-A pairs of sample list or directory information is needed.
+A pair of sample list or directory information is needed.
 
 
 It only gets the pairs of samples. 
 
-The form of list can be two types.
+The form of the list can be two types.
 
 
 -Tab-divided paired files on each line. MuBaMer will pair files based on the pair information.
@@ -104,7 +104,7 @@ or
 #### Optional arguments
 ```
 -b --BEDfile  Targeted bed file for Targeted sequencing data mode.
--v –-RefVer ['hg38','hg19']. default is “hg38”.If the reference is hg19, give this option ‘-r hg19’.
+-v –-RefVer ['hg38','hg19']. Default is “hg38”.If the reference is hg19, give this option ‘-r hg19’.
 -o --OutputDIR Output directory path
 -p --MaxProcess The max number of process. Default = 4
 --RemoveVCF Use this option to remove called VCF files after running
