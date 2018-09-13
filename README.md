@@ -151,7 +151,7 @@ Or
 
 Output
 --------
-#### “Unmatched_pair.txt
+#### “Unmatched_pair.txt"
   ```
   #Pair is not matched by name but by genotype.
   /path/Tumor_2.gvcf /path/Normal_3.gvcf 0.98
