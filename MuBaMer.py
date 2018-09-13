@@ -534,9 +534,6 @@ if __name__ == "__main__":
 	parser.add_argument('--RemoveVCF',action='store_true', help="Use to remove called germline VCF during sample identification in bam file mode after running.")
 
 	args = parser.parse_args()
-	if args == None:
-		print "##ERROR: -h ot --help option to get an information to use MuBaMer."
-		exit()
 	if args.DIR == "":
 		if args.List == "":
 				print "##ERROR: There is no information about input files. Use -d or -l option for input file information."
@@ -590,7 +587,7 @@ if __name__ == "__main__":
 					break
 #			bed_file = make_bed2( args.RefVer, args.BEDfile , args.OutputDIR)
 		else:
-			bed_file = "{0}gnomad_{1}_AF45_AF35_All.bed".foamt(bed_file_path,args.RefVer)
+			bed_file = "{0}gnomad_{1}_AF45_AF35_All.bed".format(bed_file_path,args.RefVer)
 	else:
 		print "##ERROR: Option -v should be 'hg19' or 'hg38'."
 		exit()
