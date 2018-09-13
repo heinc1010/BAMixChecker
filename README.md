@@ -12,7 +12,7 @@ And the user can catch the information of swapped or unpaired pairs information 
 
 
 
-Requied tools
+Required tools
 ------------------
 
 #### GATK >= 4.0 ( java 8 required )
