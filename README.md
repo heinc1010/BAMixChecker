@@ -89,7 +89,7 @@ The form of the list can be two types.
   /path/Normal_4.bam
 ```
 
-#### If the number of files is under 6 or the file names don’t contain detectable regulation, it only pairs by genotype, not by name and skip to make ‘Unmatched_pair.txt’
+#### If the number of files is under 6 or the file names don’t contain common regulation when it is divided by the delimiters, it only pairs by genotype, not by name and skip to make ‘Unmatched_pair.txt’
 
 Usage
 ------
