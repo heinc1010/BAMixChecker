@@ -148,7 +148,7 @@ Or
   –v hg19 
   -b /path/targeted.bed
 ```
-#### If the dataset in consist of both of WES and Targeted sequencing data mapping with same reference, run as targeted sequencing data mode with the targeted bed file for the Targeted sequencing data.
+#### If the dataset consists of both of WES and Targeted sequencing data mapping with same reference, run as targeted sequencing data mode with the targeted bed file for the Targeted sequencing data.
 
 
 Output
