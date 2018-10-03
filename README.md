@@ -172,7 +172,6 @@ Output
   
 #### “Total_result.txt”
   ```
-  #Matched pair : 1, Swapped pair : 2, Unpaired sample : 2
   /path/Normal_1.gvcf /path/Normal_2.gvcf 0.3434 unmatched
   /path/Normal_1.gvcf /path/Normal_3.gvcf 0.3123 unmatched 
   /path/Normal_1.gvcf /path/Normal_4.gvcf 0.423 unmatched
