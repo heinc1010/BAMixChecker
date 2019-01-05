@@ -1,5 +1,5 @@
-<span style="color:blue"> BAMixChecker:  
-A fast and efficient tool for sample matching checkup .text</span>
+<span style="color:red"> BAMixChecker:  .text</span>
+A fast and efficient tool for sample matching checkup 
 =================================================================================
 
 
@@ -195,4 +195,4 @@ BAMixChecker reports the result of sample matching analysis in .html file as wel
 
 Contact
 --------
-If you have any question, contact to license manager (heinc1010@gmail.com) or corresponding author (swkim@yuhs.ac).
+If you have any question, contact to license manager (hein17@yuhs.ac) or corresponding author (swkim@yuhs.ac).
