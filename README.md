@@ -1,13 +1,13 @@
-MuBaMer:  
-Rapid and easy-to-use Multiple Bam files identifier to detect a pair of samples from each individual.
+<span style="color:blue"> BAMixChecker:  
+A fast and efficient tool for sample matching checkup .text</span>
 =================================================================================
 
 
-MuBaMer is a rapid and easy-to-use multiple bam files identifier to detect a pair of samples from each individual.
+BAMixChecker is a fast and easy-to-use multiple bam files match tool to detect a pair of samples from each individual.
 
-It’s simple and fast but robust to detect a pair of bam files from same individual with WES, Targeted sequencing dataset. 
+It’s simple and fast but robust to detect a pair of bam files from same individual with WES, RNA, Targeted sequencing dataset. 
 
-And the user can catch the information of swapped or unpaired pairs information as well as the matched pairs information at a glance.
+And the user can catch the information of mismatched sample information as well as the matched sample information at a glance.
 
 
 
@@ -19,7 +19,7 @@ Required tools
 
 #### Bedtools
 
-- The tool PATH is needed to be set on “MuBaMer.config” file.
+- The tool PATH is needed to be set on “BAMixChecker.config” file.
 
 #### Python 2.7 
 
@@ -36,22 +36,22 @@ Instruction
 -------------
 First, clone the repository
 
-```$ git clone https://github.com/heinc1010/MuBaMer```
+```$ git clone https://github.com/heinc1010/BAMixChecker```
 
 Or
 
 
 Download the compressed file.
 
-```$ unzip MuBaMer-master.zip```
+```$ unzip BAMixChecker-master.zip```
 
 And then set the tools PATH on the configuration file, 
 
-```$ cd MuBaMer
-  $ vim MuBaMer.config
+```$ cd BAMixChecker
+  $ vim BAMixChecker.config
 
-  GATK=/path/gatk
-  BEDTOOLS=/path/bedtools
+  GATK=/path/of/gatk
+  BEDTOOLS=/path/of/bedtools
 
   *default (If you added the path in $PATH, you don’t need to modify the configuration file )
   GATK=gatk
@@ -60,16 +60,16 @@ And then set the tools PATH on the configuration file,
 
 Input
 -----------
-To run MuBaMer, directory path of bam files with –d option or a list of bam files with –l is required.
+To run MuBaMer, the directory path of bam files with –d option or a list of bam files with –l is required.
 A pair of sample list or directory information is needed.
 
 
-It only gets the pairs of samples. 
+It only gets pairs of samples. 
 
 The form of the list can be two types.
 
 
--Tab-divided paired files on each line. MuBaMer will pair files based on the pair information.
+-Tab-divided paired files on each line. BAMixChecker pair files based on the pair information.
   ```	
   /path/Tumor_1.bam /path/Normal_1.bam
   /path/Tumor_2.bam /path/Normal_2.bam
@@ -77,7 +77,7 @@ The form of the list can be two types.
   /path/Tumor_4.bam /path/Normal_4.bam
 ```
 
--One bam file on each line.  MubaMer will check the file names and evaluate whether the files are pair based on the name.
+-One bam file on each line.  BAMixChecker check the file names and evaluate whether the files are pair based on the name.
 ```
   /path/Tumor_1.bam
   /path/Normal_1.bam
@@ -89,7 +89,7 @@ The form of the list can be two types.
   /path/Normal_4.bam
 ```
 
-#### If the number of files is under 6 or the file names don’t contain common regulation when it is divided by the delimiters, it only pairs by genotype, not by name and skip to make ‘Unmatched_pair.txt’
+#### If the number of files is under 6 or the file names don’t contain common regulation when it is divided by the delimiters, it only pairs by genotype, not by name and skip to make ‘Mismatched_pair.txt’
 
 Usage
 ------
@@ -97,41 +97,44 @@ Usage
 ```
 -d –-DIR Directory path of the .BAM files 
 or
--l --List A file with the list of files
+-l --List A file with the list of files ( The form is refered above in the 'Input' section )
 
 -r --Ref Reference file
+
+additionally for the Targeted sequencing data mode
+-b --BEDfile  Targeted bed file for Targeted sequencing data mode.
 ```
 #### Optional arguments
 ```
--b --BEDfile  Targeted bed file for Targeted sequencing data mode.
--v –-RefVer ['hg38','hg19']. Default is “hg38”.If the reference is hg19, give this option ‘-r hg19’.
--o --OutputDIR Output directory path
+-v –-RefVer ['hg38','hg19']. Default is “hg38”. If the reference is hg19, give this option ‘-r hg19’.
+-o --OutputDIR Output directory path. BAMixChecker creates the new directory '/BAMixChecker' under current directory as a default.
 -p --MaxProcess The max number of process. Default = 4
 --RemoveVCF Use this option to remove called VCF files after running
 ```
 
-#### MuBaMer runs for Whole Exome data mode as a default without bed file.  If a bed file is given with –b option, it runs as a  targeted mode.
+#### BAMixChecker runs a mode for WES and RNA-seq as a default without bed file.  
+#### If a bed file is given with –b option, it runs as targeted sequencing mode.
 
 
-#### 1)	Whole Exome data
+#### 1)	Whole Exome data or RNA sequencing data
 ```
-  $ python MubaMer.py \
+  $ python BAMixChecker.py \
   –d /path/aligned/files/ \
   -r /path/reference/HG38/genome.fa \
   –o /path/new/directory 
   ```
  Or
   ```
-  $ python MubaMer.py \
+  $ python BAMixChecker.py \
   –l /path/aligned/file_list.txt \
   –p 3 \
   -r /path/reference/HG38/genome.fa \
   –o /path/new/directory
 ```
 
-#### 2)	Targeted sequencing data. 
+#### 2)	Targeted sequencing data
  ```
-  $ python MubaMer.py \
+  $ python BAMixChecker.py \
   –d /path/aligned/files/ \
   –p 2 \
   -r /path/reference/HG19/genome.fa \
@@ -141,21 +144,25 @@ or
 ```
 Or 
 ```
-  $ python MubaMer.py \
+  $ python BAMixChecker.py \
   –l /path/aligned/file_list.txt \
   -r /path/reference/HG19/genome.fa \
   –o /path/new/directory \
   –v hg19 
   -b /path/targeted.bed
 ```
-#### If the dataset consists of both of WES and Targeted sequencing data mapping with same reference, run as targeted sequencing data mode with the targeted bed file for the Targeted sequencing data.
+#### If the dataset consists of both of WES/RNA-seq and Targeted sequencing data mapping with same reference, run as targeted sequencing data mode with the targeted bed file for the Targeted sequencing data.
 
 
 Output
 --------
-#### “Unmatched_pair.txt"
+BAMixChecker reports the result of sample matching analysis in .html file as well as .txt.
+#### “BAMixChecker_report.txt"
+
+
+#### “Mismatched_pair.txt"
   ```
-  #Pair is not matched by name but by genotype.
+  #Pair is not matched by name but only by genotype.
   /path/Tumor_2.gvcf /path/Normal_3.gvcf 0.98
   /path/Tumor_3.gvcf /path/Normal_2.gvcf 1
   
@@ -188,4 +195,4 @@ Output
 
 Contact
 --------
-heinc1010@gmail.com
+If you have any question, contact to license manager (heinc1010@gmail.com) or corresponding author (swkim@yuhs.ac).
