@@ -1,4 +1,4 @@
-<span style="color:red"> BAMixChecker:  .text</span>
+<span style="color:red"> BAMixChecker: </span>
 A fast and efficient tool for sample matching checkup 
 =================================================================================
 
