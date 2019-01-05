@@ -158,7 +158,7 @@ Output
 --------
 BAMixChecker reports the result of sample matching analysis in .html file as well as .txt.
 #### “BAMixChecker_report.html"
-![BAMixChecker_report.html](/C/Users/hein17/Desktop/캡처.png)
+![BAMixChecker_report.html](C:\Users\hein17\Desktop\html.PNG)
 
 
 #### “Mismatched_pair.txt"
