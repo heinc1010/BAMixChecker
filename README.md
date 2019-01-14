@@ -5,7 +5,7 @@ A fast and efficient tool for sample matching checkup
 
 BAMixChecker is a fast and easy-to-use multiple bam files match tool to detect a pair of samples from each individual.
 
-It’s simple and fast but robust to detect a pair of bam files from same individual with WES, RNA, Targeted sequencing dataset. 
+It’s simple and fast but robust to detect a pair of bam files from same individual with WGS/WES, RNA, Targeted sequencing dataset. 
 
 And the user can catch the information of mismatched sample information as well as the matched sample information at a glance.
 
