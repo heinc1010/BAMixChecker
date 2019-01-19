@@ -71,22 +71,22 @@ The form of the list can be two types.
 
 -Tab-divided paired files on each line. BAMixChecker pair files based on the pair information.
   ```	
-  /path/Tumor_1.bam /path/Normal_1.bam
-  /path/Tumor_2.bam /path/Normal_2.bam
-  /path/Tumor_3.bam /path/Normal_3.bam
-  /path/Tumor_4.bam /path/Normal_4.bam
+  /path/Tumor_01.bam /path/Normal_01.bam
+  /path/Tumor_02.bam /path/Normal_02.bam
+  /path/Tumor_03.bam /path/Normal_03.bam
+  /path/Tumor_04.bam /path/Normal_04.bam
 ```
 
 -One bam file on each line.  BAMixChecker check the file names and evaluate whether the files are pair based on the name.
 ```
-  /path/Tumor_1.bam
-  /path/Normal_1.bam
-  /path/Tumor_2.bam
-  /path/Normal_2.bam
-  /path/Tumor_3.bam
-  /path/Normal_3.bam
-  /path/Tumor_4.bam
-  /path/Normal_4.bam
+  /path/Tumor_01.bam
+  /path/Normal_01.bam
+  /path/Tumor_02.bam
+  /path/Normal_02.bam
+  /path/Tumor_03.bam
+  /path/Normal_03.bam
+  /path/Tumor_04.bam
+  /path/Normal_04.bam
 ```
 
 #### If the number of files is under 6 or the file names don’t contain common regulation when it is divided by the delimiters, it only pairs by genotype, not by name and skip to make ‘Mismatched_pair.txt’
@@ -162,35 +162,40 @@ BAMixChecker reports the result of sample matching analysis in .html file as wel
 
 #### “Mismatched_pair.txt"
   ```
-  #Pair is not matched by name but only by genotype.
-  /path/Tumor_2.gvcf /path/Normal_3.gvcf 0.98
-  /path/Tumor_3.gvcf /path/Normal_2.gvcf 1
+  #Matched samples only by genotype or file name but not by both
+  S1254_N.bam		S1254_T.bam	       0.38	             Unmatched
+  S1254_N.bam		S1345_T.bam	       0.97	             Matched
+  S1345_N.bam		S1254_T.bam	       0.95	             Matched
+  S1345_N.bam		S1345_T.bam	       0.36	             Unmatched
   
-  #Samples are matched with nothing by genotype.
-  /path/Tumor_4.gvcf 
-	  -> pair by name with /path/Normal_4.gvcf (score : 0.43 )
-  /path/Normal_4.gvcf 
-	  -> pair by name with /path/Tumor_4.gvcf (score : 0.43 )
+  #Samples matched with nothing by genotype
+  S1983_N.bam 
+	  -> pair by name with S1983_T.bam (score : 0.37 )
+  S1983_T.bam 
+	  -> pair by name with S1983_N.bam (score : 0.37 )
 ```
 
 #### “Matched_pair.txt”
   ```
   #Matched pair by genotype and name.
-  /path/Tumor_1.gvcf /path/Normal_1.gvcf 
+  S1023_N.bam		S1023_T.bam		0.92		  Matched
   ```
   
 #### “Total_result.txt”
   ```
-  /path/Normal_1.gvcf /path/Normal_2.gvcf 0.3434 unmatched
-  /path/Normal_1.gvcf /path/Normal_3.gvcf 0.3123 unmatched 
-  /path/Normal_1.gvcf /path/Normal_4.gvcf 0.423 unmatched
-  /path/Normal_1.gvcf /path/Tumor_1.gvcf 1 matched
-  /path/Normal_1.gvcf /path/Tumor_2.gvcf 0.1244 unmatched
-  /path/Normal_1.gvcf /path/Tumor_3.gvcf 0.3223 unmatched 
-  …..
-  /path/Tumor_3.gvcf /path/Normal_4.gvcf 0.379 unmatched
-  /path/Tumor_3.gvcf /path/Tumor_4.gvcf 0.367 unmatched
-  /path/Normal_4.gvcf /path/Tumor_4.gvcf 0.43 unmatched 
+  S1023_N.bam 		S1023_T.bam 		0.92		Matched
+  S1023_N.bam		S1254_N.bam    	        0.37		Unmatched
+  S1023_N.bam		S1254_T.bam 		0.34   		Unmatched
+  S1023_N.bam		S1345_N.bam		0.34		Unmatched
+  S1023_N.bam		S1345_T.bam		0.36 		Unmatched
+  S1023_N.bam		S1983_N.bam		0.36		Unmatched
+  S1023_N.bam		S1983_T.bam 		0.35		Unmatched
+  S1023_T.bam		S1254_N.bam		0.35		Unmatched
+  ...
+  S1254_N.bam   	S1254_T.bam 		0.38 		Unmatched
+  S1254_N.bam    	S1345_N.bam		0.37		Unmatched
+  S1254_N.bam    	S1345_T.bam 		0.97		Matched
+  ...
 ```
 
 Contact
