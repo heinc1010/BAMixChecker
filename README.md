@@ -22,11 +22,12 @@ Required tools
 #### Python 2.7 
 
   packages - scipy.stats
-
            - numpy
-
            - multiprocessing
-   
+#### R 
+   packages - ztable
+            - rmarkdown
+
 
 Instruction
 -------------
