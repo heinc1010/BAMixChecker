@@ -23,13 +23,13 @@ Required tools
 
 #### Python 2.7 
 
-packages
+  packages
 
-- scipy.stats
+  - scipy.stats
 
-- numpy
+  - numpy
 
-- multiprocessing
+  - multiprocessing
    
 
 Instruction
