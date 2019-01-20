@@ -19,17 +19,13 @@ Required tools
 
 #### Bedtools
 
-- The tool PATH is needed to be set on “BAMixChecker.config” file.
-
 #### Python 2.7 
 
-  packages
+  packages - scipy.stats
 
-  - scipy.stats
+           - numpy
 
-  - numpy
-
-  - multiprocessing
+           - multiprocessing
    
 
 Instruction
@@ -158,7 +154,7 @@ Output
 --------
 BAMixChecker reports the result of sample matching analysis in .html file as well as .txt.
 #### “BAMixChecker_report.html"
-<img src="./Report_ex.png" alt="BAMixChecker_report.html" width="600"/>
+<img src="./Report_ex.gif" alt="BAMixChecker_report.html" width="600"/>
 
 #### “Mismatched_pair.txt"
   ```
@@ -191,11 +187,11 @@ BAMixChecker reports the result of sample matching analysis in .html file as wel
   S1023_N.bam		S1983_N.bam		0.36		Unmatched
   S1023_N.bam		S1983_T.bam 		0.35		Unmatched
   S1023_T.bam		S1254_N.bam		0.35		Unmatched
-  ...
+  .....
   S1254_N.bam   	S1254_T.bam 		0.38 		Unmatched
   S1254_N.bam    	S1345_N.bam		0.37		Unmatched
   S1254_N.bam    	S1345_T.bam 		0.97		Matched
-  ...
+  .....
 ```
 
 Contact
