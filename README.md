@@ -20,13 +20,15 @@ Required tools
 #### Bedtools
 
 #### Python 2.7 
-
-  packages - scipy.stats
-           - numpy
-           - multiprocessing
+      - scipy.stats
+      
+      - numpy
+      
+      - multiprocessing
 #### R 
-   packages - ztable
-            - rmarkdown
+      - ztable
+      
+      - rmarkdown
 
 
 Instruction
