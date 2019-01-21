@@ -197,6 +197,19 @@ BAMixChecker reports the result of sample matching analysis in .html file as wel
   .....
 ```
 
+Tutorial
+---------
+1. Set the required variants
+
+```$ cd BAMixChecker/tutorialData
+   $ vim script_example.sh
+    BAMixChecker_PATH=/data/project/SampleSwapCheck/test_0121/BAMixChecker
+    OUT_DIR=/data/project/SampleSwapCheck/test_0121
+    REF=/data/resource/reference/human/UCSC/hg38/BWAIndex/genome.fa  
+```
+2. Run the script
+```$ sh script_example.sh
+```
 Contact
 --------
 If you have any question, contact to license manager (hein17@yuhs.ac) or corresponding author (swkim@yuhs.ac).
