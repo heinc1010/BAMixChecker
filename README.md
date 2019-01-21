@@ -204,9 +204,11 @@ Tutorial
 ```
    $ cd BAMixChecker/tutorialData
    $ vim script_example.sh
-    BAMixChecker_PATH=/data/project/SampleSwapCheck/test_0121/BAMixChecker
-    OUT_DIR=/data/project/SampleSwapCheck/test_0121
-    REF=/data/resource/reference/human/UCSC/hg38/BWAIndex/genome.fa  
+   
+    BAMixChecker_PATH=/path/to/BAMixChecker
+    OUT_DIR=/output/dir
+    REF=/path/of/reference/hg38/genome.fa
+  
 ```
 2. Run the script
 ```
