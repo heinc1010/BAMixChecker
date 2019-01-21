@@ -201,14 +201,16 @@ Tutorial
 ---------
 1. Set the required variants
 
-```$ cd BAMixChecker/tutorialData
+```
+   $ cd BAMixChecker/tutorialData
    $ vim script_example.sh
     BAMixChecker_PATH=/data/project/SampleSwapCheck/test_0121/BAMixChecker
     OUT_DIR=/data/project/SampleSwapCheck/test_0121
     REF=/data/resource/reference/human/UCSC/hg38/BWAIndex/genome.fa  
 ```
 2. Run the script
-```$ sh script_example.sh
+```
+   $ sh script_example.sh
 ```
 Contact
 --------
