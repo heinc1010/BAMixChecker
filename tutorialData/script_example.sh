@@ -1,6 +1,6 @@
 ######################################################################################################
 ## Tutorial samples were extracted from SRP133424 "Gastric adenoma and carcinoma genomes" from SRA. ##
-## It mapped with hg38                                                                              ##
+## It is mapped with hg38 reference.                                                                ##
 ######################################################################################################
 
 #Set the path
