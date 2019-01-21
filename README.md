@@ -31,7 +31,7 @@ Required tools
       - rmarkdown
 
 
-Instruction
+Installation
 -------------
 First, clone the repository
 
