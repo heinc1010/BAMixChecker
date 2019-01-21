@@ -24,7 +24,7 @@ python $BAMixChecker_PATH/BAMixChecker.py \
 
 #Mismatched sample exist case
 #'S1254_N.bam' and 'S1345_T.bam ' are swapped, 'S1983_N.bam' and 'S1983_T.bam are unpaired.
-echo "python $BAMixChecker_PATH/BAMixChecker.py \
+echo "\npython $BAMixChecker_PATH/BAMixChecker.py \
 -d $BAMixChecker_PATH/tutorialData/mismatched \
 -o $OUT_DIR/mismatched \
 -r $REF \
