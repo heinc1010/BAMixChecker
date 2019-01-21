@@ -506,7 +506,7 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 						fw_s_m.write("-> pair by file name with "+ f2 +" ( score : "+str(score) +" )\n")
 						lis_up.append([f1,f2,round(score,2),"Unmatched"])
 		fw_s_m.close()
-
+	count_line = 0
 	for i in range(0,len_v-1):
 		for j in range(i+1, len_v):
 			count_line += 1
