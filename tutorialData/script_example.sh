@@ -1,11 +1,12 @@
 ######################################################################################################
 ## Tutorial samples were extracted from SRP133424 "Gastric adenoma and carcinoma genomes" from SRA. ##
+## It mapped with hg38                                                                              ##
 ######################################################################################################
 
 #Set the path
 BAMixChecker_PATH=/path/to/BAMixChecker
 OUT_DIR=/output/dir
-REF=/path/of/reference/genome.fa
+REF=/path/of/reference/hg38/genome.fa
 
 
 #Command to run the tutorial data 
