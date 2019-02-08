@@ -623,9 +623,12 @@ def mk_html_dic(OutputDIR,lis_m,lis_sw,lis_up):
 		fw_r.write("##### *No unpaired samples*\n")
 	fw_r.write("## Matched samples\n")
 	fw_r.write("###### - The matched samples by *the file name* and *the genotype*\n")
-	fw_r.write("```{r , results='asis', echo=FALSE}\n")
-	fw_r.write("z = ztable(df.m,align='cccc',include.rownames=FALSE)\nprint (z, type = 'html')\n```\n")
-	
+	if lis_m != []:
+		fw_r.write("```{r , results='asis', echo=FALSE}\n")
+		fw_r.write("z = ztable(df.m,align='cccc',include.rownames=FALSE)\nprint (z, type = 'html')\n```\n")
+	else:
+		fw_r.write("##### *No matched samples*\n")
+		
 	fw_r.write("## Total result\n")
 	fw_r.write("```{r , results='asis', echo=FALSE}\n")
 	fw_r.write("df.total = read.delim(paste0(dataDir, 'Total_result.txt'), header=F)\n")
