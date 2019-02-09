@@ -789,7 +789,7 @@ if __name__ == "__main__":
 	if result == 1:
 		print "Perfect match."
 	elif result == 2:
-		print "Swapped file exist. Check 'BAMixChecker_Report.html' or 'Mismatched_pair.txt' file."
+		print "Swapped file exist. Check 'BAMixChecker_Report.html' or 'Mismatched_samples.txt' file."
 
 	if args.RemoveVCF:
 		cmm = "rm -r {0}HaplotypeCaller/".format(out_path)
