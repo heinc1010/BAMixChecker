@@ -673,7 +673,7 @@ def	mk_html_no_mismatched(OutputDIR):
 
 if __name__ == "__main__":
 	start_t = time.time()
-	parser = argparse.ArgumentParser(prog="BAMixChecker", description="Bam file swap checker. Grouping files from same indivisual.")
+	parser = argparse.ArgumentParser(prog="BAMixChecker", description="Sample mix-up checker to detect sample mismatch with pairs of BAM file in a cohort for WGS/WES/RNA-seq and targeted sequencing.")
 	parser.add_argument('-d','--DIR', default="", help="Directory path of the .BAM files")
 	parser.add_argument('-l', '--List', default="", help="A file with the list of files")
 	parser.add_argument('-r', '--Ref', default="",required=True, help="Reference file")
