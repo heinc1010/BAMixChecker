@@ -419,6 +419,7 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 	len_v = len(lis_files)
 	lis_sw = []
 	lis_up = []
+	lis_m = []
 	if ( lis_ans == [] ) & (len(lis_files) < 6) :
 		print "## WARNING : The number of files is not enough to pair by file names."
 		make_result_file_no_file_name_info(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_paired_files)
@@ -473,7 +474,7 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 		else:
 			return_v = 2
 		fw_m_m.write("# Matched pair by both genotype and name\n")
-		lis_m = []
+		lis_done = []
 		for i in range(0,len(lis_paired_files)):
 			f1 = lis_paired_files[i]
 			if smp_pairs[f1]  == []:
@@ -481,17 +482,20 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 			if len(smp_pairs[f1]) > 1:
 				pass
 			for f2 in smp_pairs[f1]:
-				if f2 not in dic_sw[f1]:
-					flag_less_informative = False
-					fw_m_m.write(f1+"\t"+f2+"\t")
-					score = cor_matrix[lis_files.index(f1)][lis_files.index(f2)]
-					if score < 0.8:
-						flag_less_informative = True
-					fw_m_m.write(str(score)+"\tMatched\n")
-					count_m += 1
-					if flag_less_informative:
-						fw_m_m.write("-> *This pair scores under 0.8 which is less informative. The 'less informative score' dosen't mean that the pair is not matched but may have some problem of purity or copy number variation etc. in the sample.\n")
-					lis_m.append([f1,f2,round(score,2),"Matched"])
+				if (f2 not in dic_sw[f1]) & (f1 not in dic_sw[f2]):
+					lis_tmp=[f1,f2]
+					lis_tmp.sort()
+					if lis_tmp not in lis_done:
+						flag_less_informative = False
+						fw_m_m.write(f1+"\t"+f2+"\t")
+						score = cor_matrix[lis_files.index(f1)][lis_files.index(f2)]
+						if score < 0.8:
+							flag_less_informative = True
+						fw_m_m.write(str(score)+"\tMatched\n")
+						count_m += 1
+						if flag_less_informative:
+							fw_m_m.write("-> *This pair scores under 0.8 which is less informative. The 'less informative score' dosen't mean that the pair is not matched but may have some problem of purity or copy number variation etc. in the sample.\n")
+						lis_m.append([f1,f2,round(score,2),"Matched"])
 		fw_m_m.close()
 		if not perfect_m:
 			fw_s_m.write("# Matched samples only by genotype or file name but not by both\n")
