@@ -413,6 +413,7 @@ def make_result_file_no_file_name_info(cor_matrix,smp_pairs,lis_files,OutputDIR,
 
 def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 	return_v = 1
+	fw_a_m = open(OutputDIR+"Total_result.txt","w")
 	lis_paired_files = smp_pairs.keys()
 	lis_paired_files.sort()
 	len_v = len(lis_files)
@@ -421,6 +422,12 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 	if ( lis_ans == [] ) & (len(lis_files) < 6) :
 		print "## WARNING : The number of files is not enough to pair by file names."
 		make_result_file_no_file_name_info(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_paired_files)
+		for i in range(0,len_v-1):
+			for j in range(i+1, len_v):
+				m_um="Unmatched"
+				if cor_matrix[i][j] > 0.7:
+					m_um = "Matched"
+				fw_a_m.write(lis_files[i]+"\t"+lis_files[j]+"\t"+str(cor_matrix[i][j])+"\t"+m_um+"\n")
 		mk_html_no_mismatched(OutputDIR)
 		return_v = 0
 	else:
@@ -429,7 +436,6 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 		count_u = 0
 		dic_sw = {}
 		dic_un_p = {}
-		fw_a_m = open(OutputDIR+"Total_result.txt","w")
 		if lis_ans == []:
 			dic_sw, dic_un_p = get_sw_pairs(lis_files,smp_pairs)
 			if ( dic_sw == None ) & ( dic_un_p == None):
@@ -548,9 +554,9 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 				if cor_matrix[i][j] > 0.7:
 					m_um = "Matched"
 				fw_a_m.write(lis_files[i]+"\t"+lis_files[j]+"\t"+str(cor_matrix[i][j])+"\t"+m_um+"\n")
-		fw_a_m.close()
-		mk_html_dic(OutputDIR,lis_m,lis_sw,lis_up)
 	
+		mk_html_dic(OutputDIR,lis_m,lis_sw,lis_up)
+	fw_a_m.close()
 	return return_v
 
 def mk_html_dic(OutputDIR,lis_m,lis_sw,lis_up):
