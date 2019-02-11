@@ -163,7 +163,11 @@ def get_gt(f1):
 		if int(lis_info[dp_idx]) < 5:
 			continue
 		lis_gt = lis_info[gt_idx].split('/')
-		gt = (int(lis_gt[0])+int(lis_gt[1]))*0.5
+		try:
+			gt = (int(lis_gt[0])+int(lis_gt[1]))*0.5
+		except:
+			lis_gt = lis_info[gt_idx].split('|')
+			gt = (int(lis_gt[0])+int(lis_gt[1]))*0.5
 		f1.dic_gt[lis[0]][lis[1]] = gt
 	fr.close()
 
