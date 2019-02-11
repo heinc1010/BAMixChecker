@@ -679,7 +679,7 @@ def	mk_html_no_mismatched(OutputDIR):
 	fw_r.write("dataDir='{0}'\n".format(OutputDIR))
 	fw_r.write("df.total = read.delim(paste0(dataDir, 'Total_result.txt'), header=F)\n")
 	fw_r.write("colnames(df.total) <- c('Sample1', 'Sample2','Concordance rate', 'Conclusion')\n")
-	fw_r.write("## Total result\n")
+	fw_r.write("```\n## Total result\n")
 	fw_r.write("```{r , results='asis', echo=FALSE}\n")
 	fw_r.write("z = ztable(df.total,align='llcl',include.rownames=FALSE)\nprint (z, type = 'html')\n```\n")
 	fw_r.close()
