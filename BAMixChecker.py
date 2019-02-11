@@ -1,3 +1,8 @@
+#!/usr/bin/env python2.7
+
+#BAMixChecker version 1.0
+#Author : Hein Chun (heinc1010@gmail.com)
+
 try:
 	import sys
 	import os
