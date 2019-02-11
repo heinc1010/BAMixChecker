@@ -59,7 +59,7 @@ And then set the tools PATH on the configuration file,
 
 Input
 -----------
-To run MuBaMer, the directory path of bam files with –d option or a list of bam files with –l is required.
+To run BAMixChecker, the directory path of bam files with –d option or a list of bam files with –l is required.
 A pair of sample list or directory information is needed.
 
 
@@ -115,7 +115,7 @@ additionally for the Targeted sequencing data mode
 #### If a bed file is given with –b option, it runs as targeted sequencing mode.
 
 
-#### 1)	Whole Exome data or RNA sequencing data
+#### 1)	Whole genome or Whole Exome data or RNA sequencing data
 ```
   $ python BAMixChecker.py \
   –d /path/aligned/files/ \
@@ -159,7 +159,7 @@ BAMixChecker reports the result of sample matching analysis in .html file as wel
 #### “BAMixChecker_report.html"
 <img src="./Report_ex.gif" alt="BAMixChecker_report.html" width="600"/>
 
-#### “Mismatched_pair.txt"
+#### “Mismatched_samples.txt"
   ```
   #Matched samples only by genotype or file name but not by both
   S1254_N.bam		S1254_T.bam	       0.38	             Unmatched
@@ -174,7 +174,7 @@ BAMixChecker reports the result of sample matching analysis in .html file as wel
 	  -> pair by name with S1983_N.bam (score : 0.37 )
 ```
 
-#### “Matched_pair.txt”
+#### “Matched_samples.txt”
   ```
   #Matched pair by genotype and name.
   S1023_N.bam		S1023_T.bam		0.92		  Matched
