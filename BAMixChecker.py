@@ -413,7 +413,6 @@ def make_result_file_no_file_name_info(cor_matrix,smp_pairs,lis_files,OutputDIR,
 
 def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 	return_v = 1
-	fw_a_m = open(OutputDIR+"Total_result.txt","w")
 	lis_paired_files = smp_pairs.keys()
 	lis_paired_files.sort()
 	len_v = len(lis_files)
@@ -430,6 +429,7 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 		count_u = 0
 		dic_sw = {}
 		dic_un_p = {}
+		fw_a_m = open(OutputDIR+"Total_result.txt","w")
 		if lis_ans == []:
 			dic_sw, dic_un_p = get_sw_pairs(lis_files,smp_pairs)
 			if ( dic_sw == None ) & ( dic_un_p == None):
@@ -519,37 +519,37 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 						lis_up.append([f1,f2,round(score,2),"Unmatched"])
 		fw_s_m.close()
 
-	count_line = 0
-	for i in range(0,len_v-1):
-		for j in range(i+1, len_v):
-			count_line += 1
-			try:
-				if lis_files[j] in dic_sw[lis_files[i]]:
-					for k in range(0,len(lis_sw)):
-						sw = lis_sw[k]
-						if sw[0] == lis_files[i]:
-							if sw[1] == lis_files[j]:
-								lis_sw[k].append(str(count_line+1))
-			except:
-				pass
-			try:
-				if lis_files[j] in dic_un_p[lis_files[i]]:
-					for k in range(0,len(lis_up)):
-						up = lis_up[k]
-						if up[0] == lis_files[i]:
-							if up[1] == lis_files[j]:
-								lis_up[k].append(str(count_line+1))
-						if up[0] == lis_files[j]:
-							if up[1] == lis_files[i]:
-								lis_up[k].append(str(count_line+1))
-			except:
-				pass
-			m_um="Unmatched"
-			if cor_matrix[i][j] > 0.7:
-				m_um = "Matched"
-			fw_a_m.write(lis_files[i]+"\t"+lis_files[j]+"\t"+str(cor_matrix[i][j])+"\t"+m_um+"\n")
-	fw_a_m.close()
-	mk_html_dic(OutputDIR,lis_m,lis_sw,lis_up)
+		count_line = 0
+		for i in range(0,len_v-1):
+			for j in range(i+1, len_v):
+				count_line += 1
+				try:
+					if lis_files[j] in dic_sw[lis_files[i]]:
+						for k in range(0,len(lis_sw)):
+							sw = lis_sw[k]
+							if sw[0] == lis_files[i]:
+								if sw[1] == lis_files[j]:
+									lis_sw[k].append(str(count_line+1))
+				except:
+					pass
+				try:
+					if lis_files[j] in dic_un_p[lis_files[i]]:
+						for k in range(0,len(lis_up)):
+							up = lis_up[k]
+							if up[0] == lis_files[i]:
+								if up[1] == lis_files[j]:
+									lis_up[k].append(str(count_line+1))
+							if up[0] == lis_files[j]:
+								if up[1] == lis_files[i]:
+									lis_up[k].append(str(count_line+1))
+				except:
+					pass
+				m_um="Unmatched"
+				if cor_matrix[i][j] > 0.7:
+					m_um = "Matched"
+				fw_a_m.write(lis_files[i]+"\t"+lis_files[j]+"\t"+str(cor_matrix[i][j])+"\t"+m_um+"\n")
+		fw_a_m.close()
+		mk_html_dic(OutputDIR,lis_m,lis_sw,lis_up)
 	
 	return return_v
 
