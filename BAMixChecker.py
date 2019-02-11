@@ -428,6 +428,7 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 				if cor_matrix[i][j] > 0.7:
 					m_um = "Matched"
 				fw_a_m.write(lis_files[i]+"\t"+lis_files[j]+"\t"+str(cor_matrix[i][j])+"\t"+m_um+"\n")
+		fw_a_m.close()
 		mk_html_no_mismatched(OutputDIR)
 		return_v = 0
 	else:
@@ -556,7 +557,7 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 				fw_a_m.write(lis_files[i]+"\t"+lis_files[j]+"\t"+str(cor_matrix[i][j])+"\t"+m_um+"\n")
 	
 		mk_html_dic(OutputDIR,lis_m,lis_sw,lis_up)
-	fw_a_m.close()
+		fw_a_m.close()
 	return return_v
 
 def mk_html_dic(OutputDIR,lis_m,lis_sw,lis_up):
