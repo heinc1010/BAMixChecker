@@ -393,6 +393,7 @@ def make_result_file_no_file_name_info(cor_matrix,smp_pairs,lis_files,OutputDIR,
 			if lis_tmp not in lis_done:
 				flag_less_informative = False
 				fw_m_m.write(f1+"\t"+f2+"\t")
+				lis_done.append(lis_tmp)
 				score = cor_matrix[lis_files.index(f1)][lis_files.index(f2)]
 				if score < 0.8:
 					flag_less_informative = True
