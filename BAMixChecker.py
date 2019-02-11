@@ -344,8 +344,11 @@ def get_sw_pairs(lis_files,smp_pairs):
 	for f1 in lis_sw_keys:
 		dic_sw[f1].sort()
 		for f2 in dic_sw[f1]:
-			if (f1 != f2) & (f1 in dic_sw[f2]):
-				dic_sw[f2].remove(f1)
+			try:
+				if (f1 != f2) & (f1 in dic_sw[f2]):
+					dic_sw[f2].remove(f1)
+			except:
+				pass
 	return dic_sw, dic_un_p
 
 def get_sw_pairs_ans(lis_files, smp_pairs, lis_ans):
