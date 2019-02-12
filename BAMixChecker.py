@@ -345,30 +345,20 @@ def get_sw_pairs_ans(lis_files, smp_pairs, lis_ans):
 	for f1 in lis_f1:
 		dic_sw[f1] = []
 		dic_un_p[f1] = []
-		for g in lis_ans:
-			if f1 in g:
-				g_f = copy.deepcopy(g)
+		for pair in lis_ans:
+			if f1 in pair:
+				g_f = copy.deepcopy(pair)
 				g_f.remove(f1)
 				smp_pairs[f1].sort()
 				if smp_pairs[f1] == []:
 					dic_un_p[f1] = g_f
-				if g_f != smp_pairs[f1]:
-					if smp_pairs[f1] == []:
-						dic_un_p[f1] = g_f
-					else:
-						if g_f[0] not in smp_pairs[f1]:
-							dic_sw[f1].append(g_f[0])
-						for f2 in smp_pairs[f1]:
-							if f2 != g_f[0]:
-								dic_sw[f1].append(f2)
-								for g2 in lis_ans:
-									if f2 in g2:
-										g2_f = copy.deepcopy(g2)
-										g2_f.remove(f2)
-										try:
-											dic_sw[f2].append(g2_f[0])
-										except:
-											dic_sw[f2]=[g2_f[0]]
+				else:
+					for f in smp_pairs[f1]:
+						if f != g_f[0]:
+							dic_sw[f1].append(f)
+					if g_f[0] not in smp_pairs[f1]:
+						dic_sw[f1].append(g_f[0])
+		
 	lis_sw_keys = dic_sw.keys()
 	lis_sw_keys.sort()
 	for f1 in lis_sw_keys:
