@@ -46,7 +46,7 @@ class VCFinfo:
 		self.dic_gt[current_chr] = {}
 		fr.close()
 
-def get_file_list(dir_path,user_file_list):
+def get_file_list(dir_path,user_file_list,FullPATH):
 	lis_files_whole = []
 	lis_files_ans = []
 	if user_file_list != '':
@@ -78,9 +78,22 @@ def get_file_list(dir_path,user_file_list):
 		for f in lis_files_whole:
 			print f
 		exit()
-	lis_files_whole.sort()
 	lis_files_ans.sort()
-	return lis_files_whole,lis_files_ans
+	lis_ans_sp = []
+	if FullPATH:
+		lis_files_whole.sort()
+		return lis_files_whole,lis_files_ans,lis_files_whole
+	else:
+		lis_files_whole_sp = [ f.split("/")[-1] for f in lis_files_whole ]
+		for ans in lis_files_ans:
+			lis_ans_sp.append([f.split("/")[-1] for f in ans])
+		lis_files_whole_sp.sort()
+		lis_files_whole_sorted = []
+		for f in lis_files_whole_sp:
+			for f_f in lis_files_whole:
+				if f_f.split("/")[-1] == f:
+					lis_files_whole_sorted.append(f_f)
+		return lis_files_whole_sp,lis_ans_sp,lis_files_whole_sorted
 
 def make_bed( total_SNP_bed, targeted_bed , OUTDIR, bedtools_path ):
 	os.system("{0} intersect -b {1} -a {2} | uniq > {3}targetSNPs.bed".format(bedtools_path,targeted_bed,total_SNP_bed,OUTDIR))
@@ -529,13 +542,20 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 				try:
 					if lis_files[j] in dic_un_p[lis_files[i]]:
 						for k in range(0,len(lis_up)):
-							up = lis_up[k]
-							if up[0] == lis_files[i]:
-								if up[1] == lis_files[j]:
-									lis_up[k].append(str(count_line+1))
-							if up[0] == lis_files[j]:
-								if up[1] == lis_files[i]:
-									lis_up[k].append(str(count_line+1))
+                            				up = lis_up[k]
+                            				if len(up) == 5:
+                                				continue
+                            				if up[0] == lis_files[i]:
+                                				if up[1] == lis_files[j]:
+                                    					lis_up[k].append(str(count_line+1))
+                    			if lis_files[i] in dic_un_p[lis_files[j]]:
+                        			for k in range(0,len(lis_up)):
+                            				up = lis_up[k]
+                            				if len(up) == 5:
+                                				continue
+                            				if up[0] == lis_files[j]:
+                                				if up[1] == lis_files[i]:
+                                    					lis_up[k].append(str(count_line+1))
 				except:
 					pass
 				m_um="Unmatched"
@@ -764,33 +784,27 @@ if __name__ == "__main__":
 		print "## ERROR: Option -v should be 'hg19' or 'hg38'."
 		exit()
 
-	lis_bam_files,lis_ans = get_file_list(dir_path, args.List)
+	if args.FullPATH:
+		lis_bam_files,lis_ans, lis_bam_full_path = get_file_list(dir_path, args.List, True)
+	else:
+		lis_bam_files,lis_ans, lis_bam_full_path = get_file_list(dir_path, args.List, False)
 
 	if len(lis_bam_files) == 0:
 		print "## ERROR: No .bam file in the list or directory."
 		exit()
 
 	# call the variants
-	lis_vcf_files = run_HC(lis_bam_files,out_path,args.Ref,bed_file,args.MaxProcess,HC_path)
+	lis_vcf_files = run_HC(lis_bam_full_path,out_path,args.Ref,bed_file,args.MaxProcess,HC_path)
 
 	# calculate the concordance
 	cor_matrix = cal_cor(lis_vcf_files, args.MaxProcess)
 
-#	# pair based on the genotype concordance 
-	if args.FullPATH:
-		# pair based on the genotype concordance 
-		smp_pairs = pairing(cor_matrix,lis_bam_files)
-		# determine the matched or mismatched pair based on file names as well as the genotype concordance
-		result = make_result_file(cor_matrix,smp_pairs,lis_bam_files,out_path,lis_ans)
-	else:
-		lis_bam_files_sp = [ f.split("/")[-1] for f in lis_bam_files ]
-		lis_ans_sp = []
-		for ans in lis_ans:
-			lis_ans_sp.append([f.split("/")[-1] for f in ans])
-		# pair based on the genotype concordance 
-		smp_pairs = pairing(cor_matrix,lis_bam_files_sp)
-		# determine the matched or mismatched pair based on file names as well as the genotype concordance
-		result = make_result_file(cor_matrix,smp_pairs,lis_bam_files_sp,out_path,lis_ans_sp)
+	# pair based on the genotype concordance 
+	smp_pairs = pairing(cor_matrix,lis_bam_files)
+
+	# determine the matched or mismatched pair based on file names as well as the genotype concordance
+	result = make_result_file(cor_matrix,smp_pairs,lis_bam_files,out_path,lis_ans)
+
 
 	if result == 1:
 		print "Perfect match."
