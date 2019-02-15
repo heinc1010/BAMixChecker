@@ -534,8 +534,18 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 					if lis_files[j] in dic_sw[lis_files[i]]:
 						for k in range(0,len(lis_sw)):
 							sw = lis_sw[k]
+							if len(sw) == 5:
+								continue
 							if sw[0] == lis_files[i]:
 								if sw[1] == lis_files[j]:
+									lis_sw[k].append(str(count_line+1))
+					if lis_files[i] in dic_sw[lis_files[j]]:
+						for k in range(0,len(lis_sw)):
+							sw = lis_sw[k]
+							if len(sw) == 5:
+								continue
+							 if sw[0] == lis_files[j]:
+								if sw[1] == lis_files[i]:
 									lis_sw[k].append(str(count_line+1))
 				except:
 					pass
