@@ -554,21 +554,22 @@ def mk_html_dic(OutputDIR,lis_m,lis_sw,lis_up):
 	fw_r.write("library('ztable')\n")
 	fw_r.write("dataDir='{0}'\n".format(OutputDIR))
 	#matched
-	lis_f1 = []
-	lis_f2 = []
-	lis_score = []
-	lis_m_um = []
-	for i in range(0,len(lis_m)):
-		lis_f1.append("'"+lis_m[i][0]+"'")
-		lis_f2.append("'"+lis_m[i][1]+"'")
-		lis_score.append("'"+str(lis_m[i][2])+"'")
-		lis_m_um.append("'"+lis_m[i][3]+"'")
-	f1s = ','.join(lis_f1)
-	f2s = ','.join(lis_f2)
-	scores = ','.join(lis_score)
-	m_ums = ','.join(lis_m_um)
-	fw_r.write("df.m <-data.frame('Sample1'=c({0}), 'Sample2'=c({1}),'Concordance rate'=c({2}), 'Conclusion'=c({3}))\n".format(f1s,f2s,scores,m_ums))
-	fw_r.write("colnames(df.m) <- c('Sample1', 'Sample2','Concordance rate', 'Conclusion')\n")
+	if lis_m != []:
+		lis_f1 = []
+		lis_f2 = []
+		lis_score = []
+		lis_m_um = []
+		for i in range(0,len(lis_m)):
+			lis_f1.append("'"+lis_m[i][0]+"'")
+			lis_f2.append("'"+lis_m[i][1]+"'")
+			lis_score.append("'"+str(lis_m[i][2])+"'")
+			lis_m_um.append("'"+lis_m[i][3]+"'")
+		f1s = ','.join(lis_f1)
+		f2s = ','.join(lis_f2)
+		scores = ','.join(lis_score)
+		m_ums = ','.join(lis_m_um)
+		fw_r.write("df.m <-data.frame('Sample1'=c({0}), 'Sample2'=c({1}),'Concordance rate'=c({2}), 'Conclusion'=c({3}))\n".format(f1s,f2s,scores,m_ums))
+		fw_r.write("colnames(df.m) <- c('Sample1', 'Sample2','Concordance rate', 'Conclusion')\n")
 	#swapped
 	if lis_sw != []:
 		lis_f1 = []
