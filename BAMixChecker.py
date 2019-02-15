@@ -542,20 +542,20 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 				try:
 					if lis_files[j] in dic_un_p[lis_files[i]]:
 						for k in range(0,len(lis_up)):
-                            				up = lis_up[k]
-                            				if len(up) == 5:
-                                				continue
-                            				if up[0] == lis_files[i]:
-                                				if up[1] == lis_files[j]:
-                                    					lis_up[k].append(str(count_line+1))
-                    			if lis_files[i] in dic_un_p[lis_files[j]]:
-                        			for k in range(0,len(lis_up)):
-                            				up = lis_up[k]
-                            				if len(up) == 5:
-                                				continue
-                            				if up[0] == lis_files[j]:
-                                				if up[1] == lis_files[i]:
-                                    					lis_up[k].append(str(count_line+1))
+							up = lis_up[k]
+							if len(up) == 5:
+								continue
+							if up[0] == lis_files[i]:
+								if up[1] == lis_files[j]:
+									lis_up[k].append(str(count_line+1))
+					if lis_files[i] in dic_un_p[lis_files[j]]:
+						for k in range(0,len(lis_up)):
+							up = lis_up[k]
+							if len(up) == 5:
+								continue
+							if up[0] == lis_files[j]:
+								if up[1] == lis_files[i]:
+									lis_up[k].append(str(count_line+1))
 				except:
 					pass
 				m_um="Unmatched"
