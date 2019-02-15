@@ -544,7 +544,7 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 							sw = lis_sw[k]
 							if len(sw) == 5:
 								continue
-							 if sw[0] == lis_files[j]:
+							if sw[0] == lis_files[j]:
 								if sw[1] == lis_files[i]:
 									lis_sw[k].append(str(count_line+1))
 				except:
