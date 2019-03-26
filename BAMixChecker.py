@@ -46,20 +46,18 @@ class VCFinfo:
 		self.dic_gt[current_chr] = {}
 		fr.close()
 
-def get_file_list(dir_path,user_file_list,FullPATH):
+def get_file_list(dir_path,user_file_list,FullPATH,flag_FNM):
 	lis_files_whole = []
 	lis_files_ans = []
 	if user_file_list != '':
 		fr_file_list = open(user_file_list,'r')
 		for line_fl in fr_file_list:
 			lis_fl = line_fl.strip().split('\t')
-			if len(lis_fl) == 2:
-				for fl in lis_fl:
-					lis_files_whole.append(fl)
-				lis_fl_pair = [ f for f in lis_fl ]
+			for fl in lis_fl:
+				lis_files_whole.append(fl)
+			lis_fl_pair = [ f for f in lis_fl ]
+			if len(lis_fl) != 1:
 				lis_files_ans.append(lis_fl_pair)
-			else:
-				lis_files_whole.append(lis_fl[0])
 
 		for file_path in lis_files_whole:
 			tmp_file_type = file_path.split(".")[-1].upper()
@@ -73,11 +71,6 @@ def get_file_list(dir_path,user_file_list,FullPATH):
 			tmp_file_type = file_path.strip().split(".")[-1].upper()
 			if tmp_file_type == 'BAM':
 				lis_files_whole.append(file_path)
-	if len(lis_files_whole)%2 != 0:
-		print "## ERROR: Total number of files is not even - "+str(len(lis_files_whole))
-		for f in lis_files_whole:
-			print f
-		exit()
 	lis_files_ans.sort()
 	lis_ans_sp = []
 	if FullPATH:
@@ -323,11 +316,12 @@ def get_sw_pairs(lis_files,smp_pairs):
 	dic_sw = {}
 	dic_un_p = {}
 	for f1 in lis_files:
+		dic_sw[f1] = []
+		dic_un_p[f1] = []
 		try:
 			if smp_pairs[f1] == []:
 				dic_un_p[f1] = get_max(dic_sample_scores[f1])
 			else:
-				dic_sw[f1] = []
 				lis_m_f = get_max(dic_sample_scores[f1])
 				for f2 in smp_pairs[f1]:
 					if f2 not in lis_m_f:
@@ -350,7 +344,7 @@ def get_sw_pairs(lis_files,smp_pairs):
 				if (f1 != f2) & (f1 in dic_sw[f2]):
 					dic_sw[f2].remove(f1)
 			except:
-				pass
+				continue
 	return dic_sw, dic_un_p
 
 def get_sw_pairs_ans(lis_files, smp_pairs, lis_ans):
@@ -381,15 +375,12 @@ def get_sw_pairs_ans(lis_files, smp_pairs, lis_ans):
 	for f1 in lis_sw_keys:
 		dic_sw[f1].sort()
 		for f2 in dic_sw[f1]:
-			try:
-				if f1 in dic_sw[f2]:
-					dic_sw[f2].remove(f1)
-			except:
-				pass
+			if f1 in dic_sw[f2]:
+				dic_sw[f2].remove(f1)
 	return dic_sw, dic_un_p
 
 def make_result_file_no_file_name_info(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_paired_files):
-	print "           Skip making 'Mismatched_samples.txt' file"
+	print "            Skip making 'Mismatched_samples.txt' file"
 	fw_m_m = open(OutputDIR+"Matched_samples.txt","w")
 	fw_m_m.write("# Matched pair by genotype\n")
 	lis_done = []
@@ -412,7 +403,7 @@ def make_result_file_no_file_name_info(cor_matrix,smp_pairs,lis_files,OutputDIR,
 					fw_m_m.write("-> *This pair scores under 0.8 which is less informative. The 'less informative score' dosen't mean that the pair is not matched but may have some problem of purity or copy number variation etc. in the sample.\n")
 	fw_m_m.close()
 
-def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
+def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans,flag_FNM):
 	return_v = 1
 	fw_a_m = open(OutputDIR+"Total_result.txt","w")
 	lis_paired_files = smp_pairs.keys()
@@ -423,15 +414,17 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 	lis_m = []
 	if ( lis_ans == [] ) & (len(lis_files) < 6) :
 		print "## WARNING : The number of files is not enough to pair by file names."
+		print "             Pairing samples only by genotype."
 		make_result_file_no_file_name_info(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_paired_files)
 		for i in range(0,len_v-1):
 			for j in range(i+1, len_v):
 				m_um="Unmatched"
 				if cor_matrix[i][j] > 0.7:
 					m_um = "Matched"
+					lis_m.append([lis_files[i],lis_files[j],round(cor_matrix[i][j],2),"Matched"])
 				fw_a_m.write(lis_files[i]+"\t"+lis_files[j]+"\t"+str(cor_matrix[i][j])+"\t"+m_um+"\n")
 		fw_a_m.close()
-		mk_html_no_mismatched(OutputDIR)
+		mk_html_no_mismatched(OutputDIR,lis_m)
 		return_v = 0
 	else:
 		count_m = 0
@@ -440,19 +433,36 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 		dic_sw = {}
 		dic_un_p = {}
 		if lis_ans == []:
-			dic_sw, dic_un_p = get_sw_pairs(lis_files,smp_pairs)
-			if ( dic_sw == None ) & ( dic_un_p == None):
-				print "## WARNING : The file names don't have detectable common regulation."
-				make_result_file_no_file_name_info(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans,lis_paired_files)
-				mk_html_no_mismatched(OutputDIR)
+			if flag_FNM == False:
+				print "## WARNING : --OFFFileNamePairing option is applied."
+				print "             Pairing samples only by genotype."
+				make_result_file_no_file_name_info(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_paired_files)
 				return_v = 0
 				for i in range(0,len_v-1):
 					for j in range(i+1, len_v):
-			 			m_um="Unmatched"
+						m_um="Unmatched"
 						if cor_matrix[i][j] > 0.7:
 							m_um = "Matched"
+							lis_m.append([lis_files[i],lis_files[j],round(cor_matrix[i][j],2),"Matched"])
 						fw_a_m.write(lis_files[i]+"\t"+lis_files[j]+"\t"+str(cor_matrix[i][j])+"\t"+m_um+"\n")
 				fw_a_m.close()
+				mk_html_no_mismatched(OutputDIR,lis_m)
+				return return_v
+			dic_sw, dic_un_p = get_sw_pairs(lis_files,smp_pairs)
+			if ( dic_sw == None ) & ( dic_un_p == None):
+				print "## WARNING : The file names don't have detectable common regulation."
+				print "             Pairing samples only by genotype."
+				make_result_file_no_file_name_info(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_paired_files)
+				return_v = 0
+				for i in range(0,len_v-1):
+					for j in range(i+1, len_v):
+						m_um="Unmatched"
+						if cor_matrix[i][j] > 0.7:
+							m_um = "Matched"
+							lis_m.append([lis_files[i],lis_files[j],round(cor_matrix[i][j],2),"Matched"])
+						fw_a_m.write(lis_files[i]+"\t"+lis_files[j]+"\t"+str(cor_matrix[i][j])+"\t"+m_um+"\n")
+				fw_a_m.close()
+				mk_html_no_mismatched(OutputDIR,lis_m)
 				return return_v
 			else:
 				print "Detected pairs by file names."
@@ -509,7 +519,7 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 					count_s +=  1
 					fw_s_m.write(f1+"\t"+f2+"\t")
 					score = cor_matrix[lis_files.index(f1)][lis_files.index(f2)]
-				 	m_um="Unmatched"
+					m_um="Unmatched"
 					if score > 0.7 :
 						if score < 0.8:
 							flag_less_informative = True
@@ -531,49 +541,54 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans):
 						fw_s_m.write("-> pair by file name with "+ f2 +" ( score : "+str(score) +" )\n")
 						lis_up.append([f1,f2,round(score,2),"Unmatched"])
 		fw_s_m.close()
-
 		count_line = 0
 		for i in range(0,len_v-1):
 			for j in range(i+1, len_v):
 				count_line += 1
-				try:
-					if lis_files[j] in dic_sw[lis_files[i]]:
-						for k in range(0,len(lis_sw)):
-							sw = lis_sw[k]
-							if len(sw) == 5:
-								continue
-							if sw[0] == lis_files[i]:
-								if sw[1] == lis_files[j]:
-									lis_sw[k].append(str(count_line+1))
-					if lis_files[i] in dic_sw[lis_files[j]]:
-						for k in range(0,len(lis_sw)):
-							sw = lis_sw[k]
-							if len(sw) == 5:
-								continue
+				if lis_files[j] in dic_sw[lis_files[i]]:
+					for k in range(0,len(lis_sw)):
+						sw = lis_sw[k]
+						if len(sw) == 5:
+							continue
+						if sw[0] == lis_files[i]:
+							if sw[1] == lis_files[j]:
+								lis_sw[k].append(str(count_line+1))
+						elif sw[1] == lis_files[i]:
 							if sw[0] == lis_files[j]:
-								if sw[1] == lis_files[i]:
-									lis_sw[k].append(str(count_line+1))
-				except:
-					pass
-				try:
-					if lis_files[j] in dic_un_p[lis_files[i]]:
-						for k in range(0,len(lis_up)):
-							up = lis_up[k]
-							if len(up) == 5:
-								continue
-							if up[0] == lis_files[i]:
-								if up[1] == lis_files[j]:
-									lis_up[k].append(str(count_line+1))
-					if lis_files[i] in dic_un_p[lis_files[j]]:
-						for k in range(0,len(lis_up)):
-							up = lis_up[k]
-							if len(up) == 5:
-								continue
+								lis_sw[k].append(str(count_line+1))
+				elif lis_files[i] in dic_sw[lis_files[j]]:
+					for k in range(0,len(lis_sw)):
+						sw = lis_sw[k]
+						if len(sw) == 5:
+							continue
+						if sw[0] == lis_files[j]:
+							if sw[1] == lis_files[i]:
+								lis_sw[k].append(str(count_line+1))
+						elif sw[1] == lis_files[j]:
+							if sw[0] == lis_files[i]:
+								lis_sw[k].append(str(count_line+1))
+				if lis_files[j] in dic_un_p[lis_files[i]]:
+					for k in range(0,len(lis_up)):
+						up = lis_up[k]
+						if len(up) == 5:
+							continue
+						if up[0] == lis_files[i]:
+							if up[1] == lis_files[j]:
+								lis_up[k].append(str(count_line+1))
+						elif up[1] == lis_files[i]:
 							if up[0] == lis_files[j]:
-								if up[1] == lis_files[i]:
-									lis_up[k].append(str(count_line+1))
-				except:
-					pass
+								lis_up[k].append(str(count_line+1))
+				elif lis_files[i] in dic_un_p[lis_files[j]]:
+					for k in range(0,len(lis_up)):
+						up = lis_up[k]
+						if len(up) == 5:
+							continue
+						if up[0] == lis_files[j]:
+							if up[1] == lis_files[i]:
+								lis_up[k].append(str(count_line+1))
+						elif up[1] == lis_files[j]:
+							if up[0] == lis_files[i]:
+								lis_up[k].append(str(count_line+1))
 				m_um="Unmatched"
 				if cor_matrix[i][j] > 0.7:
 					m_um = "Matched"
@@ -670,7 +685,7 @@ def mk_html_dic(OutputDIR,lis_m,lis_sw,lis_up):
 		fw_r.write("z = ztable(df.m,align='cccc',include.rownames=FALSE)\nprint (z, type = 'html')\n```\n")
 	else:
 		fw_r.write("##### *No matched samples*\n")
-		
+
 	fw_r.write("## Total result\n")
 	fw_r.write("```{r , results='asis', echo=FALSE}\n")
 	fw_r.write("df.total = read.delim(paste0(dataDir, 'Total_result.txt'), header=F)\n")
@@ -693,7 +708,7 @@ def mk_html_dic(OutputDIR,lis_m,lis_sw,lis_up):
 	if prc.returncode != 0:
 		print stderr
 
-def	mk_html_no_mismatched(OutputDIR):
+def	mk_html_no_mismatched(OutputDIR, lis_m):
 	fw_r = open(OutputDIR + "BAMixChecker_Report.Rmd","w")
 	fw_r.write("# Sample Mix-up analysis result by BAMixChecker\n")
 	fw_r.write("```{r, echo=FALSE , results='hide', message=FALSE, warning=FALSE}\n")
@@ -702,6 +717,30 @@ def	mk_html_no_mismatched(OutputDIR):
 	fw_r.write("dataDir='{0}'\n".format(OutputDIR))
 	fw_r.write("df.total = read.delim(paste0(dataDir, 'Total_result.txt'), header=F)\n")
 	fw_r.write("colnames(df.total) <- c('Sample1', 'Sample2','Concordance rate', 'Conclusion')\n")
+	#matched
+	if lis_m != []:
+		lis_f1 = []
+		lis_f2 = []
+		lis_score = []
+		lis_m_um = []
+		for i in range(0,len(lis_m)):
+			lis_f1.append("'"+lis_m[i][0]+"'")
+			lis_f2.append("'"+lis_m[i][1]+"'")
+			lis_score.append("'"+str(lis_m[i][2])+"'")
+			lis_m_um.append("'"+lis_m[i][3]+"'")
+		f1s = ','.join(lis_f1)
+		f2s = ','.join(lis_f2)
+		scores = ','.join(lis_score)
+		m_ums = ','.join(lis_m_um)
+		fw_r.write("df.m <-data.frame('Sample1'=c({0}), 'Sample2'=c({1}),'Concordance rate'=c({2}), 'Conclusion'=c({3}))\n".format(f1s,f2s,scores,m_ums))
+		fw_r.write("colnames(df.m) <- c('Sample1', 'Sample2','Concordance rate', 'Conclusion')\n")
+	fw_r.write("## Matched samples\n")
+	fw_r.write("###### - The matched samples by *the file name* and *the genotype*\n")
+	if lis_m != []:
+		fw_r.write("```{r , results='asis', echo=FALSE}\n")
+		fw_r.write("z = ztable(df.m,align='cccc',include.rownames=FALSE)\nprint (z, type = 'html')\n```\n")
+	else:
+		fw_r.write("##### *No matched samples*\n")
 	fw_r.write("```\n## Total result\n")
 	fw_r.write("```{r , results='asis', echo=FALSE}\n")
 	fw_r.write("z = ztable(df.total,align='llcl',include.rownames=FALSE)\nprint (z, type = 'html')\n```\n")
@@ -725,6 +764,7 @@ if __name__ == "__main__":
 	parser.add_argument('-p', '--MaxProcess', default="4", help="The number of max process. Default = 4")
 	parser.add_argument('--FullPATH', action='store_true',help="Use to report with the full path of file. BAMixChecker resports with the only file name as a default.")
 	parser.add_argument('--RemoveVCF',action='store_true', help="Use to remove called germline VCF after running.")
+	parser.add_argument('--OFFFileNameMatching',action='store_true', help="Use to get a result without file-name based pairing.BAMixChecker will only compare smaples by genotype. If the input list of file contains two or more file on a line (means samples from same individual), this option is automatically applied and it use the user-given pair information.")
 
 	# get the tool path
 	bedtools_path = ''
@@ -746,6 +786,7 @@ if __name__ == "__main__":
 	# get the arguments
 	dir_path = ''
 	out_path = ''
+	flag_FNM = True
 	args = parser.parse_args()
 	if args.DIR == '':
 		if args.List == '':
@@ -757,6 +798,10 @@ if __name__ == "__main__":
 			print "## ERROR: Option -d and -l are exclusive. Try with one of the options.\n##\t Check 'https://github.com/heinc1010/BAMixChecker' for more information about the options of BAMixChecker."
 			exit()
 		dir_path = abspath(args.DIR)+'/'
+
+	if args.OFFFileNameMatching:
+		flag_FNM = False
+
 	if args.OutputDIR == '':
 		out_path = abspath('.')+'/BAMixChecker/'
 	else:
@@ -801,13 +846,14 @@ if __name__ == "__main__":
 		exit()
 
 	if args.FullPATH:
-		lis_bam_files,lis_ans, lis_bam_full_path = get_file_list(dir_path, args.List, True)
+		lis_bam_files,lis_ans, lis_bam_full_path = get_file_list(dir_path, args.List,True, flag_FNM)
 	else:
-		lis_bam_files,lis_ans, lis_bam_full_path = get_file_list(dir_path, args.List, False)
+		lis_bam_files,lis_ans, lis_bam_full_path = get_file_list(dir_path, args.List,False, flag_FNM)
 
 	if len(lis_bam_files) == 0:
 		print "## ERROR: No .bam file in the list or directory."
 		exit()
+
 
 	# call the variants
 	lis_vcf_files = run_HC(lis_bam_full_path,out_path,args.Ref,bed_file,args.MaxProcess,HC_path)
@@ -819,7 +865,7 @@ if __name__ == "__main__":
 	smp_pairs = pairing(cor_matrix,lis_bam_files)
 
 	# determine the matched or mismatched pair based on file names as well as the genotype concordance
-	result = make_result_file(cor_matrix,smp_pairs,lis_bam_files,out_path,lis_ans)
+	result = make_result_file(cor_matrix,smp_pairs,lis_bam_files,out_path,lis_ans,flag_FNM)
 
 
 	if result == 1:
