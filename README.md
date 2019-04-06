@@ -29,6 +29,8 @@ Required tools
       - ztable
       
       - rmarkdown
+      
+      - corrplot
 
 
 Installation
@@ -75,8 +77,14 @@ The form of the list can be two types.
   /path/Tumor_03.bam	/path/Normal_03.bam
   /path/Tumor_04.bam	/path/Normal_04.bam
 ```
+ ```	
+  /path/Tumor_01.bam	/path/Normal_01.bam	/path/Meta_01.bam
+  /path/Tumor_02.bam	/path/Normal_02.bam	/path/Meta_02.bam
+  /path/Tumor_03.bam	/path/Normal_03.bam	/path/Meta_03.bam
+  /path/Tumor_04.bam	/path/Normal_04.bam	/path/Meta_04.bam
+```
 
--One bam file on each line.  BAMixChecker check the file names and evaluate whether the files are pair based on the name.
+-One bam file on each line. BAMixChecker check the file names and evaluate whether the files are pair based on the name.
 ```
   /path/Tumor_01.bam
   /path/Normal_01.bam
