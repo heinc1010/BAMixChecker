@@ -85,6 +85,7 @@ The form of the list can be two types.
 ```
 
 -One bam file on each line. BAMixChecker check the file names and evaluate whether the files are pair based on the name.
+ If you want to compare files only by genotype, you can use '--OFFFileNameMatching' option.
 ```
   /path/Tumor_01.bam
   /path/Normal_01.bam
@@ -96,7 +97,22 @@ The form of the list can be two types.
   /path/Normal_04.bam
 ```
 
-#### If the number of files is under 6 or the file names don’t contain common regulation when it is divided by the delimiters, it only pairs by genotype, not by name and skip to make ‘Mismatched_sample.txt’
+#### If the number of files is under 6 or the file names don’t contain common regulation when it is divided by the delimiters, it only pairs by genotype, not by name and skip to make ‘Mismatched_sample.txt’.
+
+
+To call with GATK HaplotypeCaller, it require proper reference sequence file with '.fai' file and '.dict' file for reference fastq which is the same reference used to align your bam files.
+iGenomes provides 'Ready-To-Use' reference sequence file of various species including human with the annotation files.
+https://support.illumina.com/sequencing/sequencing_software/igenome.html
+Or, you can create by your self with samtools and Picard.
+```
+samtools faidx Homo_sapiens.GRCh38.fa
+```
+```
+java -jar picard.jar  R=Homo_sapiens.GRCh38.fa O=Homo_sapiens.GRCh38.dict
+```
+see more details in https://gatkforums.broadinstitute.org/gatk/discussion/1601/how-can-i-prepare-a-fasta-file-to-use-as-reference .
+
+
 
 Usage
 ------
@@ -115,8 +131,11 @@ additionally for the Targeted sequencing data mode
 ```
 -v –-RefVer ['hg38','hg19']. Default is “hg38”. If the reference is hg19, give this option ‘-r hg19’.
 -o --OutputDIR Output directory path. BAMixChecker creates the new directory '/BAMixChecker' under current directory as a default.
--p --MaxProcess The max number of process. Default = 4
+-p --MaxProcess The max number of process. Default = 1
+--FullPATH Use to report with the full path of file. BAMixChecker resports with the only file name as a default.
 --RemoveVCF Use this option to remove called VCF files after running
+--OFFFileNameMatching Use this option to compare files only by genotype.
+
 ```
 
 #### BAMixChecker runs a mode for WES and RNA-seq as a default without bed file.  
