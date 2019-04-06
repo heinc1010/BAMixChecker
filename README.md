@@ -61,7 +61,7 @@ And then set the tools PATH on the configuration file,
 
 Input
 -----------
-#### BAM files
+### BAM files
 To run BAMixChecker, the directory path of bam files with –d option or a list of bam files with –l is required.
 A pair of sample list or directory information is needed.
 
@@ -98,10 +98,10 @@ The form of the list can be two types.
   /path/Normal_04.bam
 ```
 
-##### If the number of files is under 6 or the file names don’t contain common regulation when it is divided by the delimiters, it only pairs by genotype, not by name and skip to make ‘Mismatched_sample.txt’.
+#### If the number of files is under 6 or the file names don’t contain common regulation when it is divided by the delimiters, it only pairs by genotype, not by name and skip to make ‘Mismatched_sample.txt’.
 
 
-#### Reference file
+### Reference file
 
 To call with GATK HaplotypeCaller, it require proper reference sequence file with '.fai' file and '.dict' file for the reference which is the same reference used to align your bam files.
 
