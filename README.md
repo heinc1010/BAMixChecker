@@ -103,8 +103,11 @@ The form of the list can be two types.
 
 
 To call with GATK HaplotypeCaller, it require proper reference sequence file with '.fai' file and '.dict' file for the reference which is the same reference used to align your bam files.
+
 iGenomes provides 'Ready-To-Use' reference sequence file of various species including human with the annotation files.
+
 https://support.illumina.com/sequencing/sequencing_software/igenome.html
+
 Or, you can create by your self with samtools and Picard.
 ```
 samtools faidx Homo_sapiens.GRCh38.fa
