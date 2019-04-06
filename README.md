@@ -100,6 +100,7 @@ The form of the list can be two types.
 #### If the number of files is under 6 or the file names don’t contain common regulation when it is divided by the delimiters, it only pairs by genotype, not by name and skip to make ‘Mismatched_sample.txt’.
 
 
+
 To call with GATK HaplotypeCaller, it require proper reference sequence file with '.fai' file and '.dict' file for reference fastq which is the same reference used to align your bam files.
 iGenomes provides 'Ready-To-Use' reference sequence file of various species including human with the annotation files.
 https://support.illumina.com/sequencing/sequencing_software/igenome.html
