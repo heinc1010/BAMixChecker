@@ -105,7 +105,15 @@ BAMixChecker calls variants with GVCF file which is only possible for single sam
 
 So to run GATK HapplotypeCaller, RNA-seq bam file needs to add read groups with Picard AddOrReplaceReadGroups.
 ```
-java -jar picard.jar AddOrReplaceReadGroups I=RNA_T_01.sam O=RNA_T_01.rg_added_sorted.bam SO=coordinate RGID=id RGLB=library RGPL=platform RGPU=machine RGSM=sample
+java -jar picard.jar AddOrReplaceReadGroups \
+I=RNA_T_01.sam \
+O=RNA_T_01.rg_added_sorted.bam \
+SO=coordinate \
+RGID=id \
+RGLB=library \
+RGPL=platform \
+RGPU=machine \
+RGSM=sample
 ```
 
 Additional proper processing for RNA-seq data is instructed in https://gatkforums.broadinstitute.org/gatk/discussion/3891/calling-variants-in-rnaseq.
@@ -123,7 +131,9 @@ Or, you can create by your self with samtools and Picard.
 samtools faidx Homo_sapiens.GRCh38.fa
 ```
 ```
-java -jar picard.jar  R=Homo_sapiens.GRCh38.fa O=Homo_sapiens.GRCh38.dict
+java -jar picard.jar CreateSequenceDictionary \
+R=Homo_sapiens.GRCh38.fa \
+O=Homo_sapiens.GRCh38.dict
 ```
 see more details in https://gatkforums.broadinstitute.org/gatk/discussion/1601/how-can-i-prepare-a-fasta-file-to-use-as-reference .
 
