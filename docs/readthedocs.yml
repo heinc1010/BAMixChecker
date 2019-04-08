@@ -1,3 +1,9 @@
+theme: readthedocs
+pages: 
+  - Instruction: instruction.md
+  - Issues:
+    - 'Processing for RNA-seq': 'rna_seq.md'
+    - 'Application for Non-human organism': 'non_human.md'
 python:
    version: 2.7
    install:
@@ -6,4 +12,3 @@ python:
         path: .
         extra_requirements:
             - docs
-   system_packages: true
