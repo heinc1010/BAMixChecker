@@ -212,7 +212,7 @@ BAMixChecker reports the result of sample matching analysis in .html file and he
 <img src="./Report_ex.gif" alt="BAMixChecker_report.html" width="600"/>
 
 #### “BAMixChecker_heatmap.pdf"
-<img src="./heatmap_ex.gif" alt="BAMixChecker_heatmap.pdf" width="600"/>
+<img src="./heatmap_ex.gif" alt="BAMixChecker_heatmap.pdf" width="400"/>
 
 #### “Mismatched_samples.txt"
   ```
