@@ -146,8 +146,8 @@ If the dataset is targeted sequencing dataset, the SNP set is considered not onl
 ```
 	bedtools intersect –a SNP_LIST.BED –b TARGETED.BED | wc –l
 ```
-        If the number is too small, we recommend adjusting MAF condition. 
-           To reduce calling time, we suggest to give the intersected SNPs creating with a command 
+       If the number is too small, we recommend adjusting MAF condition. 
+       To reduce calling time, we suggest to give the intersected SNPs creating with a command 
 ```
 	bedtools intersect –a SNP_LIST.BED –b TARGETED.BED > snp_list.targeted_only.bed
 ```
