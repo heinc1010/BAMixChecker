@@ -109,7 +109,7 @@ java -jar picard.jar AddOrReplaceReadGroups \
 I=RNA_T_01.sam \
 O=RNA_T_01.rg_added_sorted.bam \
 SO=coordinate \
-RGID=id \
+RGID=project \
 RGLB=library \
 RGPL=platform \
 RGPU=machine \
