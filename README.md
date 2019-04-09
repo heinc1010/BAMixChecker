@@ -144,11 +144,11 @@ BAMixChecker runs for human as default. However, it also can be applied to other
 3. Among the well mappable SNPs, select only higher MAF SNP loci. For human, global MAFs over 0.45 and under 0.55 and MAFs over 0.35 and under 0.65 within each population are applied. If the database doesn’t have MAF information in each population, it can be skipped but also consider higher global MAF condition if the SNP set is too big because of lack of proper filtering annotation earlier steps. 
 If the dataset is targeted sequencing dataset, the SNP set is considered not only higher MAF but also the number of SNPs. To compare genotype of samples, enough number of SNP loci to compare is required. For human data, BAMixChecker adjusts MAF condition to contain SNPs over 200 for a dataset with the target region information from BED file. Even though SNPs under 50 could discriminate in RNA-seq with the condition which is global MAFs over 0.45 and under 0.55 and MAFs over 0.35 and under 0.65 within each population, we recommend SNPs set having over 200 loci because the possibility of mutation is decreasing by decreasing MAF. It can’t be automated for non-human organism because of a uncertainness of each database annotation. Instead of it, users can check the number of SNPs in the targeted region with bedtools. The command is 
 ```
-bedtools intersect –a SNP_LIST.BED –b TARGETED.BED | wc –l
+	bedtools intersect –a SNP_LIST.BED –b TARGETED.BED | wc –l
 ```
-     If the number is too small, we recommend adjusting MAF condition. To reduce calling time, we suggest to give the intersected SNPs creating with a command 
+        If the number is too small, we recommend adjusting MAF condition. To reduce calling time, we suggest to give the intersected SNPs creating with a command 
 ```
-bedtools intersect –a SNP_LIST.BED –b TARGETED.BED > snp_list.targeted_only.bed
+	bedtools intersect –a SNP_LIST.BED –b TARGETED.BED > snp_list.targeted_only.bed
 ```
 
 Usage
