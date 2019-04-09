@@ -6,6 +6,7 @@ pages:
     - 'Application for Non-human organism': 'non_human.md'
 python:
    version: 2.7
+   pip_install: false
    install:
       - requirements: docs/requirements.txt
       - method: pip
