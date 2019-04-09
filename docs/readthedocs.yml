@@ -4,3 +4,8 @@ pages:
   - Issues:
     - 'Processing for RNA-seq': 'rna_seq.md'
     - 'Application for Non-human organism': 'non_human.md'
+python:
+   version: 2.7
+   install:
+      - requirements: docs/requirements.txt
+      - method: pip
