@@ -207,9 +207,12 @@ Or
 
 Output
 --------
-BAMixChecker reports the result of sample matching analysis in .html file as well as .txt.
+BAMixChecker reports the result of sample matching analysis in .html file and heatmap in.pdf as well as .txt.
 #### “BAMixChecker_report.html"
 <img src="./Report_ex.gif" alt="BAMixChecker_report.html" width="600"/>
+
+#### “BAMixChecker_heatmap.pdf"
+<img src="./BAMixChecker_heatmap_ex.gif" alt="BAMixChecker_heatmap.pdf" width="600"/>
 
 #### “Mismatched_samples.txt"
   ```
