@@ -137,7 +137,7 @@ O=Homo_sapiens.GRCh38.dict
 ```
 see more details in https://gatkforums.broadinstitute.org/gatk/discussion/1601/how-can-i-prepare-a-fasta-file-to-use-as-reference .
 
-
+#### 
 
 Usage
 ------
@@ -149,7 +149,7 @@ or
 
 -r --Ref Reference file
 
-additionally for the Targeted sequencing data mode
+additionally for the Targeted sequencing dataset
 -b --BEDfile  Targeted bed file for Targeted sequencing data mode.
 ```
 #### Optional arguments
@@ -160,7 +160,8 @@ additionally for the Targeted sequencing data mode
 --FullPATH Use to report with the full path of file. BAMixChecker resports with the only file name as a default.
 --RemoveVCF Use this option to remove called VCF files after running
 --OFFFileNameMatching Use this option to compare files only by genotype.
-
+-nhSNP --NonHumanSNPlist SNP list for non-human organism sample matching check-up. 
+-pld' '--Ploidy' Ploidy of sample. Default = 2 for human.
 ```
 
 #### BAMixChecker runs a mode for WES and RNA-seq as a default without bed file.  
