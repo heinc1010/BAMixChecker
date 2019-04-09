@@ -1,6 +1,6 @@
 theme: readthedocs
 pages: 
-  - Instruction: instruction.md
+  - Instruction: README.md
   - Issues:
     - 'Processing for RNA-seq': 'rna_seq.md'
     - 'Application for Non-human organism': 'non_human.md'
