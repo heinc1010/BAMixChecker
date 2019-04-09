@@ -137,7 +137,19 @@ O=Homo_sapiens.GRCh38.dict
 ```
 see more details in https://gatkforums.broadinstitute.org/gatk/discussion/1601/how-can-i-prepare-a-fasta-file-to-use-as-reference .
 
-#### 
+#### SNP list for non-human organism
+BAMixChecker runs for human as default. However, it also can be applied to other species with ‘--NonHumanSNPlist’ option for customized SNP list and proper reference. To extract only informative region, SNP list analyzed in a large population is required. It’s hard to generalize the method to select informative SNPs because annotation in each database is various. However, a mandatory annotation is MAF in the population. In addition to MAF, annotation about region affecting mappability is useful to select informative loci. Recommended SNP loci selection steps are below: 
+1. Filter uncertain variants out from a list of SNP in large genomic analysis database of the organism with annotations the database offers like basic calling filter of a caller, mapping quality condition, etc.
+2. Remove SNPs in a not well mappable region like a low complex region, a segment duplicated regions, and a simple repeat region, etc. It can be annotated on the database or you can get the region information in UCSC genome browser (Kent, et al., 2002) for example of simple repeat region. 
+3. Among the well mappable SNPs, select only higher MAF SNP loci. For human, global MAFs over 0.45 and under 0.55 and MAFs over 0.35 and under 0.65 within each population are applied. If the database doesn’t have MAF information in each population, it can be skipped but also consider higher global MAF condition if the SNP set is too big because of lack of proper filtering annotation earlier steps. 
+If the dataset is targeted sequencing dataset, the SNP set is considered not only higher MAF but also the number of SNPs. To compare genotype of samples, enough number of SNP loci to compare is required. For human data, BAMixChecker adjusts MAF condition to contain SNPs over 200 for a dataset with the target region information from BED file. Even though SNPs under 50 could discriminate in RNA-seq with the condition which is global MAFs over 0.45 and under 0.55 and MAFs over 0.35 and under 0.65 within each population, we recommend SNPs set having over 200 loci because the possibility of mutation is decreasing by decreasing MAF. It can’t be automated for non-human organism because of a uncertainness of each database annotation. Instead of it, users can check the number of SNPs in the targeted region with bedtools. The command is 
+```
+bedtools intersect –a SNP_LIST.BED –b TARGETED.BED | wc –l
+```
+If the number is too small, we recommend adjusting MAF condition. To reduce calling time, we suggest to give the intersected SNPs creating with a command 
+```
+bedtools intersect –a SNP_LIST.BED –b TARGETED.BED > snp_list.targeted_only.bed
+```
 
 Usage
 ------
