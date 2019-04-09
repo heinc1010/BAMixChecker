@@ -1,5 +1,5 @@
 BAMixChecker:
-A fast and efficient tool for sample matching checkup 
+An automated tool for sample matching checkup in NGS cohorts  
 =================================================================================
 
 
