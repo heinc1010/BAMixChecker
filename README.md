@@ -151,6 +151,8 @@ If the dataset is targeted sequencing dataset, the SNP set is considered not onl
 ```
 	bedtools intersect –a SNP_LIST.BED –b TARGETED.BED > snp_list.targeted_only.bed
 ```
+Additionally, user can refer http://evodify.com/gatk-in-non-model-organism/ for bam file processing for non-human organism. 
+
 
 Usage
 ------
