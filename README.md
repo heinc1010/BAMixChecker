@@ -97,7 +97,7 @@ The form of the list can be two types.
   /path/Tumor_04.bam
   /path/Normal_04.bam
 ```
-If the number of files is under 6 or the file names don’t contain common regulation when it is divided by the delimiters, it only pairs by genotype, not by name and skip to make ‘Mismatched_sample.txt’.
+If the number of files is under 6 or the file names don’t contain common regulation when it is divided by the delimiters, it only pairs by genotype, not by name and skips to make ‘Mismatched_sample.txt’.
 
 * RNA-seq bam file
 
@@ -120,7 +120,7 @@ Additional proper processing for RNA-seq data is instructed in https://gatkforum
 
 #### Reference file
 
-To call with GATK HaplotypeCaller, it require proper reference sequence file with '.fai' file and '.dict' file for the reference which is the same reference used to align your bam files.
+To call with GATK HaplotypeCaller, it requires proper reference sequence file with '.fai' file and '.dict' file for the reference which is the same reference used to align your bam files.
 
 iGenomes provides 'Ready-To-Use' reference sequence file of various species including human with the annotation files.
 
@@ -160,7 +160,7 @@ Usage
 ```
 -d –-DIR Directory path of the .BAM files 
 or
--l --List A file with the list of files ( The form is refered above in the 'Input' section )
+-l --List A file with the list of files ( The form is referred above in the 'Input' section )
 
 -r --Ref Reference file
 
@@ -170,9 +170,9 @@ additionally for the Targeted sequencing dataset
 #### Optional arguments
 ```
 -v –-RefVer ['hg38','hg19']. Default is “hg38”. If the reference is hg19, give this option ‘-r hg19’.
--o --OutputDIR Output directory path. BAMixChecker creates the new directory '/BAMixChecker' under current directory as a default.
+-o --OutputDIR Output directory path. BAMixChecker creates the new directory '/BAMixChecker' under the current directory as a default.
 -p --MaxProcess The max number of process. Default = 1
---FullPATH Use to report with the full path of file. BAMixChecker resports with the only file name as a default.
+--FullPATH Use to report with the full path of the file. BAMixChecker resports with the only file name as a default.
 --RemoveVCF Use this option to remove called VCF files after running
 --OFFFileNameMatching Use this option to compare files only by genotype.
 -nhSNP --NonHumanSNPlist SNP list for non-human organism sample matching check-up. 
@@ -180,7 +180,7 @@ additionally for the Targeted sequencing dataset
 ```
 
 #### BAMixChecker runs a mode for WES and RNA-seq as a default without bed file.  
-#### If a bed file is given with –b option, it runs as targeted sequencing mode.
+#### If a bed file is given with –b option, it runs as a targeted sequencing mode.
 
 
 #### 1)	Whole genome or Whole Exome data or RNA sequencing data
@@ -218,7 +218,7 @@ Or
   –v hg19 
   -b /path/targeted.bed
 ```
-#### If the dataset consists of both of WES/RNA-seq and Targeted sequencing data mapping with same reference, run as targeted sequencing data mode with the targeted bed file for the Targeted sequencing data.
+#### If the dataset consists of both of WES/RNA-seq and Targeted sequencing data mapping with the same reference, run as targeted sequencing data mode with the targeted bed file for the Targeted sequencing data.
 
 
 Output
