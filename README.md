@@ -121,7 +121,7 @@ Additional proper processing for RNA-seq data is instructed in https://gatkforum
 
 #### Reference file
 
-To call with GATK HaplotypeCaller, it requires proper reference sequence file with '.fai' file and '.dict' file for the reference which is the same reference used to align your bam files.
+To call with GATK HaplotypeCaller, it requires proper reference sequence file with '.fai' file and '.dict' file for the reference which is the *same* reference used to align your bam files.
 
 iGenomes provides 'Ready-To-Use' reference sequence file of various species including human with the annotation files.
 
