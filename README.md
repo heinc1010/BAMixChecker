@@ -152,6 +152,11 @@ If the dataset is targeted sequencing dataset, the SNP set is considered not onl
 ```
 	bedtools intersect –a SNP_LIST.BED –b TARGETED.BED > snp_list.targeted_only.bed
 ```
+Another precaution is that the contigs in the generated SNP list should be included in the reference contigs.
+ex) SNP list contigs : [chr1, chr2,...] , Reference contigs : [chr1, chr2, ... ]  .... working
+    SNP list contigs : [1, 2,...] , Reference contigs : [chr1, chr2, ... ]        .... ERROR
+It should be the same with contigs in BAM files. ( If the reference is the same with the one to align the BAM files, it would be same with the reference contigs )
+
 Additionally, user can refer http://evodify.com/gatk-in-non-model-organism/ for bam file processing for non-human organism. 
 
 
