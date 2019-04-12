@@ -62,11 +62,14 @@ And then set the tools PATH on the configuration file,
 Input
 -----------
 #### BAM files
+To call variants by running GATK HaplotypeCaller, each bam file should be indexed.
+```
+samtools index /path/Tumor_01.bam
+```
+
 To run BAMixChecker, the directory path of bam files with –d option or a list of bam files with –l is required.
-A matched sample list or directory information is needed.
 
 The form of the list can be two types.
-
 -Tab-divided paired files on each line. BAMixChecker pair files based on the pair information.
   ```	
   /path/Tumor_01.bam	/path/Normal_01.bam
@@ -94,6 +97,8 @@ The form of the list can be two types.
   /path/Normal_04.bam
 ```
 If the number of files is under 6 or the file names don’t contain common regulation when it is divided by the delimiters, it only pairs by genotype, not by name and skips to make ‘Mismatched_sample.txt’ which is the same using '--OFFFileNameMatching' option.
+
+
 
 * RNA-seq bam file
 
