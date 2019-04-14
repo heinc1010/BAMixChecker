@@ -4,7 +4,7 @@ Installation
 
 Required tools
 -----------------
-. topic:: Required tools
+.. topic::
     * GATK >= 4.0 ( java 8 required )
     * Bedtools
     * Python 2.7 
