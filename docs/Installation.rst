@@ -37,6 +37,7 @@ Installation with the compressed file
 ---------------------------------------
 
 Download the compressed file from https://github.com/heinc1010/BAMixChecker.
+
 Then, decompress the .zip file.
 
 ::
@@ -58,12 +59,7 @@ And then set the tools PATH on the configuration file.
     GATK=/path/of/gatk
     BEDTOOLS=/path/of/bedtools
 
-
-* default (If you added the path in $PATH, you don’t need to modify the configuration file )
-
-
-::
-
+.. note:: * default (If you added the path in $PATH, you don’t need to modify the configuration file )
     GATK=gatk
     BEDTOOLS=bedtools
 
