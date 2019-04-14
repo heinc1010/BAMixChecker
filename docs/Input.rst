@@ -5,13 +5,17 @@ Input
 BAM files
 -----------------
 
-To call variants by running GATK HaplotypeCaller, each bam file should be indexed.::
+To call variants by running GATK HaplotypeCaller, each bam file should be indexed.
+
+::
     
     samtools index /path/Tumor_01.bam
 
 BAMixChecker calls variants with GVCF file which is only possible for single sample ID.
 
-If input is multi-sample BAM file, it needs to replace a read group with Picard AddOrReplaceReadGroups.::
+If input is multi-sample BAM file, it needs to replace a read group with Picard AddOrReplaceReadGroups.
+
+::
 
     java -jar picard.jar AddOrReplaceReadGroups \
     I=RNA_T_01.bam \
@@ -50,8 +54,6 @@ The form of the list can be two types.
 
 * One bam file on each line. BAMixChecker check the file names and evaluate whether the files are pair based on the name.
 
-.. note:: If you want to compare files only by genotype, you can use '--OFFFileNameMatching' option.
-
 ::
      
     /path/Tumor_01.bam
@@ -63,6 +65,8 @@ The form of the list can be two types.
     /path/Tumor_04.bam
     /path/Normal_04.bam
 
+.. note:: If you want to compare files only by genotype, you can use '--OFFFileNameMatching' option.
+
 .. note:: If the number of files is under 6 or the file names don’t contain common regulation when it is divided by the delimiters, it only pairs by genotype, not by name and skips to make ‘Mismatched_sample.txt’ which is the same using '--OFFFileNameMatching' option.
 
 
@@ -71,7 +75,9 @@ RNA-seq BAM file
 
 BAMixChecker calls variants with GVCF file which is only possible for single sample ID.
 
-So to run GATK HapplotypeCaller, RNA-seq bam file needs to replace a read group with Picard AddOrReplaceReadGroups.::
+So to run GATK HapplotypeCaller, RNA-seq bam file needs to replace a read group with Picard AddOrReplaceReadGroups.
+
+::
 
     java -jar picard.jar AddOrReplaceReadGroups \
     I=RNA_T_01.bam \
@@ -151,7 +157,9 @@ Recommended SNP loci selection steps are below:
     If the number is too small, we recommend adjusting MAF condition. 
     
     
-    To reduce calling time, we suggest to give the intersected SNPs creating with a command::
+    To reduce calling time, we suggest to give the intersected SNPs creating with a command
+    
+    ::
 
         bedtools intersect –a SNP_LIST.BED –b TARGETED.BED > snp_list.targeted_only.bed
 
