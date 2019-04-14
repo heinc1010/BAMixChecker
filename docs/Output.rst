@@ -16,7 +16,7 @@ Heatmap
 ------------------------------
 Sample mismatch check-up analysis result of BAMixChercker in heatmap with .PDF.
 
-.. image:: Heatmap_ex.jpg
+.. image:: Heatmap_ex.gif
     :alt: BAMixChecker_heatmap.pdf
     :width: 500
 
