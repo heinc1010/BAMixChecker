@@ -4,24 +4,24 @@ Installation
 
 Required tools
 -----------------
-
-* GATK >= 4.0 ( java 8 required )
-* Bedtools
-* Python 2.7 
+. topic:: 
+    * GATK >= 4.0 ( java 8 required )
+    * Bedtools
+    * Python 2.7 
     
-    -scipy
+        -scipy
     
-    -numpy
+        -numpy
     
-    -multiprocessing
-
-* R
+        -multiprocessing
     
-    -ztable
+    * R
     
-    -rmarkdown
+        -ztable
     
-    -corrplot
+        -rmarkdown
+    
+        -corrplot
 
 
 Installation with 'git clone'
@@ -59,8 +59,9 @@ And then set the tools PATH on the configuration file.
     GATK=/path/of/gatk
     BEDTOOLS=/path/of/bedtools
 
-.. note:: * default (If you added the path in $PATH, you don’t need to modify the configuration file )
+.. note:: * Default (If you added the path in $PATH, you don’t need to modify the configuration file )
     GATK=gatk
+    
     BEDTOOLS=bedtools
 
 
