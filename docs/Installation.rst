@@ -4,7 +4,7 @@ Installation
 
 Required tools
 -----------------
-.. topic::
+.. topic:: Required tools
     * GATK >= 4.0 ( java 8 required )
     
     * Bedtools
