@@ -24,7 +24,7 @@ Sample mismatch check-up analysis result of BAMixChercker in heatmap with .PDF.
 TEXT files
 ---------------------------------------
 
-* **Mismatched_samples.txt"**::
+* **Mismatched_samples.txt**::
 
     #Matched samples only by genotype or file name but not by both
     S1254_N.bam		S1254_T.bam	       0.38	             Unmatched
