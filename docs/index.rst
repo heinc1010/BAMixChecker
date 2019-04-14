@@ -24,7 +24,7 @@ And the user can catch the information of mismatched sample information as well 
     :alt: BAMixChecker.html
     :width: 600
 
-.. image:: Heatmap_ex.jpg
+.. image:: Heatmap_ex.gif
     :alt: BAMixChecker_heatmap.pdf
     :width: 500
 
