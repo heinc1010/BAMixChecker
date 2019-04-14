@@ -28,31 +28,3 @@ And the user can catch the information of mismatched sample information as well 
     :alt: BAMixChecker_heatmap.pdf
     :width: 500
 
-.. toctree::
-   :maxdepth: 3
-   :caption: BAMixChecker:
-   
-   Installation
-       Required tools
-       Installation with 'git clone'
-       Installation with the compressed file
-       Set configeration
-
-   Input
-       BAM file
-           RNA-seq BAM file
-       Reference sequence
-       SNP list for non-human organism
-    
-   Usage
-       Required arguments
-       Optional arguments
-       Usage for each data type
-       Tutorial
-   
-   Output
-       Report of BAMixChecker
-       Heatmap
-       TEXT files
-
-
