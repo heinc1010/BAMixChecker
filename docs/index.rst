@@ -32,7 +32,7 @@ And the user can catch the information of mismatched sample information as well 
    :maxdepth: 3
    :caption: BAMixChecker:
    
-   Installation
+   Instllation
        Required tools
        Installation with 'git clone'
        Installation with the compressed file
