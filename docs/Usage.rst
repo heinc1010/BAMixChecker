@@ -90,8 +90,7 @@ Or
     -v hg19 \
     -b /path/targeted.bed
 
-
-If the dataset consists of both of WES/RNA-seq and Targeted sequencing data mapping with the same reference, run as targeted sequencing data mode with the targeted bed file for the Targeted sequencing data.
+.. note:: If the dataset consists of both of WES/RNA-seq and Targeted sequencing data mapping with the same reference, run as targeted sequencing data mode with the targeted bed file for the Targeted sequencing data.
 
 
 Tutorial
