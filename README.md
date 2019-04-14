@@ -80,7 +80,7 @@ RGPL=platform \
 RGPU=machine \
 RGSM=sample
 ```
-
+Additional recommanded processing for accurate variant discovery with GATK is instrcted in https://software.broadinstitute.org/gatk/best-practices/workflow?id=11165.
 
 
 To run BAMixChecker, the directory path of bam files with –d option or a list of bam files with –l is required.
