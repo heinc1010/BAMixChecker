@@ -20,13 +20,13 @@ It’s simple and fast but accurate to detect a pair of bam files from same indi
 
 And the user can catch the information of mismatched sample information as well as the matched sample information at a glance.
 
-"Report of BAMixChecker in HTML file"
+**Report of BAMixChecker in HTML file**
 
 .. image:: Report_ex.gif
     :alt: BAMixChecker.html
     :width: 600
 
-"Heatmap result of BAMixChecker in pdf file"
+**Heatmap result of BAMixChecker in pdf file**
 
 .. image:: Heatmap_ex.gif
     :alt: BAMixChecker_heatmap.pdf
