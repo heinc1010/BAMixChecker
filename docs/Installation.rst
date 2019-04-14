@@ -4,7 +4,7 @@ Installation
 
 Required tools
 -----------------
-. topic:: 
+. topic:: Required tools
     * GATK >= 4.0 ( java 8 required )
     * Bedtools
     * Python 2.7 
@@ -59,9 +59,10 @@ And then set the tools PATH on the configuration file.
     GATK=/path/of/gatk
     BEDTOOLS=/path/of/bedtools
 
-.. note:: * Default (If you added the path in $PATH, you don’t need to modify the configuration file )
-    GATK=gatk
-    
+* Default (If you added the path in $PATH, you don’t need to modify the configuration file )
+::
+
+    GATK=gatk 
     BEDTOOLS=bedtools
 
 
