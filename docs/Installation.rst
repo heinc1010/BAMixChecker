@@ -6,7 +6,9 @@ Required tools
 -----------------
 .. topic::
     * GATK >= 4.0 ( java 8 required )
+    
     * Bedtools
+    
     * Python 2.7 
     
         -scipy
@@ -14,6 +16,7 @@ Required tools
         -numpy
     
         -multiprocessing 
+        
     * R
     
         -ztable
