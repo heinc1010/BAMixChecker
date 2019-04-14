@@ -66,6 +66,22 @@ To call variants by running GATK HaplotypeCaller, each bam file should be indexe
 ```
 samtools index /path/Tumor_01.bam
 ```
+BAMixChecker calls variants with GVCF file which is only possible for single sample ID.
+
+If input is multi-sample BAM file, it needs to replace a read group with Picard AddOrReplaceReadGroups.
+```
+java -jar picard.jar AddOrReplaceReadGroups \
+I=RNA_T_01.bam \
+O=RNA_T_01.rg_added_sorted.bam \
+SO=coordinate \
+RGID=project \
+RGLB=library \
+RGPL=platform \
+RGPU=machine \
+RGSM=sample
+```
+
+
 
 To run BAMixChecker, the directory path of bam files with –d option or a list of bam files with –l is required.
 
@@ -107,7 +123,7 @@ BAMixChecker calls variants with GVCF file which is only possible for single sam
 So to run GATK HapplotypeCaller, RNA-seq bam file needs to add read groups with Picard AddOrReplaceReadGroups.
 ```
 java -jar picard.jar AddOrReplaceReadGroups \
-I=RNA_T_01.sam \
+I=RNA_T_01.bam \
 O=RNA_T_01.rg_added_sorted.bam \
 SO=coordinate \
 RGID=project \
