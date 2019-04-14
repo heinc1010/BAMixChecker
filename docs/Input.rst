@@ -23,7 +23,7 @@ If input is multi-sample BAM file, it needs to replace a read group with Picard 
     RGPU=machine \
     RGSM=sample
 
-Additional recommanded processing for accurate variant discovery with GATK is instrcted in https://software.broadinstitute.org/gatk/best-practices/workflow?id=11165.
+.. seealso:: Additional recommanded processing for accurate variant discovery with GATK is instrcted in https://software.broadinstitute.org/gatk/best-practices/workflow?id=11165.
 
 To run BAMixChecker, the directory path of bam files with –d option or a list of bam files with –l is required.
 
@@ -50,7 +50,7 @@ The form of the list can be two types.
 
 * One bam file on each line. BAMixChecker check the file names and evaluate whether the files are pair based on the name.
 
-  If you want to compare files only by genotype, you can use '--OFFFileNameMatching' option.
+.. note:: If you want to compare files only by genotype, you can use '--OFFFileNameMatching' option.
 
 ::
      
@@ -63,7 +63,7 @@ The form of the list can be two types.
     /path/Tumor_04.bam
     /path/Normal_04.bam
 
-If the number of files is under 6 or the file names don’t contain common regulation when it is divided by the delimiters, it only pairs by genotype, not by name and skips to make ‘Mismatched_sample.txt’ which is the same using '--OFFFileNameMatching' option.
+.. note:: If the number of files is under 6 or the file names don’t contain common regulation when it is divided by the delimiters, it only pairs by genotype, not by name and skips to make ‘Mismatched_sample.txt’ which is the same using '--OFFFileNameMatching' option.
 
 
 RNA-seq BAM file
@@ -83,8 +83,7 @@ So to run GATK HapplotypeCaller, RNA-seq bam file needs to replace a read group 
     RGPU=machine \
     RGSM=sample
 
-
-Additional proper processing for RNA-seq data is instructed in https://gatkforums.broadinstitute.org/gatk/discussion/3891/calling-variants-in-rnaseq.
+.. seealso:: Additional proper processing for RNA-seq data is instructed in https://gatkforums.broadinstitute.org/gatk/discussion/3891/calling-variants-in-rnaseq.
 
 Reference sequence
 ------------------------------
@@ -105,8 +104,7 @@ Or, you can create by your self with samtools and Picard.::
     R=Homo_sapiens.GRCh38.fa \
     O=Homo_sapiens.GRCh38.dict
 
-
-see more details in https://gatkforums.broadinstitute.org/gatk/discussion/1601/how-can-i-prepare-a-fasta-file-to-use-as-reference .
+.. seealso:: see more details in https://gatkforums.broadinstitute.org/gatk/discussion/1601/how-can-i-prepare-a-fasta-file-to-use-as-reference .
 
 
 SNP list for non-human organism
@@ -167,7 +165,6 @@ Another precaution is that the contigs in the generated SNP list should be inclu
     
 It should be the same with contigs in BAM files. (If the reference is the same with the one to align the BAM files, it would be same with the reference contigs.)
 
-
-Additionally, user can refer http://evodify.com/gatk-in-non-model-organism/ for bam file processing for non-human organism. 
+.. seealso:: Additionally, user can refer http://evodify.com/gatk-in-non-model-organism/ for bam file processing for non-human organism. 
 
 
