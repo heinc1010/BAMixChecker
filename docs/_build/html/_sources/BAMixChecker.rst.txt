@@ -1,0 +1,13 @@
+BAMixChecker! 
+======================================
+
+.. automodule:: BAMixChecker
+ :members: :undoc-members: 
+ :show-inheritance: 
+
+ Modules 
+ 
+ ------- 
+ 
+ .. automodule:: BAMixChecker.my_module 
+  :members:

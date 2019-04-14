@@ -1,0 +1,314 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Usage &mdash; BAMixChecker 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Output" href="Output.html" />
+    <link rel="prev" title="Input" href="Input.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="README.html" class="icon icon-home"> BAMixChecker
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">BAMixChecker:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Input.html">Input</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#required-arguments">Required arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optional-arguments">Optional arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage-for-each-data-type">Usage for each data type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tutorial">Tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Output.html">Output</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="README.html">BAMixChecker</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="README.html">Docs</a> &raquo;</li>
+        
+      <li>Usage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Usage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="required-arguments">
+<h2>Required arguments<a class="headerlink" href="#required-arguments" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>-d –-DIR    Directory path of the .BAM files
+or
+-l --List   A file with the list of files ( The form is referred above in the &#39;Input&#39; section )
+
+-r --Ref    Reference file
+
+additionally for the Targeted sequencing dataset
+
+-b --BEDfile    Targeted bed file for Targeted sequencing data mode.
+</pre></div>
+</div>
+</div>
+<div class="section" id="optional-arguments">
+<h2>Optional arguments<a class="headerlink" href="#optional-arguments" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>-v –-RefVer [&#39;hg38&#39;,&#39;hg19&#39;] Default is “hg38”. If the reference is hg19, give this option ‘-r hg19’.
+
+-o --OutputDIR  Output directory path. BAMixChecker creates the new directory &#39;/BAMixChecker&#39; under the current directory as a default.
+
+-p --MaxProcess The max number of process. Default = 1
+
+--FullPATH  Use to report with the full path of the file. BAMixChecker resports with the only file name as a default.
+
+--RemoveVCF Use this option to remove called VCF files after running
+
+--OFFFileNameMatching   Use this option to compare files only by genotype.
+
+-nhSNP --NonHumanSNPlist    A SNP list for non-human organism sample matching check-up.
+
+-pld&#39; --Ploidy  Ploidy of sample. Default = 2 for human.
+</pre></div>
+</div>
+</div>
+<div class="section" id="usage-for-each-data-type">
+<h2>Usage for each data type<a class="headerlink" href="#usage-for-each-data-type" title="Permalink to this headline">¶</a></h2>
+<p>BAMixChecker runs a mode for WES and RNA-seq as a default without bed file.</p>
+<p>If a bed file is given with –b option, it runs as a targeted sequencing mode.</p>
+<ol class="arabic simple">
+<li>Whole genome or Whole Exome data or RNA sequencing data</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python BAMixChecker.py \
+-d /path/aligned/files/ \
+-r /path/reference/HG38/genome.fa \
+-o /path/new/directory
+</pre></div>
+</div>
+<p>Or</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python BAMixChecker.py \
+-l /path/aligned/file_list.txt \
+-p 4 \
+-r /path/reference/HG38/genome.fa \
+-o /path/new/directory
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Targeted sequencing data</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python BAMixChecker.py \
+-d /path/aligned/files/ \
+-p 2 \
+-r /path/reference/HG19/genome.fa \
+-o /path/new/directory \
+-v hg19 \
+-b /path/targeted.bed
+</pre></div>
+</div>
+<p>Or</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python BAMixChecker.py \
+-l /path/aligned/file_list.txt \
+-r /path/reference/HG19/genome.fa \
+-o /path/new/directory \
+-v hg19 \
+-b /path/targeted.bed
+</pre></div>
+</div>
+<p>If the dataset consists of both of WES/RNA-seq and Targeted sequencing data mapping with the same reference, run as targeted sequencing data mode with the targeted bed file for the Targeted sequencing data.</p>
+</div>
+<div class="section" id="tutorial">
+<h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Set the required variants:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd BAMixChecker/tutorialData
+$ vim script_example.sh
+
+    BAMixChecker_PATH=/path/to/BAMixChecker
+    OUT_DIR=/output/dir
+    REF=/path/of/reference/hg38/genome.fa
+</pre></div>
+</div>
+</li>
+<li><p class="first">Run the script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sh script_example.sh
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Output.html" class="btn btn-neutral float-right" title="Output" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Input.html" class="btn btn-neutral float-left" title="Input" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Hein Chun
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

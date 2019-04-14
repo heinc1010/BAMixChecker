@@ -1,10 +1,9 @@
 theme: readthedocs
 pages: 
-  - Instruction: README.rst
-  - Installation: Installation.rst
-  - Input: Input.rst
-  - Usage: Usage.rst
-  - Output: Output.rst
+  - Instruction: README.md
+  - Issues:
+    - 'Processing for RNA-seq': 'rna_seq.md'
+    - 'Application for Non-human organism': 'non_human.md'
 python:
    version: 2.7
    install:

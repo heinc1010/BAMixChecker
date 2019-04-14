@@ -1,0 +1,348 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Input &mdash; BAMixChecker 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Output" href="Output.html" />
+    <link rel="prev" title="Installation" href="Installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="README.html" class="icon icon-home"> BAMixChecker
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">BAMixChecker:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Input</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#bam-files">BAM files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#rna-seq-bam-file">RNA-seq BAM file</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#reference-sequence">Reference sequence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#snp-list-for-non-human-organism">SNP list for non-human organism</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Output.html">Output</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="README.html">BAMixChecker</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="README.html">Docs</a> &raquo;</li>
+        
+      <li>Input</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Input.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="input">
+<h1>Input<a class="headerlink" href="#input" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="bam-files">
+<h2>BAM files<a class="headerlink" href="#bam-files" title="Permalink to this headline">¶</a></h2>
+<p>To call variants by running GATK HaplotypeCaller, each bam file should be indexed.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">samtools</span> <span class="n">index</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Tumor_01</span><span class="o">.</span><span class="n">bam</span>
+</pre></div>
+</div>
+<p>BAMixChecker calls variants with GVCF file which is only possible for single sample ID.</p>
+<p>If input is multi-sample BAM file, it needs to replace a read group with Picard AddOrReplaceReadGroups.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">java</span> <span class="o">-</span><span class="n">jar</span> <span class="n">picard</span><span class="o">.</span><span class="n">jar</span> <span class="n">AddOrReplaceReadGroups</span> \
+<span class="n">I</span><span class="o">=</span><span class="n">RNA_T_01</span><span class="o">.</span><span class="n">sam</span> \
+<span class="n">O</span><span class="o">=</span><span class="n">RNA_T_01</span><span class="o">.</span><span class="n">rg_added_sorted</span><span class="o">.</span><span class="n">bam</span> \
+<span class="n">SO</span><span class="o">=</span><span class="n">coordinate</span> \
+<span class="n">RGID</span><span class="o">=</span><span class="n">project</span> \
+<span class="n">RGLB</span><span class="o">=</span><span class="n">library</span> \
+<span class="n">RGPL</span><span class="o">=</span><span class="n">platform</span> \
+<span class="n">RGPU</span><span class="o">=</span><span class="n">machine</span> \
+<span class="n">RGSM</span><span class="o">=</span><span class="n">sample</span>
+</pre></div>
+</div>
+<p>Additional recommanded processing for accurate variant discovery with GATK is instrcted in <a class="reference external" href="https://software.broadinstitute.org/gatk/best-practices/workflow?id=11165">https://software.broadinstitute.org/gatk/best-practices/workflow?id=11165</a>.</p>
+<p>To run BAMixChecker, the directory path of bam files with –d option or a list of bam files with –l is required.</p>
+<p>The form of the list can be two types.</p>
+<ul class="simple">
+<li>Tab-divided paired files on each line. BAMixChecker pair files based on the pair information.</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Tumor_01</span><span class="o">.</span><span class="n">bam</span>  <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Normal_01</span><span class="o">.</span><span class="n">bam</span>
+<span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Tumor_02</span><span class="o">.</span><span class="n">bam</span>  <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Normal_02</span><span class="o">.</span><span class="n">bam</span>
+<span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Tumor_03</span><span class="o">.</span><span class="n">bam</span>  <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Normal_03</span><span class="o">.</span><span class="n">bam</span>
+<span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Tumor_04</span><span class="o">.</span><span class="n">bam</span>  <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Normal_04</span><span class="o">.</span><span class="n">bam</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Tumor_01</span><span class="o">.</span><span class="n">bam</span>      <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Normal_01</span><span class="o">.</span><span class="n">bam</span>     <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Meta_01</span><span class="o">.</span><span class="n">bam</span>
+<span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Tumor_02</span><span class="o">.</span><span class="n">bam</span>      <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Normal_02</span><span class="o">.</span><span class="n">bam</span>     <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Meta_02</span><span class="o">.</span><span class="n">bam</span>
+<span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Tumor_03</span><span class="o">.</span><span class="n">bam</span>      <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Normal_03</span><span class="o">.</span><span class="n">bam</span>     <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Meta_03</span><span class="o">.</span><span class="n">bam</span>
+<span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Tumor_04</span><span class="o">.</span><span class="n">bam</span>      <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Normal_04</span><span class="o">.</span><span class="n">bam</span>     <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Meta_04</span><span class="o">.</span><span class="n">bam</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">One bam file on each line. BAMixChecker check the file names and evaluate whether the files are pair based on the name.</p>
+<p>If you want to compare files only by genotype, you can use ‘–OFFFileNameMatching’ option.</p>
+</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Tumor_01</span><span class="o">.</span><span class="n">bam</span>
+<span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Normal_01</span><span class="o">.</span><span class="n">bam</span>
+<span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Tumor_02</span><span class="o">.</span><span class="n">bam</span>
+<span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Normal_02</span><span class="o">.</span><span class="n">bam</span>
+<span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Tumor_03</span><span class="o">.</span><span class="n">bam</span>
+<span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Normal_03</span><span class="o">.</span><span class="n">bam</span>
+<span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Tumor_04</span><span class="o">.</span><span class="n">bam</span>
+<span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">Normal_04</span><span class="o">.</span><span class="n">bam</span>
+</pre></div>
+</div>
+<p>If the number of files is under 6 or the file names don’t contain common regulation when it is divided by the delimiters, it only pairs by genotype, not by name and skips to make ‘Mismatched_sample.txt’ which is the same using ‘–OFFFileNameMatching’ option.</p>
+<div class="section" id="rna-seq-bam-file">
+<h3>RNA-seq BAM file<a class="headerlink" href="#rna-seq-bam-file" title="Permalink to this headline">¶</a></h3>
+<p>BAMixChecker calls variants with GVCF file which is only possible for single sample ID.</p>
+<p>So to run GATK HapplotypeCaller, RNA-seq bam file needs to replace a read group with Picard AddOrReplaceReadGroups.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">java</span> <span class="o">-</span><span class="n">jar</span> <span class="n">picard</span><span class="o">.</span><span class="n">jar</span> <span class="n">AddOrReplaceReadGroups</span> \
+<span class="n">I</span><span class="o">=</span><span class="n">RNA_T_01</span><span class="o">.</span><span class="n">sam</span> \
+<span class="n">O</span><span class="o">=</span><span class="n">RNA_T_01</span><span class="o">.</span><span class="n">rg_added_sorted</span><span class="o">.</span><span class="n">bam</span> \
+<span class="n">SO</span><span class="o">=</span><span class="n">coordinate</span> \
+<span class="n">RGID</span><span class="o">=</span><span class="n">project</span> \
+<span class="n">RGLB</span><span class="o">=</span><span class="n">library</span> \
+<span class="n">RGPL</span><span class="o">=</span><span class="n">platform</span> \
+<span class="n">RGPU</span><span class="o">=</span><span class="n">machine</span> \
+<span class="n">RGSM</span><span class="o">=</span><span class="n">sample</span>
+</pre></div>
+</div>
+<p>Additional proper processing for RNA-seq data is instructed in <a class="reference external" href="https://gatkforums.broadinstitute.org/gatk/discussion/3891/calling-variants-in-rnaseq">https://gatkforums.broadinstitute.org/gatk/discussion/3891/calling-variants-in-rnaseq</a>.</p>
+</div>
+</div>
+<div class="section" id="reference-sequence">
+<h2>Reference sequence<a class="headerlink" href="#reference-sequence" title="Permalink to this headline">¶</a></h2>
+<p>To call with GATK HaplotypeCaller, it requires proper reference sequence file with ‘.fai’ file and ‘.dict’ file for the reference which is the <strong>same</strong> reference used to align your bam files.</p>
+<p>iGenomes provides ‘Ready-To-Use’ reference sequence file of various species including human with the annotation files.</p>
+<p><a class="reference external" href="https://support.illumina.com/sequencing/sequencing_software/igenome.html">https://support.illumina.com/sequencing/sequencing_software/igenome.html</a></p>
+<p>Or, you can create by your self with samtools and Picard.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">samtools</span> <span class="n">faidx</span> <span class="n">Homo_sapiens</span><span class="o">.</span><span class="n">GRCh38</span><span class="o">.</span><span class="n">fa</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">java</span> <span class="o">-</span><span class="n">jar</span> <span class="n">picard</span><span class="o">.</span><span class="n">jar</span> <span class="n">CreateSequenceDictionary</span> \
+<span class="n">R</span><span class="o">=</span><span class="n">Homo_sapiens</span><span class="o">.</span><span class="n">GRCh38</span><span class="o">.</span><span class="n">fa</span> \
+<span class="n">O</span><span class="o">=</span><span class="n">Homo_sapiens</span><span class="o">.</span><span class="n">GRCh38</span><span class="o">.</span><span class="n">dict</span>
+</pre></div>
+</div>
+<p>see more details in <a class="reference external" href="https://gatkforums.broadinstitute.org/gatk/discussion/1601/how-can-i-prepare-a-fasta-file-to-use-as-reference">https://gatkforums.broadinstitute.org/gatk/discussion/1601/how-can-i-prepare-a-fasta-file-to-use-as-reference</a> .</p>
+</div>
+<div class="section" id="snp-list-for-non-human-organism">
+<h2>SNP list for non-human organism<a class="headerlink" href="#snp-list-for-non-human-organism" title="Permalink to this headline">¶</a></h2>
+<p>BAMixChecker runs for human as default. However, it also can be applied to other species with ‘–NonHumanSNPlist’ option for customized SNP list and proper reference.</p>
+<p>To extract only informative region, SNP list analyzed in a large population is required.</p>
+<p>It’s hard to generalize the method to select informative SNPs because annotation in each database is various.</p>
+<p>However, a mandatory annotation is MAF in the population.</p>
+<p>In addition to MAF, annotation about region affecting mappability is useful to select informative loci.</p>
+<p>Recommended SNP loci selection steps are below:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Filter uncertain variants out from a list of SNP in large genomic analysis database of the organism with annotations the database offers like basic calling filter of a caller, mapping quality condition, etc.</li>
+</ol>
+<p>2. Remove SNPs in a not well mappable region like a low complex region, a segment duplicated regions, and a simple repeat region, etc.
+It can be annotated on the database or you can get the region information in UCSC genome browser (Kent, et al., 2002) for example of simple repeat region.</p>
+<p>3. Among the well mappable SNPs, select only higher MAF SNP loci. For human, global MAFs over 0.45 and under 0.55 and MAFs over 0.35 and under 0.65 within each population are applied.
+If the database doesn’t have MAF information in each population, it can be skipped but also consider higher global MAF condition if the SNP set is too big because of lack of proper filtering annotation earlier steps.</p>
+<p>If the dataset is targeted sequencing dataset, the SNP set is considered not only higher MAF but also the number of SNPs.</p>
+<p>To compare genotype of samples, enough number of SNP loci to compare is required.</p>
+<p>For human data, BAMixChecker adjusts MAF condition to contain SNPs over 200 for a dataset with the target region information from BED file. Even</p>
+<p>though SNPs under 50 could discriminate in RNA-seq with the condition which is global MAFs over 0.45 and under 0.55 and MAFs over 0.35 and under 0.65 within each population, we recommend SNPs set having over 200 loci because the possibility of mutation is decreasing by decreasing MAF.</p>
+<p>It can’t be automated for non-human organism because of a uncertainness of each database annotation.</p>
+<p>Instead of it, users can check the number of SNPs in the targeted region with bedtools.</p>
+<p>The command is</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>bedtools intersect –a SNP_LIST.BED –b TARGETED.BED | wc –l
+</pre></div>
+</div>
+<p>If the number is too small, we recommend adjusting MAF condition.</p>
+<p>To reduce calling time, we suggest to give the intersected SNPs creating with a command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>bedtools intersect –a SNP_LIST.BED –b TARGETED.BED &gt; snp_list.targeted_only.bed
+</pre></div>
+</div>
+</div></blockquote>
+<p>Another precaution is that the contigs in the generated SNP list should be included in the reference contigs.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>ex) SNP list contigs <span class="classifier-delimiter">:</span> <span class="classifier">[chr1, chr2,…] , Reference contigs</span> <span class="classifier-delimiter">:</span> <span class="classifier">[chr1, chr2, … ]                        …. Working</span></dt>
+<dd><p class="first">SNP list contigs : [1, 2,…] , Reference contigs : [chr1, chr2, … ]                              …. ERROR</p>
+<p class="last">SNP list contigs : [chr1, chr2,…,chrY, hs37d5] , Reference contigs : [chr1, chr2,…,chrY]        …. ERROR</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>It should be the same with contigs in BAM files. (If the reference is the same with the one to align the BAM files, it would be same with the reference contigs.)</p>
+<p>Additionally, user can refer <a class="reference external" href="http://evodify.com/gatk-in-non-model-organism/">http://evodify.com/gatk-in-non-model-organism/</a> for bam file processing for non-human organism.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Output.html" class="btn btn-neutral float-right" title="Output" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Hein Chun
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
