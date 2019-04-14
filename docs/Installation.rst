@@ -4,28 +4,28 @@ Installation
 
 Required tools
 -----------------
-.. topic:: Required tools
 
-    * GATK >= 4.0 ( java 8 required )
-    
-    * Bedtools
-    
-    * Python 2.7 
-    
-        -scipy
-    
-        -numpy
-    
-        -multiprocessing 
-        
-    * R
-    
-        -ztable
-    
-        -rmarkdown
-    
-        -corrplot
-
++------------------------------------------+
+|* GATK >= 4.0 ( java 8 required )         |
++------------------------------------------+
+|   * Bedtools                             |
++------------------------------------------+    
+|    * Python 2.7                          |
+|                                          |
+|        -scipy                            |
+|                                          |
+|        -numpy                            |
+|                                          |
+|        -multiprocessing                  |
++------------------------------------------+          
+|    * R                                   |
+|                                          |
+|        -ztable                           |
+|                                          |
+|        -rmarkdown                        |
+|                                          |
+|        -corrplot                         |
++------------------------------------------+
 
 Installation with 'git clone'
 ------------------------------
