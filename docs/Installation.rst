@@ -13,8 +13,7 @@ Required tools
     
         -numpy
     
-        -multiprocessing
-    
+        -multiprocessing 
     * R
     
         -ztable
