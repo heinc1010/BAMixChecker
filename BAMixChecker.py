@@ -2,6 +2,7 @@
 
 #BAMixChecker version 1.0
 #Author : Hein Chun (heinc1010@gmail.com)
+__version__ = '1.0'
 
 try:
 	import sys
@@ -52,6 +53,8 @@ def get_file_list(dir_path,user_file_list,FullPATH,flag_FNM):
 	if user_file_list != '':
 		fr_file_list = open(user_file_list,'r')
 		for line_fl in fr_file_list:
+			if line_fl.startswith('#'):
+				continue
 			lis_fl = line_fl.strip().split('\t')
 			for fl in lis_fl:
 				lis_files_whole.append(fl)
@@ -61,32 +64,36 @@ def get_file_list(dir_path,user_file_list,FullPATH,flag_FNM):
 
 		for file_path in lis_files_whole:
 			tmp_file_type = file_path.split(".")[-1].upper()
-			if tmp_file_type != 'BAM':
-				print "## ERROR: Input files in the list are needed to be .bam file"
-				print "## "+file_path+ " is not .bam"
+			if tmp_file_type not in  ['BAM','CRAM','SAM']:
+				print "## ERROR: Input files in the list are needed to be .bam or .cram file"
+				print "## "+file_path+ " is not .bam or .cram."
 				exit()
 	else:
 		lis_files_in_dir = [ dir_path+f for f in os.listdir(dir_path) if isfile("/".join([dir_path, f])) ]
 		for file_path in lis_files_in_dir:
 			tmp_file_type = file_path.strip().split(".")[-1].upper()
-			if tmp_file_type == 'BAM':
+			if tmp_file_type in ['BAM','CRAM','SAM']:
 				lis_files_whole.append(file_path)
-	lis_files_ans.sort()
 	lis_ans_sp = []
 	if FullPATH:
-		lis_files_whole.sort()
+		if user_file_list == '':
+			lis_files_whole.sort()
 		return lis_files_whole,lis_files_ans,lis_files_whole
 	else:
 		lis_files_whole_sp = [ f.split("/")[-1] for f in lis_files_whole ]
 		for ans in lis_files_ans:
 			lis_ans_sp.append([f.split("/")[-1] for f in ans])
-		lis_files_whole_sp.sort()
-		lis_files_whole_sorted = []
-		for f in lis_files_whole_sp:
-			for f_f in lis_files_whole:
-				if f_f.split("/")[-1] == f:
-					lis_files_whole_sorted.append(f_f)
-		return lis_files_whole_sp,lis_ans_sp,lis_files_whole_sorted
+		if user_file_list != '':
+			return lis_files_whole_sp,lis_ans_sp,lis_files_whole
+		else:
+			lis_files_whole_sp.sort()
+			lis_files_whole_sorted = []
+			for f in lis_files_whole_sp:
+				for f_f in lis_files_whole:
+					if f_f.split("/")[-1] == f:
+						lis_files_whole_sorted.append(f_f)
+						break
+			return lis_files_whole_sp,lis_ans_sp,lis_files_whole_sorted
 
 def make_bed( total_SNP_bed, targeted_bed , OUTDIR, bedtools_path ):
 	os.system("{0} intersect -b {1} -a {2} | uniq > {3}targetSNPs.bed".format(bedtools_path,targeted_bed,total_SNP_bed,OUTDIR))
@@ -111,13 +118,14 @@ def run_p(cmm):
 		stdoutput, stderr = prc.communicate()
 		if prc.returncode != 0:
 			print stderr
+			raise
 			exit()
 	except KeyboardInterrupt:
 		for p in multiprocessing.active_children():
 			p.terminate()
 		exit()
 
-def run_HC( lis_bam_files, OutputDIR, reference_file, bed_file, max_prc, HC_path ):
+def run_HC( lis_bam_files, OutputDIR, reference_file, bed_file, max_prc, HC_path, ploidy):
 	print "Calling the variants information with GATK HaplotypeCaller"
 	print "Max process : ",
 	print max_prc
@@ -127,9 +135,10 @@ def run_HC( lis_bam_files, OutputDIR, reference_file, bed_file, max_prc, HC_path
 	os.system(cmm)
 
 	lis_cmm = []
+	lis_vcf_files = []
 	for i in range(0,len(lis_bam_files)):
 		vcf_file = "{0}{1}gvcf".format(vcf_file_path, lis_bam_files[i].split("/")[-1][:-3])
-		cmm ="{0} HaplotypeCaller -I {1} -O {2} -R {3} -L {4} -ERC BP_RESOLUTION".format(HC_path,lis_bam_files[i],vcf_file,reference_file,bed_file)
+		cmm ="{0} HaplotypeCaller -I {1} -O {2} -R {3} -L {4} -ERC BP_RESOLUTION -ploidy {5}".format(HC_path,lis_bam_files[i],vcf_file,reference_file,bed_file, ploidy)
 		lis_cmm.append(cmm)
 	pool = Pool(processes = max_prc)
 	try:
@@ -142,13 +151,19 @@ def run_HC( lis_bam_files, OutputDIR, reference_file, bed_file, max_prc, HC_path
 		pool.terminate()
 		pool.join()
 		exit()
+	except:
+		pool.close()
+		pool.terminate()
+		pool.join()
+		print "## ERROR: Calling error with GATK HaplotyCaller."
+		print "          Preperation for calling with GATK is instructed in gitHub 'https://github.com/heinc1010/BAMixChecker'."
+		print "          Refer the instruction or given error message above from GATK."
+		exit()
 
-	lis_vcf_files = []
-	for f in lis_bam_files:
-		tmp_f = f.split("/")[-1]
+#	for f in lis_bam_files:
+		tmp_f = lis_bam_files[i].split("/")[-1]
 		tmp_f = tmp_f[:-3]+"gvcf"
 		lis_vcf_files.append(vcf_file_path+tmp_f)
-
 	return lis_vcf_files
 
 def get_gt(f1):
@@ -352,6 +367,7 @@ def get_sw_pairs_ans(lis_files, smp_pairs, lis_ans):
 	lis_f1.sort()
 	dic_sw = {}
 	dic_un_p = {}
+
 	for f1 in lis_f1:
 		dic_sw[f1] = []
 		dic_un_p[f1] = []
@@ -369,7 +385,7 @@ def get_sw_pairs_ans(lis_files, smp_pairs, lis_ans):
 					for f2 in smp_pairs[f1]:
 						if f2 not in g_f:
 							dic_sw[f1].append(f2)
-		
+
 	lis_sw_keys = dic_sw.keys()
 	lis_sw_keys.sort()
 	for f1 in lis_sw_keys:
@@ -377,6 +393,7 @@ def get_sw_pairs_ans(lis_files, smp_pairs, lis_ans):
 		for f2 in dic_sw[f1]:
 			if f1 in dic_sw[f2]:
 				dic_sw[f2].remove(f1)
+
 	return dic_sw, dic_un_p
 
 def make_result_file_no_file_name_info(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_paired_files):
@@ -425,6 +442,7 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans,flag_FNM):
 				fw_a_m.write(lis_files[i]+"\t"+lis_files[j]+"\t"+str(cor_matrix[i][j])+"\t"+m_um+"\n")
 		fw_a_m.close()
 		mk_html_no_mismatched(OutputDIR,lis_m)
+		mk_heat_map(OutputDIR,lis_files,cor_matrix)
 		return_v = 0
 	else:
 		count_m = 0
@@ -447,6 +465,7 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans,flag_FNM):
 						fw_a_m.write(lis_files[i]+"\t"+lis_files[j]+"\t"+str(cor_matrix[i][j])+"\t"+m_um+"\n")
 				fw_a_m.close()
 				mk_html_no_mismatched(OutputDIR,lis_m)
+				mk_heat_map(OutputDIR,lis_files,cor_matrix)
 				return return_v
 			dic_sw, dic_un_p = get_sw_pairs(lis_files,smp_pairs)
 			if ( dic_sw == None ) & ( dic_un_p == None):
@@ -463,6 +482,7 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans,flag_FNM):
 						fw_a_m.write(lis_files[i]+"\t"+lis_files[j]+"\t"+str(cor_matrix[i][j])+"\t"+m_um+"\n")
 				fw_a_m.close()
 				mk_html_no_mismatched(OutputDIR,lis_m)
+				mk_heat_map(OutputDIR,lis_files,cor_matrix)
 				return return_v
 			else:
 				print "Detected pairs by file names."
@@ -595,6 +615,7 @@ def make_result_file(cor_matrix,smp_pairs,lis_files,OutputDIR,lis_ans,flag_FNM):
 				fw_a_m.write(lis_files[i]+"\t"+lis_files[j]+"\t"+str(cor_matrix[i][j])+"\t"+m_um+"\n")
 		fw_a_m.close()
 		mk_html_dic(OutputDIR,lis_m,lis_sw,lis_up)
+		mk_heat_map(OutputDIR,lis_files,cor_matrix)
 	return return_v
 
 def mk_html_dic(OutputDIR,lis_m,lis_sw,lis_up):
@@ -707,6 +728,11 @@ def mk_html_dic(OutputDIR,lis_m,lis_sw,lis_up):
 	stdoutput, stderr = prc.communicate()
 	if prc.returncode != 0:
 		print stderr
+	cmm = "rm {0}".format(OutputDIR + "BAMixChecker_Report.Rmd")
+	prc= Popen(cmm, stdout=PIPE, shell=True, stderr=PIPE)
+	stdoutput, stderr = prc.communicate()
+	if prc.returncode != 0:
+		print stderr
 
 def	mk_html_no_mismatched(OutputDIR, lis_m):
 	fw_r = open(OutputDIR + "BAMixChecker_Report.Rmd","w")
@@ -750,18 +776,64 @@ def	mk_html_no_mismatched(OutputDIR, lis_m):
 	stdoutput, stderr = prc.communicate()
 	if prc.returncode != 0:
 		print stderr
+	cmm = "rm {0}".format(OutputDIR + "BAMixChecker_Report.Rmd")
+	prc= Popen(cmm, stdout=PIPE, shell=True, stderr=PIPE)
+	stdoutput, stderr = prc.communicate()
+	if prc.returncode != 0:
+		print stderr
 
+def mk_heat_map(OutputDIR,lis_files,cor_matrix):
+	lis_files = [ "'"+f+"'" for f in lis_files]
+	fw_r = open(OutputDIR + "BAMixChecker_Heatmap.R","w")
+	fw_r.write("if(!(require(corrplot))){install.packages('corrplot')}\n")
+	fw_r.write("library('corrplot')\n")
+	fw_r.write("df.total<-data.frame()\n")
+	for i in range(0,len(cor_matrix)):
+		for j in range(0,len(cor_matrix[i])):
+			if i == j :
+				cor_matrix[i][j] = str(1)
+			else:
+				cor_matrix[i][j] = str(cor_matrix[i][j])
+		fw_r.write("df = c({0}) \n".format(','.join(cor_matrix[i])))
+		fw_r.write("df.total = rbind(df.total,df) \n")
+	fw_r.write("colnames(df.total) <- c({0})\n".format(','.join(lis_files)))
+	fw_r.write("rownames(df.total) <- c({0})\n".format(','.join(lis_files)))
+	fw_r.write("pdf(paste0('{0}','BAMixChecker_Heatmap.pdf'))\n".format(OutputDIR))
+	if len(lis_files) < 10:
+		cex = '1'
+	elif len(lis_files) < 50:
+		cex = '0.8'
+	elif len(lis_files) < 100:
+		cex = '0.5'
+	elif len(lis_files) < 200:
+		cex = '0.3'
+	else:
+		cex = '0.1'
+	fw_r.write("corrplot(as.matrix(df.total),method='shade', shade.col=NA, tl.col='black', tl.srt=90,cl.lim = c(0, 1), cl.ratio=0.08, tl.pos='lt',tl.cex ={0})\ndev.off()\n".format(cex))
+	fw_r.close()
+	cmm = "Rscript {0}".format(OutputDIR + "BAMixChecker_Heatmap.R")
+	prc= Popen(cmm, stdout=PIPE, shell=True, stderr=PIPE)
+	stdoutput, stderr = prc.communicate()
+	if prc.returncode != 0:
+		print stderr
+	cmm = "rm {0}".format(OutputDIR + "BAMixChecker_Heatmap.R")
+	prc= Popen(cmm, stdout=PIPE, shell=True, stderr=PIPE)
+	stdoutput, stderr = prc.communicate()
+	if prc.returncode != 0:
+		print stderr
 
 if __name__ == "__main__":
 	start_t = time.time()
-	parser = argparse.ArgumentParser(prog="BAMixChecker", description="Sample mix-up checker to detect sample mismatch with pairs of BAM file in a cohort for WGS/WES/RNA-seq and targeted sequencing.")
-	parser.add_argument('-d','--DIR', default="", help="Directory path of the .BAM files")
-	parser.add_argument('-l', '--List', default="", help="A file with the list of files")
+	parser = argparse.ArgumentParser(prog="BAMixChecker", description="Sample mix-up checker to detect sample mismatch with pairs of BAM file in a cohort for human WGS/WES/RNA-seq and targeted sequencing.")
+	parser.add_argument('-d','--DIR', default="", help="Directory path of the .BAM or .CRAM files")
+	parser.add_argument('-l', '--List', default="", help="A file with the list of .BAM or .CRAM files")
 	parser.add_argument('-r', '--Ref', default="",required=True, help="Reference file")
 	parser.add_argument('-o','--OutputDIR', default="", help="Output directory path")
 	parser.add_argument('-b','--BEDfile', default="", help=".bed file for Targeted sequencing data.")
 	parser.add_argument('-v', '--RefVer', default="hg38", choices=['hg38','hg19'], help="Version of reference : 'hg19' or 'hg38'. Default = 'hg38'")
-	parser.add_argument('-p', '--MaxProcess', default="4", help="The number of max process. Default = 4")
+	parser.add_argument('-p', '--MaxProcess', default="1", help="The number of max process. Default = 1")
+	parser.add_argument('-nhSNP', '--NonHumanSNPlist', default="", help="The SNP list for non-human organism sample matching check-up.")
+	parser.add_argument('-pld', '--Ploidy', default="2", help="The ploidy of sample. Default = 2 for human")
 	parser.add_argument('--FullPATH', action='store_true',help="Use to report with the full path of file. BAMixChecker resports with the only file name as a default.")
 	parser.add_argument('--RemoveVCF',action='store_true', help="Use to remove called germline VCF after running.")
 	parser.add_argument('--OFFFileNameMatching',action='store_true', help="Use to get a result without file-name based pairing.BAMixChecker will only compare smaples by genotype. If the input list of file contains two or more file on a line (means samples from same individual), this option is automatically applied and it use the user-given pair information.")
@@ -782,6 +854,7 @@ if __name__ == "__main__":
 	elif HC_path == "":
 		print "## ERROR: GATK path is not set in 'BAMixChecker.config' file."
 		exit()
+
 
 	# get the arguments
 	dir_path = ''
@@ -809,6 +882,23 @@ if __name__ == "__main__":
 	cmm = "mkdir -p {0}".format(out_path)
 	os.system(cmm)
 
+	print "Checking required R packages."
+	install_check="'if(!(require(rmarkdown))){install.packages('rmarkdown')}\nif(!(require(ztable))){install.packages('ztable')}\nif(!(require(corrplot))){install.packages('corrplot')}'"
+	cmm = "echo {0} > {1}".format(install_check,out_path + "R_packages_install_check.R")
+	prc= Popen(cmm, stdout=PIPE, shell=True, stderr=PIPE)
+	stdoutput, stderr = prc.communicate()
+	cmm = "Rscript {0}".format(out_path + "R_packages_install_check.R")
+	prc= Popen(cmm, stdout=PIPE, shell=True, stderr=PIPE)
+	stdoutput, stderr = prc.communicate()
+	if prc.returncode != 0:
+		print "WARNING: Requied R packages are not installed."
+		print "         HTML file or Heatmap would not be created properly."
+		print "         Recommand to install related R packages."
+		print "         - Required R packages : rmarkdown, ztable, corrplot."
+#		print stderr
+	cmm = "rm {0}".format(out_path + "R_packages_install_check.R")
+	prc= Popen(cmm, stdout=PIPE, shell=True, stderr=PIPE)
+
 	if args.Ref == "":
 		print "## ERROR: Reference file is necessary. Use -r option."
 		print exit()
@@ -825,25 +915,36 @@ if __name__ == "__main__":
 	if args.RefVer in [ "hg38","hg19" ]:
 		if args.BEDfile != '':
 			print "Run for targeted sequecing data"
-			bed_file = make_bed("{0}gnomad_{1}_AF{2}_AF{3}_All.bed".format(bed_file_path,args.RefVer,45,35), args.BEDfile , out_path, bedtools_path)
-			for AF in range(45,5,-5):
-				for AF_all in range(AF,-1,-10):
-					if AF_all >= AF:
-						continue
-					AF_all = int(AF_all/10)*10
-					if AF_all != 0:
-						bed_file = make_bed("{0}gnomad_{1}_AF{2}_AF{3}_All.bed".format(bed_file_path,args.RefVer,AF,AF_all), args.BEDfile , out_path, bedtools_path)
-					else:
-						bed_file = make_bed("{0}gnomad_{1}_AF{2}.bed".format(bed_file_path,args.RefVer,AF), args.BEDfile , out_path, bedtools_path)
+			if args.NonHumanSNPlist == "":
+				bed_file = make_bed("{0}gnomad_{1}_AF{2}_AF{3}_All.bed".format(bed_file_path,args.RefVer,45,35), args.BEDfile , out_path, bedtools_path)
+				for AF in range(45,5,-5):
+					for AF_all in range(AF,-1,-10):
+						if AF_all >= AF:
+							continue
+						AF_all = int(AF_all/10)*10
+						if AF_all != 0:
+							bed_file = make_bed("{0}gnomad_{1}_AF{2}_AF{3}_All.bed".format(bed_file_path,args.RefVer,AF,AF_all), args.BEDfile , out_path, bedtools_path)
+						else:
+							bed_file = make_bed("{0}gnomad_{1}_AF{2}.bed".format(bed_file_path,args.RefVer,AF), args.BEDfile , out_path, bedtools_path)
+						if bed_file != None:
+							break
 					if bed_file != None:
 						break
-				if bed_file != None:
-					break
 		else:
 			bed_file = "{0}gnomad_{1}_AF45_AF35_All.bed".format(bed_file_path,args.RefVer)
 	else:
 		print "## ERROR: Option -v should be 'hg19' or 'hg38'."
 		exit()
+
+	if args.NonHumanSNPlist != "":
+		print "Non human SNP list is given."
+		(exitstatus, line_count) = commands.getstatusoutput("ls {0}".format(args.NonHumanSNPlist))
+		if exitstatus != "0":
+			print "# ERROR: Fail to read " + args.NonHumanSNPlist
+			exit()
+		(exitstatus, line_count) = commands.getstatusoutput("{0} intersect -b {1} -a {2} | wc -l".format(bedtools_path, args.BEDfile, args.NonHumanSNPlist))
+		print line_cout +" SNP loci will be compared."
+		bed_file = args.NonHumanSNPlist
 
 	if args.FullPATH:
 		lis_bam_files,lis_ans, lis_bam_full_path = get_file_list(dir_path, args.List,True, flag_FNM)
@@ -856,7 +957,7 @@ if __name__ == "__main__":
 
 
 	# call the variants
-	lis_vcf_files = run_HC(lis_bam_full_path,out_path,args.Ref,bed_file,args.MaxProcess,HC_path)
+	lis_vcf_files = run_HC(lis_bam_full_path,out_path,args.Ref,bed_file,args.MaxProcess,HC_path,args.Ploidy)
 
 	# calculate the concordance
 	cor_matrix = cal_cor(lis_vcf_files, args.MaxProcess)
