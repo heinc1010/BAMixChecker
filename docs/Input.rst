@@ -29,11 +29,27 @@ If input is multi-sample BAM file, it needs to replace a read group with Picard 
 
 .. seealso:: Additional recommanded processing for accurate variant discovery with GATK is instrcted in https://software.broadinstitute.org/gatk/best-practices/workflow?id=11165.
 
-To run BAMixChecker, the directory path of bam files with –d option or a list of bam files with –l is required.
+To run BAMixChecker, indicate the bam files directory path with –d option or a list of bam files with –l option is required.
 
-The form of the list can be two types.
+The acceptable list form can be two types.
 
-* Tab-divided paired files on each line. BAMixChecker pair files based on the pair information.
+
+* One bam file on each line. BAMixChecker checks the file names and evaluates whether the files are paired based on the file name.
+
+::
+     
+    /path/Tumor_01.bam
+    /path/Normal_01.bam
+    /path/Tumor_02.bam
+    /path/Normal_02.bam
+    /path/Tumor_03.bam
+    /path/Normal_03.bam
+    /path/Tumor_04.bam
+    /path/Normal_04.bam
+
+.. note:: If you want to compare files only by genotype, you can use '--OFFFileNameMatching' option.
+
+* Tab-separated matched files on each line. BAMixChecker pairs files based on the pair information instead of file-name based matching.
 
 ::
 
@@ -52,20 +68,6 @@ The form of the list can be two types.
 
   
 
-* One bam file on each line. BAMixChecker check the file names and evaluate whether the files are pair based on the name.
-
-::
-     
-    /path/Tumor_01.bam
-    /path/Normal_01.bam
-    /path/Tumor_02.bam
-    /path/Normal_02.bam
-    /path/Tumor_03.bam
-    /path/Normal_03.bam
-    /path/Tumor_04.bam
-    /path/Normal_04.bam
-
-.. note:: If you want to compare files only by genotype, you can use '--OFFFileNameMatching' option.
 
 .. note:: If the number of files is under 6 or the file names don’t contain common regulation when it is divided by the delimiters, it only pairs by genotype, not by name and skips to make ‘Mismatched_sample.txt’ which is the same using '--OFFFileNameMatching' option.
 
