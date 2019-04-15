@@ -29,7 +29,7 @@ Required tools
 
 Installation with 'git clone'
 ------------------------------
-
+First, clone the repository.
 ::
 
     $ git clone https://github.com/heinc1010/BAMixChecker
@@ -39,7 +39,7 @@ Installation with 'git clone'
 Installation with the compressed file
 ---------------------------------------
 
-Download the compressed file from https://github.com/heinc1010/BAMixChecker.
+Or, download the compressed file from https://github.com/heinc1010/BAMixChecker.
 
 Then, decompress the .zip file.
 
