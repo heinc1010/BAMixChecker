@@ -59,7 +59,7 @@ And the user can catch the information of mismatched sample information as well 
        Heatmap
        TEXT files
    
-   Issue
+   Issues
        Running time of BAMixChecker
        
    Contact
