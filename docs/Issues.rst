@@ -26,9 +26,9 @@ Even though we couldn’t test in a best environment which we can utilize the ad
 
 .. image:: Running_time_per_p.jpg
     :alt: Running_time
-    :width: 400
+    :width: 600
 
 
-Table R1. Average running time of BAMixChecker with various number of processes for 10 times with 30 WES samples in a desktop with Intel® Core™ i7-4790 CPU 3.60GHz with quad cores and 32 GB memory.
+Table. Average running time of BAMixChecker with various number of processes for 10 times with 30 WES samples in a desktop with Intel® Core™ i7-4790 CPU 3.60GHz with quad cores and 32 GB memory.
 
 We recommand the user to adjust the number of process ccording to their environment.
