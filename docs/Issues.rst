@@ -19,9 +19,10 @@ The total advantage could not applied. During the time using normal range of CPU
 
 Even though we couldn’t test in a best environment which we can utilize the advantage of BAMixChecker in, we reported with the record because BAMixChecker still showed enough fast running time. 
 
-+-----------------------------------------------+
-|# of Process	      |1	  |2	  |3	  |4        |
-|Running time(min)	|9.9	|6.4	|5.7	|5.3      |
-+-----------------------------------------------+
++-------------------------------------------------+
+| # of Process	      |1	  |2	  |3	  |4        |
++-------------------------------------------------+
+| Running time(min)	|9.9	|6.4	|5.7	|5.3        |
++-------------------------------------------------+
 
 Table R1. Average running time of BAMixChecker with various number of processes for 10 times with 30 WES samples in a desktop with Intel® Core™ i7-4790 CPU 3.60GHz with quad cores and 32 GB memory.
