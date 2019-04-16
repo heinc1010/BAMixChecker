@@ -940,11 +940,11 @@ if __name__ == "__main__":
 	if args.NonHumanSNPlist != "":
 		print "Non human SNP list is given."
 		(exitstatus, line_count) = commands.getstatusoutput("ls {0}".format(args.NonHumanSNPlist))
-		if exitstatus != "0":
+		if exitstatus != 0:
 			print "# ERROR: Fail to read " + args.NonHumanSNPlist
 			exit()
 		(exitstatus, line_count) = commands.getstatusoutput("{0} intersect -b {1} -a {2} | wc -l".format(bedtools_path, args.BEDfile, args.NonHumanSNPlist))
-		print line_cout +" SNP loci will be compared."
+		print line_count +" SNP loci will be compared."
 		bed_file = args.NonHumanSNPlist
 
 	if args.FullPATH:
