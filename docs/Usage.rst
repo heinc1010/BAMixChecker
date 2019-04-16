@@ -97,7 +97,7 @@ Or
 Tutorial
 ---------------------------------------
 
-1. Set the required variants::
+1. Set the required variables::
     
     $ cd BAMixChecker/tutorialData
     $ vim script_example.sh
