@@ -61,6 +61,7 @@ And the user can catch the information of mismatched sample information as well 
    
    Issue
        Running time of BAMixChecker
+       
    Contact
 
 
