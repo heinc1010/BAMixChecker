@@ -170,7 +170,7 @@ In addition to MAF, annotation about region affecting mappability is useful to s
 
 Recommended SNP loci selection steps are below:
 
-Filter uncertain variants out from a list of SNP in large genomic analysis database of the species with annotations the database offering like basic calling filter of a caller, mapping quality condition, etc.
+1. Filter uncertain variants out from a list of SNP in large genomic analysis database of the species. It can be accomplished with annotations like basic calling filter of a caller, mapping quality condition, etc which the database offers.
 2. Remove SNPs in a low mapping region like a low complex region, a segment duplicated regions, and a simple repeat region, etc. It can be annotated on the database or you can get the region information in UCSC genome browser for example of simple repeat region.
 
 3. For SNPs located in high mapping rate region, select only higher MAF SNP loci. For human, global MAF over 0.45 and under 0.55 and MAF over 0.35 and under 0.65 within each population are applied. If the database doesn’t have MAF information in each population, GMAF information only can be applied. However, we recommand to consider higher global MAF condition if the SNP set is too large because of lack of proper filtering annotation earlier steps.
