@@ -9,7 +9,7 @@ It is simple and fast but accurately detects a pair of WGS, WES, RNA, targeted s
 
 And the user can catch the information of mismatched sample information as well as the matched sample information at a glance.
 
-Detailed instruction can be found at bamixchecker.readthedocs.io.
+Detailed instruction can be found at https://bamixchecker.readthedocs.io.
 
 
 Required tools
