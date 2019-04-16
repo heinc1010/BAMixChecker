@@ -118,7 +118,7 @@ Or, you can create the annotation files by your self with samtools and Picard.::
 SNP list for non-human organism
 ---------------------------------------
 
-BAMixChecker contructed for a human NGS dataset. However, it, also, can be applied to other species with ‘--NonHumanSNPlist’ option for customized SNP list and proper reference. 
+BAMixChecker is developed for a human NGS dataset. However, it, also, can be applied to other species with ‘--NonHumanSNPlist’ option for customized SNP list and proper reference. 
 
 To extract only informative region, SNPs observed in a large population is required. 
 
@@ -136,7 +136,7 @@ Recommended SNP loci selection steps are below:
     It can be annotated on the database or you can get the region information in UCSC genome browser for example of simple repeat region. 
 
     3. For SNPs located in high mapping rate region, select only higher MAF SNP loci. For human, global MAF over 0.45 and under 0.55 and MAF over 0.35 and under 0.65 within each population are applied. 
-    If the database doesn’t have MAF information in each population, GMAF information only can be applied. However, we recommand to consider higher global MAF condition if the SNP set is too large because of lack of proper filtering annotation earlier steps. 
+    If the database doesn’t have MAF information in each population, GMAF information only can be applied. However, we recommend to consider higher global MAF condition if the SNP set is too large because of lack of proper filtering annotation earlier steps. 
 
     For targeted sequencing dataset, the SNP set is considered not only higher MAF but also the number of SNPs. 
 
