@@ -702,7 +702,7 @@ def mk_html_dic(OutputDIR,lis_m,lis_sw,lis_up):
 	else:
 		fw_r.write("##### *No unpaired samples*\n")
 	fw_r.write("## Matched samples\n")
-	fw_r.write("###### - The matched samples by *the file name* and *the genotype*\n")
+	fw_r.write("###### - The matched samples by *file name* and *genotype*\n")
 	if lis_m != []:
 		fw_r.write("```{r , results='asis', echo=FALSE}\n")
 		fw_r.write("z = ztable(df.m,align='cccc',include.rownames=FALSE)\nprint (z, type = 'html')\n```\n")
@@ -725,12 +725,11 @@ def mk_html_dic(OutputDIR,lis_m,lis_sw,lis_up):
 	fw_r.write("print (z, type = 'html')\n```\n")
 	fw_r.close()
 	cmm = "Rscript {0} {1} {2}".format(os.path.dirname(os.path.realpath(__file__))+"/r_script.r",OutputDIR + "BAMixChecker_Report.Rmd", OutputDIR)
-	#os.system(cmm)
 	prc= Popen(cmm, stdout=PIPE, shell=True, stderr=PIPE)
 	stdoutput, stderr = prc.communicate()
 	if prc.returncode != 0:
 		print stderr
-	cmm = "rm {0}".format(OutputDIR + "BAMixChecker_Report.Rmd")
+	cmm = "rm {0}".format(OutputDIR + "BAMixChecker_Report.Rmd") 
 	prc= Popen(cmm, stdout=PIPE, shell=True, stderr=PIPE)
 	stdoutput, stderr = prc.communicate()
 	if prc.returncode != 0:
@@ -762,16 +761,16 @@ def	mk_html_no_mismatched(OutputDIR, lis_m):
 		m_ums = ','.join(lis_m_um)
 		fw_r.write("df.m <-data.frame('Sample1'=c({0}), 'Sample2'=c({1}),'Concordance rate'=c({2}), 'Conclusion'=c({3}))\n".format(f1s,f2s,scores,m_ums))
 		fw_r.write("colnames(df.m) <- c('Sample1', 'Sample2','Concordance rate', 'Conclusion')\n")
-	fw_r.write("## Matched samples\n")
-	fw_r.write("###### - The matched samples by *the file name* and *the genotype*\n")
+	fw_r.write("```\n## Matched samples\n")
+	fw_r.write("###### - The matched samples by *genotype*\n")
 	if lis_m != []:
 		fw_r.write("```{r , results='asis', echo=FALSE}\n")
 		fw_r.write("z = ztable(df.m,align='cccc',include.rownames=FALSE)\nprint (z, type = 'html')\n```\n")
 	else:
 		fw_r.write("##### *No matched samples*\n")
-	fw_r.write("```\n## Total result\n")
+	fw_r.write("\n## Total result\n")
 	fw_r.write("```{r , results='asis', echo=FALSE}\n")
-	fw_r.write("z = ztable(df.total,align='llcl',include.rownames=FALSE)\nprint (z, type = 'html')\n```\n")
+	fw_r.write("z = ztable(df.total,align='cccc',include.rownames=FALSE)\nprint (z, type = 'html')\n```\n")
 	fw_r.close()
 	cmm = "Rscript {0} {1} {2}".format(os.path.dirname(os.path.realpath(__file__))+"/r_script.r",OutputDIR + "BAMixChecker_Report.Rmd", OutputDIR)
 	prc= Popen(cmm, stdout=PIPE, shell=True, stderr=PIPE)
