@@ -161,10 +161,11 @@ def run_HC( lis_bam_files, OutputDIR, reference_file, bed_file, max_prc, HC_path
 		print "          Refer the instruction or given error message above from GATK."
 		exit()
 
-#	for f in lis_bam_files:
-		tmp_f = lis_bam_files[i].split("/")[-1]
+	for f in lis_bam_files:
+		tmp_f = f.split("/")[-1]
 		tmp_f = tmp_f[:-3]+"gvcf"
 		lis_vcf_files.append(vcf_file_path+tmp_f)
+
 	return lis_vcf_files
 
 def get_gt(f1):
