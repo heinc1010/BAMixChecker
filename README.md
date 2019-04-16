@@ -5,7 +5,7 @@ An automated tool for sample matching checkup in NGS cohorts
 
 BAMixChecker is a fast and easy-to-use sample matching checkup tool for NGS dataset.
 
-It’s simple and fast but accurate to detect a pair of bam files from same individual with WGS/WES, RNA, Targeted sequencing dataset. 
+It is simple and fast but accurately detects a pair of WGS, WES, RNA, targeted sequencing bam files from same individual.
 
 And the user can catch the information of mismatched sample information as well as the matched sample information at a glance.
 
@@ -66,9 +66,9 @@ To call variants by running GATK HaplotypeCaller, each bam file should be indexe
 ```
 samtools index /path/Tumor_01.bam
 ```
-BAMixChecker calls variants with GVCF file which is only possible for single sample ID.
+BAMixChecker calls variants in GVCF file format which can be called for a a bam file with single sample ID.
 
-If input is multi-sample BAM file, it needs to replace a read group with Picard AddOrReplaceReadGroups.
+If input is multiple-sample BAM file, it needs to replace a read group with Picard AddOrReplaceReadGroups.
 ```
 java -jar picard.jar AddOrReplaceReadGroups \
 I=RNA_T_01.bam \
@@ -83,10 +83,24 @@ RGSM=sample
 Additional recommanded processing for accurate variant discovery with GATK is instrcted in https://software.broadinstitute.org/gatk/best-practices/workflow?id=11165.
 
 
-To run BAMixChecker, the directory path of bam files with –d option or a list of bam files with –l is required.
+To run BAMixChecker, indicate the bam files directory path with –d option or a list of bam files with –l option is required.
 
-The form of the list can be two types.
--Tab-divided paired files on each line. BAMixChecker pair files based on the pair information.
+The acceptable list form can be two types.
+
+-One bam file on each line. BAMixChecker checks the file names and evaluates whether the files are paired based on the file name.
+ If you want to compare files only by genotype, you can use '--OFFFileNameMatching' option.
+```
+  /path/Tumor_01.bam
+  /path/Normal_01.bam
+  /path/Tumor_02.bam
+  /path/Normal_02.bam
+  /path/Tumor_03.bam
+  /path/Normal_03.bam
+  /path/Tumor_04.bam
+  /path/Normal_04.bam
+```
+-Tab-separated matched files on each line. 
+BAMixChecker matches files based on the pair information instead of file-name-based matching.
  ```	
   /path/Tumor_01.bam	/path/Normal_01.bam
   /path/Tumor_02.bam	/path/Normal_02.bam
@@ -100,27 +114,16 @@ The form of the list can be two types.
  /path/Tumor_04.bam	/path/Normal_04.bam	/path/Meta_04.bam
 ```
 
--One bam file on each line. BAMixChecker check the file names and evaluate whether the files are pair based on the name.
- If you want to compare files only by genotype, you can use '--OFFFileNameMatching' option.
-```
-  /path/Tumor_01.bam
-  /path/Normal_01.bam
-  /path/Tumor_02.bam
-  /path/Normal_02.bam
-  /path/Tumor_03.bam
-  /path/Normal_03.bam
-  /path/Tumor_04.bam
-  /path/Normal_04.bam
-```
-If the number of files is under 6 or the file names don’t contain common regulation when it is divided by the delimiters, it only pairs by genotype, not by name and skips to make ‘Mismatched_sample.txt’ which is the same using '--OFFFileNameMatching' option.
+
+If the number of files is under 6 or the file names don’t contain common regulation when it is divided by the delimiters, BAMixChecker only matches by genotype, not by file name and skips to make ‘Mismatched_sample.txt’ which is the same using ‘–OFFFileNameMatching’ option.
 
 
 
 * RNA-seq bam file
 
-BAMixChecker calls variants with GVCF file which is only possible for single sample ID.
+BAMixChecker calls variants in GVCF file format which can be called for a a bam file with single sample ID.
 
-So to run GATK HapplotypeCaller, RNA-seq bam file needs to add read groups with Picard AddOrReplaceReadGroups.
+So to run GATK HapplotypeCaller, RNA-seq bam file needs to replace a read group with Picard AddOrReplaceReadGroups.
 ```
 java -jar picard.jar AddOrReplaceReadGroups \
 I=RNA_T_01.bam \
@@ -137,13 +140,13 @@ Additional proper processing for RNA-seq data is instructed in https://gatkforum
 
 #### Reference file
 
-To call with GATK HaplotypeCaller, it requires proper reference sequence file with '.fai' file and '.dict' file for the reference which is the *same* reference used to align your bam files.
+To call with GATK HaplotypeCaller, it requires proper reference sequence file with '.fai' file and '.dict' file for the reference which is the **same** reference used to align your bam files.
 
 iGenomes provides 'Ready-To-Use' reference sequence file of various species including human with the annotation files.
 
 https://support.illumina.com/sequencing/sequencing_software/igenome.html
 
-Or, you can create by your self with samtools and Picard.
+Or, you can create the annotation files by your self with samtools and Picard.
 ```
 samtools faidx Homo_sapiens.GRCh38.fa
 ```
@@ -155,11 +158,36 @@ O=Homo_sapiens.GRCh38.dict
 see more details in https://gatkforums.broadinstitute.org/gatk/discussion/1601/how-can-i-prepare-a-fasta-file-to-use-as-reference .
 
 #### SNP list for non-human organism
-BAMixChecker runs for human as default. However, it also can be applied to other species with ‘--NonHumanSNPlist’ option for customized SNP list and proper reference. To extract only informative region, SNP list analyzed in a large population is required. It’s hard to generalize the method to select informative SNPs because annotation in each database is various. However, a mandatory annotation is MAF in the population. In addition to MAF, annotation about region affecting mappability is useful to select informative loci. Recommended SNP loci selection steps are below: 
-1. Filter uncertain variants out from a list of SNP in large genomic analysis database of the organism with annotations the database offers like basic calling filter of a caller, mapping quality condition, etc.
-2. Remove SNPs in a not well mappable region like a low complex region, a segment duplicated regions, and a simple repeat region, etc. It can be annotated on the database or you can get the region information in UCSC genome browser (Kent, et al., 2002) for example of simple repeat region. 
-3. Among the well mappable SNPs, select only higher MAF SNP loci. For human, global MAFs over 0.45 and under 0.55 and MAFs over 0.35 and under 0.65 within each population are applied. If the database doesn’t have MAF information in each population, it can be skipped but also consider higher global MAF condition if the SNP set is too big because of lack of proper filtering annotation earlier steps. 
-If the dataset is targeted sequencing dataset, the SNP set is considered not only higher MAF but also the number of SNPs. To compare genotype of samples, enough number of SNP loci to compare is required. For human data, BAMixChecker adjusts MAF condition to contain SNPs over 200 for a dataset with the target region information from BED file. Even though SNPs under 50 could discriminate in RNA-seq with the condition which is global MAFs over 0.45 and under 0.55 and MAFs over 0.35 and under 0.65 within each population, we recommend SNPs set having over 200 loci because the possibility of mutation is decreasing by decreasing MAF. It can’t be automated for non-human organism because of a uncertainness of each database annotation. Instead of it, users can check the number of SNPs in the targeted region with bedtools. The command is 
+BAMixChecker contructed for a human NGS dataset. However, it, also, can be applied to other species with ‘–NonHumanSNPlist’ option for customized SNP list and proper reference.
+
+To extract only informative region, SNPs observed in a large population is required.
+
+It’s hard to generalize the method to select informative SNPs because annotation in each database is various.
+
+However, a mandatory annotation is minor allele frequency (MAF) in the population of the species.
+
+In addition to MAF, annotation about region affecting mappability is useful to select informative loci.
+
+Recommended SNP loci selection steps are below:
+
+Filter uncertain variants out from a list of SNP in large genomic analysis database of the species with annotations the database offering like basic calling filter of a caller, mapping quality condition, etc.
+2. Remove SNPs in a low mapping region like a low complex region, a segment duplicated regions, and a simple repeat region, etc. It can be annotated on the database or you can get the region information in UCSC genome browser for example of simple repeat region.
+
+3. For SNPs located in high mapping rate region, select only higher MAF SNP loci. For human, global MAF over 0.45 and under 0.55 and MAF over 0.35 and under 0.65 within each population are applied. If the database doesn’t have MAF information in each population, GMAF information only can be applied. However, we recommand to consider higher global MAF condition if the SNP set is too large because of lack of proper filtering annotation earlier steps.
+
+For targeted sequencing dataset, the SNP set is considered not only higher MAF but also the number of SNPs.
+
+To compare genotype of samples, enough number of SNP loci to compare is required to compare between samples.
+
+For human data, BAMixChecker adjusts MAF condition to contain SNPs over 200 for a dataset with the target region information from BED file. Even
+
+though SNPs under 50 could be discriminated in RNA-seq with the condition which is global MAFs over 0.45 and under 0.55 and MAFs over 0.35 and under 0.65 within each population, we recommend SNPs set to have over 200 loci because the possibility of mutation is decreased by decreasing MAF.
+
+These steps can’t be automated for non-human organism because of a uncertainness of each database annotation.
+
+Instead of it, users can check the number of SNPs in the targeted region with bedtools.
+
+The command is following,
 ```
 	bedtools intersect –a SNP_LIST.BED –b TARGETED.BED | wc –l
 ```
@@ -168,16 +196,18 @@ If the dataset is targeted sequencing dataset, the SNP set is considered not onl
 ```
 	bedtools intersect –a SNP_LIST.BED –b TARGETED.BED > snp_list.targeted_only.bed
 ```
-Another precaution is that the contigs in the generated SNP list should be included in the reference contigs.
+Another precaution is that the contigs in the generated SNP list should be the same contigs in the reference.
 
-ex)SNP list contigs : [chr1, chr2,...] , Reference contigs : [chr1, chr2, ... ]  .... working
+ex)SNP list contigs : [chr1, chr2,...] , Reference contigs : [chr1, chr2, ... ]              .... Working
 
-   SNP list contigs : [1, 2,...] , Reference contigs : [chr1, chr2, ... ]        .... ERROR
+   SNP list contigs : [1, 2,...] , Reference contigs : [chr1, chr2, ... ]                    .... ERROR
+   
+   SNP list contigs : [chr1, chr2,…,chrY, hs37d5] , Reference contigs : [chr1, chr2,…,chrY]  .... ERROR
     
-It should be the same with contigs in BAM files. ( If the reference is the same with the one to align the BAM files, it would be same with the reference contigs )
+Also, it should be the same with contigs in BAM files. (If the reference is the same with the one to align the BAM files, it would be the same with the reference contigs.)
 
 
-Additionally, user can refer http://evodify.com/gatk-in-non-model-organism/ for bam file processing for non-human organism. 
+Additionally, the user can refer http://evodify.com/gatk-in-non-model-organism/ for bam file processing for non-human organism. 
 
 
 Usage
@@ -296,7 +326,7 @@ BAMixChecker reports the result of sample matching analysis in .html file and he
 
 Tutorial
 ---------
-1. Set the required variants
+1. Set the required ariables
 
 ```
    $ cd BAMixChecker/tutorialData
