@@ -7,7 +7,7 @@ Running time of BAMixChecker
 
 In our paper, we reported the running time of BAMixChecker which showed 5.3 min with 4 processes and 9.9 min with 1 process for WES. 
 
-The same non-linear speed tendancy also showed for the targeted sequencing dataset.
+The same non-linear speed tendancy also showed in records for the targeted sequencing dataset.
 
 We believe the non-linear speed is due to CPU resource limitation in the tested environment. 
 
