@@ -13,9 +13,9 @@ Required arguments
     -r --Ref    Reference file
 
 
-    additionally for the Targeted sequencing dataset
+    Additionally for the Targeted sequencing dataset
 
-    -b --BEDfile    Targeted bed file for Targeted sequencing data mode.
+    -b --BEDfile    Targeted bed file for targeted sequencing data mode.
 
 Optional arguments
 ------------------------------
@@ -30,7 +30,7 @@ Optional arguments
 
     --FullPATH  Use to report with the full path of the file. BAMixChecker resports with the only file name as a default.
 
-    --RemoveVCF Use this option to remove called VCF files after running
+    --RemoveVCF Use this option to remove called VCF files after running.
 
     --OFFFileNameMatching   Use this option to compare files only by genotype.
 
@@ -42,7 +42,7 @@ Optional arguments
 Usage for each data type
 ---------------------------------------
 
-BAMixChecker runs a mode for WES and RNA-seq as a default without bed file.  
+BAMixChecker runs a mode for WES and RNA-seq as a default without a bed file.  
 
 If a bed file is given with –b option, it runs as a targeted sequencing mode.
 
@@ -91,7 +91,7 @@ Or
     -v hg19 \
     -b /path/targeted.bed
 
-.. note:: If the dataset consists of both of WGS/WES/RNA-seq and targeted sequencing data mapping with the same reference, run as targeted sequencing data mode with the targeted bed file for the targeted sequencing data.
+.. note:: If the dataset consists of both of WGS/WES/RNA-seq and targeted sequencing data mapped with the same reference, run as targeted sequencing data mode with the targeted bed file for the targeted sequencing data.
 
 
 Tutorial
