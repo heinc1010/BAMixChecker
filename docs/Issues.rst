@@ -32,7 +32,7 @@ In the speed benchmark, we used a desktop with Intel® Core™ i7-4790 CPU 3.60G
 We noted that the GATK program (in our pipeline) requires higher CPU usage in the beginning passage, which causes a short bottleneck, which is resolved afterwards.  
 
 
-.. image:: Multiprocessing.jpg
+.. image:: Multiprocessing.png
     :alt: multiprocessing
     :width: 600
 
