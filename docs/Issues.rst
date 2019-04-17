@@ -12,7 +12,7 @@ The same non-linear speed tendancy also showed in records for the targeted seque
 
 .. image:: Running_time.jpg
     :alt: multiprocessing
-    :width: 600
+    :width: 800
 
 
 We suspect that the non-linearity between the number of CPU and the gain in speed can be explained by followings: 
