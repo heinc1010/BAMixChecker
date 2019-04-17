@@ -9,26 +9,40 @@ In our paper, we reported the running time of BAMixChecker which showed 5.3 min 
 
 The same non-linear speed tendancy also showed in records for the targeted sequencing dataset.
 
-We believe the non-linear speed is due to CPU resource limitation in the tested environment. 
 
-To apply on a controlled environment without other jobs, we tested using a desktop with Intel® Core™ i7-4790 CPU 3.60GHz with quad cores and 32 GB memory. 
-
-The problem is GATK runs fast (approximately 20 sec per WES sample on the environment) but on the start of the program, CPU usage get high for a second and goes down after that. 
-
-With the desktop, we observed CPU usage is peaked to 58% with 1 process already (not only by GATK, additional to basic system running) and it goes down to 20-30%. 
-
-So compete for CPU between processes occurs even with 2 processes in the environment at peak. 
-
-The total advantage could not applied. During the time using normal range of CPU, each process also were competed with 4 processes. 
-
-Even though we couldn’t test in a best environment which we can utilize the advantage of BAMixChecker in, we reported the record because BAMixChecker still showed enough fast running time. 
-
-
-.. image:: Running_time_per_p.jpg
-    :alt: Running_time
+.. image:: Running_time.jpg
+    :alt: multiprocessing
     :width: 600
 
 
-Table. Average running time of BAMixChecker with various number of processes for 10 times with 30 WES samples in a desktop with Intel® Core™ i7-4790 CPU 3.60GHz with quad cores and 32 GB memory.
+We suspect that the non-linearity between the number of CPU and the gain in speed can be explained by followings: 
 
-So, we recommand the user to adjust the number of process ccording to their environment.
+(a) the genuine problem in the “divide-and-conquer” strategy and (b) environmental effects in the speed measurement. 
+
+W.r.t. (a), the achieved gain in speed is generally lower than theoretical values in many problems because there are steps for ‘dividing’ data and ‘combining’ the calculated results outside of the multi-process parts. 
+
+For instance, in a benchmark study for short read alignment problem (Hatem, et al., 2013), the gain in speed is lower than the number of processors (Figure 2). 
+
+We think that the calculation in our problem also falls in the same problem. 
+
+W.r.t. (b), we also found that the usage pattern of CPU resources can be another reason. 
+
+In the speed benchmark, we used a desktop with Intel® Core™ i7-4790 CPU 3.60GHz with quad cores and 32 GB memory. 
+
+We noted that the GATK program (in our pipeline) requires higher CPU usage in the beginning passage, which causes a short bottleneck, which is resolved afterwards.  
+
+
+.. image:: Multiprocessing.jpg
+    :alt: multiprocessing
+    :width: 600
+
+
+Figure 2. Relationship between the number of processors and the gain in speed in the short read alignment problem. With 4- and 8-processors, the observed gains in speed are 1.5x-3.5x (green bars) and 2x-6x (red bars), respectively.
+
+
+
+**Reference**
+
+Hatem, A., et al. Benchmarking short sequence mapping tools. BMC Bioinformatics 2013;14(1):184.
+
+
