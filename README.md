@@ -87,7 +87,7 @@ Additional recommended processing for accurate variant discovery using GATK is d
 
 * RNA-Seq BAM file
 
-Additional proper processing for RNA-seq data is instructed in https://gatkforums.broadinstitute.org/gatk/discussion/3891/calling-variants-in-rnaseq.
+Additional proper processing for RNA-Seq data is described on GATK forum: https://gatkforums.broadinstitute.org/gatk/discussion/3891/calling-variants-in-rnaseq.
 
 
 To run BAMixChecker, indicating the BAM files directory path with the -d option or a list of BAM files with the -l option is required.
