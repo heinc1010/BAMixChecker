@@ -136,9 +136,7 @@ The command is as follows, ::
     If the number is too small, we recommend adjusting the MAF conditional selection. 
     
     
-    To reduce variants calling time, we suggest to save the intersected SNPs using the command
-    
-    ::
+    To reduce variants calling time, we suggest to save the intersected SNPs using the command::
 
         bedtools intersect -a SNP_LIST.BED -b TARGETED.BED > snp_list.targeted_only.bed
 
