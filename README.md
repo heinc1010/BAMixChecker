@@ -5,9 +5,9 @@ An automated tool for sample matching checkup in NGS cohorts
 
 BAMixChecker is a fast and easy-to-use sample matching checkup tool for NGS dataset.
 
-It is simple and fast but accurately detects a pair of WGS, WES, RNA, targeted sequencing bam files from same individual.
+It is simple and fast but accurately detects pairs of WGS, WES, RNA, targeted sequencing bam files originating from the same individual.
 
-And the user can catch the information of mismatched sample information as well as the matched sample information at a glance.
+It informs the user about matched or mismatched sample at a glance.
 
 Detailed instruction can be found at https://bamixchecker.readthedocs.io.
 
@@ -66,9 +66,12 @@ To call variants by running GATK HaplotypeCaller, each bam file should be indexe
 ```
 samtools index /path/Tumor_01.bam
 ```
-BAMixChecker calls variants in GVCF file format which can be called for a a bam file with single sample ID.
+BAMixChecker calls variants in GVCF file formats.
 
-If input is multiple-sample BAM file, it needs to replace a read group with Picard AddOrReplaceReadGroups.
+Typically, there will be one bam file with single sample ID, but if the input is a multiple-sample BAM file, it needs to contain the 
+read group informaiton, which can be added with the Picard AddOrReplaceReadGroups tool.
+(The tool instruction is described at https://software.broadinstitute.org/gatk/documentation/tooldocs/4.0.0.0/picard_sam_AddOrReplaceReadGroups.php)
+
 ```
 java -jar picard.jar AddOrReplaceReadGroups \
 I=RNA_T_01.bam \
@@ -80,15 +83,15 @@ RGPL=platform \
 RGPU=machine \
 RGSM=sample
 ```
-Additional recommanded processing for accurate variant discovery with GATK is instrcted in https://software.broadinstitute.org/gatk/best-practices/workflow?id=11165.
+Additional recommended processing for accurate variant discovery using GATK is described at https://software.broadinstitute.org/gatk/best-practices/workflow?id=11165.
 
 
-To run BAMixChecker, indicate the bam files directory path with –d option or a list of bam files with –l option is required.
+To run BAMixChecker, indicating the bam files directory path with the –d option or a list of bam files with the –l option is required.
 
-The acceptable list form can be two types.
+For the latter, the list can be formatted either as:
 
--One bam file on each line. BAMixChecker checks the file names and evaluates whether the files are paired based on the file name.
- If you want to compare files only by genotype, you can use '--OFFFileNameMatching' option.
+* One bam file on each line. BAMixChecker checks the file names and evaluates whether the files are paired based on the file name.
+ If you want to compare files only by genotype, you can use the '--OFFFileNameMatching' option.
 ```
   /path/Tumor_01.bam
   /path/Normal_01.bam
@@ -99,7 +102,7 @@ The acceptable list form can be two types.
   /path/Tumor_04.bam
   /path/Normal_04.bam
 ```
--Tab-separated matched files on each line. 
+*  Tab-separated matched files on each line. 
 BAMixChecker matches files based on the pair information instead of file-name-based matching.
  ```	
   /path/Tumor_01.bam	/path/Normal_01.bam
@@ -115,11 +118,11 @@ BAMixChecker matches files based on the pair information instead of file-name-ba
 ```
 
 
-If the number of files is under 6 or the file names don’t contain common regulation when it is divided by the delimiters, BAMixChecker only matches by genotype, not by file name and skips to make ‘Mismatched_sample.txt’ which is the same using ‘–OFFFileNameMatching’ option.
+If the number of files is less than 6 or the file names do not contain common pattern when it is divided by the delimiters, BAMixChecker only matches by genotype, not by file name and skips the creation of the ‘Mismatched_sample.txt’ file, similarly to what happens using the -–OFFFileNameMatching option.
 
 
 
-* RNA-seq bam file
+* RNA-Seq bam file
 
 BAMixChecker calls variants in GVCF file format which can be called for a a bam file with single sample ID.
 
@@ -140,9 +143,9 @@ Additional proper processing for RNA-seq data is instructed in https://gatkforum
 
 #### Reference file
 
-To call with GATK HaplotypeCaller, it requires proper reference sequence file with '.fai' file and '.dict' file for the reference which is the **same** reference used to align your bam files.
+To perform the variant calling using GATK HaplotypeCaller requires an indexed reference sequence file ('.fa' and '.fai' format) and '.dict' format. The reference needs to be the **same** reference, which was used to align the reads.
 
-iGenomes provides 'Ready-To-Use' reference sequence file of various species including human with the annotation files.
+[https://support.illumina.com/sequencing/sequencing_software/igenome.html iGenomes] provides 'Ready-To-Use' reference sequence file of various species including human with the annotation files.
 
 https://support.illumina.com/sequencing/sequencing_software/igenome.html
 
