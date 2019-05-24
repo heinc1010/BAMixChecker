@@ -150,7 +150,7 @@ BAMixChecker has been implemented for human NGS datasets. However, it, also, can
 
 To extract only informative region, SNPs observed in a large population is required.
 
-It is hard to generalize the method to select informative SNPs because annotation vary across databases.
+It is hard to generalize the method to select informative SNPs because annotation varies across databases.
 
 However, a mandatory annotation is minor allele frequency (MAF) in the population of the species.
 
@@ -158,11 +158,11 @@ In addition to MAF, mappability information is useful to select informative loci
 
 The recommended SNP loci selection steps are described below:
 
-1.Filter out uncertain variants from a list of SNP observed in the species of interest. It is recommended to filter variants using mapping quality, quality by depth condition, etc.
+1. Filter out uncertain variants from a list of SNP observed in the species of interest. It is recommended to filter variants using mapping quality, quality by depth condition, etc.
 
-2. Remove SNPs in low mapping region such as regions of low complexity, segmentally duplicated regions, simple repeat regions, etc. Such information may be available from the annotation database or you can get these region information from e.g the UCSC genome browser simple repeat regions track.
+2. Remove SNPs in low mapping region such as regions of low complexity, segmentally duplicated regions, simple repeat regions, etc. Such information may be available from the annotation database or you can get these regions information from e.g the UCSC genome browser simple repeat regions track.
 
-3. For SNPs located in high mapping rate regions, select SNP loci with only a higher MAF. For human, we apply a global MAF (GMAF) over 0.45 and below 0.55 and a MAF over 0.35 and below 0.65 within each population. If the database does not have MAF information for the  study population of interest, GMAF information can be applied. However, we recommend to consider higher GMAF condition if the SNP set is too large to produce expected results. This may happen due to lack of proper annotation filtering at an earlier step.
+3. For SNPs located in high mapping rate regions, select SNP loci with only a higher MAF. For human, we apply a global MAF (GMAF) over 0.45 and below 0.55 and a MAF over 0.35 and below 0.65 within each population. If the database does not have MAF information for the study population of interest, GMAF information can be applied. However, we recommend considering higher GMAF condition if the SNP set is too large to produce expected results. This may happen due to lack of proper annotation filtering at an earlier step.
 
 For targeted sequencing dataset, the SNP set should take into consideration not only a higher MAF but also the number of SNPs.
 
@@ -171,7 +171,7 @@ To compare sample genotype, a sufficient number of SNP loci is required for samp
 For human data, we adjusted MAF condition to contain over 200 SNPs for a dataset within the target region information from the BED file. 
 Even though as few as 50 SNPs could be discriminative in RNA-Seq data with 0.45 < MAF < 0.55 and 0.35 < within population < 0.65, we recommend SNPs set to have over 200 loci as the possibility of mutation decreases by decreasing MAF.
 
-These steps can not be automated for non-human organism due to the variability inherent to every annotation database.
+These steps cannot be automated for non-human organism due to the variability inherent to every annotation database.
 
 Instead, users can check the number of SNPs in the targeted region using bedtools.
 
