@@ -223,8 +223,8 @@ Additionally for the Targeted sequencing dataset
 -pld' '--Ploidy' Ploidy of sample. Default = 2 for human.
 ```
 
-#### BAMixChecker runs a mode for WES and RNA-seq as a default without bed file.  
-#### If a bed file is given using the -b option, it runs as a targeted sequencing mode.
+#### BAMixChecker runs a mode for WES and RNA-seq as a default without BED file.  
+#### If a BED file is given using the -b option, it runs as a targeted sequencing mode.
 
 
 #### 1)	Whole genome or Whole Exome data or RNA sequencing data
