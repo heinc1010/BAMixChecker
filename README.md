@@ -5,7 +5,7 @@ An automated tool for sample matching checkup in NGS cohorts
 
 BAMixChecker is a fast and easy-to-use sample matching checkup tool for NGS dataset.
 
-It is simple and fast but accurately detects pairs of WGS, WES, RNA, targeted sequencing bam files originating from the same individual.
+It is simple and fast but accurately detects pairs of WGS, WES, RNA, targeted sequencing BAM/CRAM files originating from the same individual.
 
 It informs the user about matched or mismatched sample at a glance.
 
@@ -62,13 +62,13 @@ And then set the tools PATH on the configuration file,
 Input
 -----------
 #### BAM files
-To call variants by running GATK HaplotypeCaller, each bam file should be indexed.
+To call variants by running GATK HaplotypeCaller, each BAM file should be indexed.
 ```
 samtools index /path/Tumor_01.bam
 ```
 BAMixChecker calls variants in GVCF file formats.
 
-Typically, there will be one bam file with single sample ID, but if the input is a multiple-sample BAM file, it needs to contain the 
+Typically, there will be one BAM file with single sample ID, but if the input is a multiple-sample BAM file, it needs to contain the 
 read group informaiton, which can be added with the Picard AddOrReplaceReadGroups tool.
 (The tool instruction is described at https://software.broadinstitute.org/gatk/documentation/tooldocs/4.0.0.0/picard_sam_AddOrReplaceReadGroups.php)
 
@@ -85,12 +85,16 @@ RGSM=sample
 ```
 Additional recommended processing for accurate variant discovery using GATK is described at https://software.broadinstitute.org/gatk/best-practices/workflow?id=11165.
 
+* RNA-Seq BAM file
 
-To run BAMixChecker, indicating the bam files directory path with the -d option or a list of bam files with the -l option is required.
+Additional proper processing for RNA-seq data is instructed in https://gatkforums.broadinstitute.org/gatk/discussion/3891/calling-variants-in-rnaseq.
+
+
+To run BAMixChecker, indicating the BAM files directory path with the -d option or a list of BAM files with the -l option is required.
 
 For the latter, the list can be formatted either as:
 
-* One bam file on each line. BAMixChecker checks the file names and evaluates whether the files are paired based on the file name.
+* One BAM file on each line. BAMixChecker checks the file names and evaluates whether the files are paired based on the file name.
  If you want to compare files only by genotype, you can use the '--OFFFileNameMatching' option.
 ```
   /path/Tumor_01.bam
@@ -122,24 +126,7 @@ If the number of files is less than 6 or the file names do not contain common pa
 
 
 
-* RNA-Seq bam file
 
-BAMixChecker calls variants in GVCF file format which can be called for a a bam file with single sample ID.
-
-So to run GATK HapplotypeCaller, RNA-seq bam file needs to replace a read group with Picard AddOrReplaceReadGroups.
-```
-java -jar picard.jar AddOrReplaceReadGroups \
-I=RNA_T_01.bam \
-O=RNA_T_01.rg_added_sorted.bam \
-SO=coordinate \
-RGID=project \
-RGLB=library \
-RGPL=platform \
-RGPU=machine \
-RGSM=sample
-```
-
-Additional proper processing for RNA-seq data is instructed in https://gatkforums.broadinstitute.org/gatk/discussion/3891/calling-variants-in-rnaseq.
 
 #### Reference file
 
@@ -208,7 +195,7 @@ ex)SNP list contigs : [chr1, chr2,...] , Reference contigs : [chr1, chr2, ... ] 
 Also, they should be the same as the contigs in BAM files. (If the reference is the same with the one used to align the BAM files, they would have the same reference contigs.)
 
 
-Additionally, the user can refer http://evodify.com/gatk-in-non-model-organism/ for the bam file processing of non-human organisms. 
+Additionally, the user can refer http://evodify.com/gatk-in-non-model-organism/ for the BAM file processing of non-human organisms. 
 
 
 Usage
@@ -275,7 +262,7 @@ Or
   -v hg19 
   -b /path/targeted.bed
 ```
-#### If the dataset consists of both of WES/RNA-Seq and Targeted sequencing data, all using the same reference, run as targeted sequencing data mode with the targeted bed file for the Targeted sequencing data.
+#### If the dataset consists of both WES/RNA-Seq and Targeted sequencing data, all using the same reference, run as Targeted sequencing data mode with the targeted bed file for the Targeted sequencing data and give both types of BAM files at once.
 
 
 Output
