@@ -22,13 +22,13 @@ Optional arguments
 
 ::
 
-    -v –-RefVer ['hg38','hg19'] Default is “hg38”. If the reference is hg19, give this option ‘-r hg19’.
+    -v –-RefVer ['hg38','hg19']. Default is "hg38". If the reference is hg19, give this option ‘-r hg19’.
 
     -o --OutputDIR  Output directory path. BAMixChecker creates the new directory '/BAMixChecker' under the current directory as a default.
 
     -p --MaxProcess The max number of process. Default = 1
 
-    --FullPATH  Use to report with the full path of the file. BAMixChecker resports with the only file name as a default.
+    --FullPATH  Used to report the full path of the file. BAMixChecker otherwise reports only the file name as a default.
 
     --RemoveVCF Use this option to remove called VCF files after running.
 
@@ -42,12 +42,12 @@ Optional arguments
 Usage for each data type
 ---------------------------------------
 
-BAMixChecker runs a mode for WES and RNA-seq as a default without a bed file.  
+BAMixChecker runs a mode for WES and RNA-seq as a default without bed file.
 
-If a bed file is given with –b option, it runs as a targeted sequencing mode.
+If a BED file is given using the -b option, it runs as a targeted sequencing mode.
 
 
-1)	WGS or WES or RNA-seq data 
+1)	WGS or WES or RNA-Seq data 
 
 ::
     
@@ -91,7 +91,7 @@ Or
     -v hg19 \
     -b /path/targeted.bed
 
-.. note:: If the dataset consists of both of WGS/WES/RNA-seq and targeted sequencing data mapped with the same reference, run as targeted sequencing data mode with the targeted bed file for the targeted sequencing data.
+.. note:: If the dataset consists of both WES/RNA-Seq and Targeted sequencing data, all using the same reference, run as Targeted sequencing data mode with the targeted bed file for the Targeted sequencing data and give both types of BAM files at once.
 
 
 Tutorial
