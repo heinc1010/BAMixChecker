@@ -145,7 +145,7 @@ Additional proper processing for RNA-seq data is instructed in https://gatkforum
 
 To perform the variant calling using GATK HaplotypeCaller requires an indexed reference sequence file ('.fa' and '.fai' format) and '.dict' format. The reference needs to be the **same** reference, which was used to align the reads.
 
-[https://support.illumina.com/sequencing/sequencing_software/igenome.html iGenomes] provides 'Ready-To-Use' reference sequence file of various species including human with the annotation files.
+[iGenomes](https://support.illumina.com/sequencing/sequencing_software/igenome.html) provides 'Ready-To-Use' reference sequence file of various species including human with the annotation files.
 
 https://support.illumina.com/sequencing/sequencing_software/igenome.html
 
