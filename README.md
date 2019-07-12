@@ -11,6 +11,9 @@ It informs the user about matched or mismatched sample at a glance.
 
 Detailed instruction can be found at https://bamixchecker.readthedocs.io.
 
+Publication
+------------------
+Chun H, Kim S. BAMixChecker: an automated checkup tool for matched sample pairs in NGS cohort. Bioinformatics. 2019
 
 Required tools
 ------------------
