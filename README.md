@@ -2,6 +2,7 @@ BAMixChecker:
 An automated tool for sample matching checkup in NGS cohorts  
 =================================================================================
 [![DOI](https://zenodo.org/badge/141665408.svg)](https://zenodo.org/badge/latestdoi/141665408)
+[![Documentation Status](https://readthedocs.org/projects/bamixchecker/badge/?version=latest)](https://bamixchecker.readthedocs.io/en/latest/?badge=latest)
 
 BAMixChecker is a fast and easy-to-use sample matching checkup tool for NGS dataset.
 
