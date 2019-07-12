@@ -61,7 +61,9 @@ It informs the user about matched or mismatched sample at a glance.
    
    Issues
        Running time of BAMixChecker
-       
+   
+   Citation
+   
    Contact
 
 
