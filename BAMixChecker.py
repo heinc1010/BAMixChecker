@@ -54,7 +54,7 @@ def get_file_list(dir_path,user_file_list,FullPATH,flag_FNM):
 	if user_file_list != '':
 		fr_file_list = open(user_file_list,'r')
 		for line_fl in fr_file_list:
-			if line_fl.startswith('#'):
+			if line_fl.startswith('#') or line_fl.strip() == "":
 				continue
 			lis_fl = line_fl.strip().split('\t')
 			for fl in lis_fl:
