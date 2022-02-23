@@ -338,4 +338,4 @@ Chun H, Kim S. BAMixChecker: an automated checkup tool for matched sample pairs 
 
 Contact
 --------
-If you have any question, contact to license manager (hein17@yuhs.ac) or corresponding author (swkim@yuhs.ac).
+If you have any question, contact to license manager (heinc1010@gmail.com) or corresponding author (swkim@yuhs.ac).
