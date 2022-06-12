@@ -1,9 +1,9 @@
 #!/usr/bin/env python2.7
 """
-	BAMixChecker version 1.0
+	BAMixChecker version 1.0.1
 	Author : Hein Chun (heinc1010@gmail.com)
 """
-__version__ = '1.0'
+__version__ = '1.0.1'
 
 try:
 	import sys
@@ -833,7 +833,7 @@ if __name__ == "__main__":
 	parser.add_argument('-b','--BEDfile', default="", help=".bed file for Targeted sequencing data.")
 	parser.add_argument('-v', '--RefVer', default="hg38", choices=['hg38','hg19'], help="Version of reference : 'hg19' or 'hg38'. Default = 'hg38'")
 	parser.add_argument('-p', '--MaxProcess', default="1", help="The number of max process. Default = 1")
-	parser.add_argument('-nhSNP', '--NonHumanSNPlist', default="", help="The SNP list for non-human organism sample matching check-up.")
+	parser.add_argument('-nhSNP', '--NonHumanSNPlist', default="", help="The SNP list for non-human organism sample matching check-up in BED format.")
 	parser.add_argument('-pld', '--Ploidy', default="2", help="The ploidy of sample. Default = 2 for human")
 	parser.add_argument('--FullPATH', action='store_true',help="Use to report with the full path of file. BAMixChecker resports with the only file name as a default.")
 	parser.add_argument('--RemoveVCF',action='store_true', help="Use to remove called germline VCF after running.")
@@ -943,7 +943,10 @@ if __name__ == "__main__":
 		if exitstatus != 0:
 			print "# ERROR: Fail to read " + args.NonHumanSNPlist
 			exit()
-		(exitstatus, line_count) = commands.getstatusoutput("{0} intersect -b {1} -a {2} | wc -l".format(bedtools_path, args.BEDfile, args.NonHumanSNPlist))
+		if args.BEDfile != '':
+			(exitstatus, line_count) = commands.getstatusoutput("{0} intersect -b {1} -a {2} | wc -l".format(bedtools_path, args.BEDfile, args.NonHumanSNPlist))
+		else:
+			(exitstatus, line_count) = commands.getstatusoutput("wc -l {0}".format(args.NonHumanSNPlist))
 		print line_count +" SNP loci will be compared."
 		bed_file = args.NonHumanSNPlist
 
