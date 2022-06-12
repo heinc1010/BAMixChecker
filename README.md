@@ -221,7 +221,7 @@ Additionally for the Targeted sequencing dataset
 --FullPATH Used to report the full path of the file. BAMixChecker otherwise reports only the file name as a default.
 --RemoveVCF Use this option to remove called VCF files after running.
 --OFFFileNameMatching Use this option to compare files only by genotype.
--nhSNP --NonHumanSNPlist SNP list for non-human organism sample matching check-up. 
+-nhSNP --NonHumanSNPlist SNP list for non-human organism sample matching check-up in BED format. 
 -pld' '--Ploidy' Ploidy of sample. Default = 2 for human.
 ```
 
